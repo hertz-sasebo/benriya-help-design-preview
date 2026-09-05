@@ -10,34 +10,16 @@ html, body {
 }
 
 body {
-  background: #f7f7f7;
-  color: #111;
+  background: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
   text-align: center;
-  padding-bottom: 24px;
 }
 
-.page-header {
-  padding: 20px 16px 8px;
-}
-
-.brand {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
-.subtitle {
-  font-size: 12px;
-  color: #555;
-  margin-top: 2px;
-}
-
-.scroll-hint {
-  font-size: 12px;
-  color: #c0392b;
-  padding: 8px 16px 16px;
-  letter-spacing: 0.03em;
+.preview-title {
+  font-size: 11px;
+  color: #999;
+  letter-spacing: 0.04em;
+  padding: 10px 0;
 }
 
 .preview {
@@ -50,17 +32,11 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  max-width: 1200px;
 }
 
-.page-footer {
-  margin-top: 24px;
-  padding: 16px;
-  font-size: 10px;
-  color: #999;
-  letter-spacing: 0.08em;
-}
-
-.page-footer p {
-  margin: 2px 0;
+/* PC: keep the site preview a natural, contained width */
+@media (min-width: 768px) {
+  .preview-image {
+    max-width: 900px;
+  }
 }
