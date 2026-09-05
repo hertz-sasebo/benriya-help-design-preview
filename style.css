@@ -16,13 +16,13 @@ html, body {
   height: auto;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   body {
     display: flex;
     justify-content: center;
   }
 
   .preview-image {
-    max-width: 560px;
+    max-width: 1200px;
   }
 }
