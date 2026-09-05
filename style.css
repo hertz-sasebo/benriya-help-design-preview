@@ -7,25 +7,7 @@
 html, body {
   width: 100%;
   overflow-x: hidden;
-}
-
-body {
-  background: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
-  text-align: center;
-}
-
-.preview-title {
-  font-size: 11px;
-  color: #999;
-  letter-spacing: 0.04em;
-  padding: 10px 0;
-}
-
-.preview {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  background: #fafafa;
 }
 
 .preview-image {
@@ -34,9 +16,13 @@ body {
   height: auto;
 }
 
-/* PC: keep the site preview a natural, contained width */
-@media (min-width: 768px) {
+@media (min-width: 640px) {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+
   .preview-image {
-    max-width: 900px;
+    max-width: 560px;
   }
 }
