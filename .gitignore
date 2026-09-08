@@ -1,3 +1,5 @@
+# OS / editor
 .DS_Store
-.claude/
-images/
+Thumbs.db
+.vscode/
+.idea/

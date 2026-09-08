@@ -3,14 +3,511 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>便利屋HELP | Web Design Preview</title>
+<title>便利屋HELP | ワイヤーフレーム</title>
 <meta name="robots" content="noindex, nofollow">
+<meta name="description" content="便利屋HELP モバイル版ワイヤーフレーム（骨格）。テキスト・画像は後から差し替え可能な構造。">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<picture>
-  <source media="(max-width: 767px)" srcset="design-mobile-one-page.png">
-  <img src="design-pc.png" alt="便利屋HELP" class="preview-image">
-</picture>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#fv" class="logo">
+      <span class="logo__mark" aria-hidden="true">HELP</span>
+      <span class="logo__text">便利屋<b>HELP</b></span>
+    </a>
+
+    <nav class="gnav" id="gnav" aria-label="グローバルナビゲーション">
+      <ul class="gnav__list">
+        <li><a href="#main-services">サービス</a></li>
+        <li><a href="#prices">料金</a></li>
+        <li><a href="#works">実績</a></li>
+        <li><a href="#area-company">対応エリア</a></li>
+        <li><a href="#area-company">会社情報</a></li>
+      </ul>
+    </nav>
+
+    <button type="button" class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="gnav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       01 | ファーストビュー
+       ============================================================ -->
+  <section id="fv" class="section fv">
+    <div class="container fv__inner">
+      <div class="fv__head">
+        <h1 class="fv__title">困ったら、<span class="is-red">HELP。</span></h1>
+        <p class="fv__lead">どんな困りごとでも、俺たちに任せろ！</p>
+      </div>
+
+      <div class="fv__visual ph ph--tall" role="img" aria-label="メインビジュアル（画像プレースホルダー）">
+        <span class="ph__label">[ MAIN VISUAL / GORILLA ]</span>
+      </div>
+
+      <div class="fv__foot">
+        <p class="fv__band">佐世保から長崎県内全域対応！<br>最短即日で訪問・解決！</p>
+
+        <p class="fv__price">
+          <span class="fv__price-label">作業料金</span>
+          <span class="fv__price-value">8,000円〜</span>
+        </p>
+      </div>
+    </div>
+
+    <a class="fv__scroll" href="#features">
+      <span aria-hidden="true">˅</span>
+      SCROLL
+    </a>
+  </section>
+
+
+  <!-- ============================================================
+       02 | 特徴アイコン + メインCTA
+       ============================================================ -->
+  <section id="features" class="section features">
+    <div class="container">
+      <ul class="feature-badges">
+        <li class="feature-badge">
+          <span class="feature-badge__icon ph ph--circle"><span class="ph__label">ICON</span></span>
+          <span class="feature-badge__text">見積無料</span>
+        </li>
+        <li class="feature-badge">
+          <span class="feature-badge__icon ph ph--circle"><span class="ph__label">ICON</span></span>
+          <span class="feature-badge__text">即日対応</span>
+        </li>
+        <li class="feature-badge">
+          <span class="feature-badge__icon ph ph--circle"><span class="ph__label">ICON</span></span>
+          <span class="feature-badge__text">100件以上の<br>対応実績</span>
+        </li>
+      </ul>
+
+      <div class="cta-group">
+        <a href="#" class="btn btn--tel">
+          <span class="btn__icon" aria-hidden="true">TEL</span>
+          電話で相談する
+        </a>
+        <a href="#" class="btn btn--line">
+          <span class="btn__icon" aria-hidden="true">LINE</span>
+          LINEで相談する
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       03 | こんなお困りごとはありませんか？
+       ============================================================ -->
+  <section id="problems" class="section problems">
+    <div class="container problems__inner">
+      <div class="problems__body">
+        <h2 class="heading heading--plain">
+          こんな<span class="is-red">お困りごと</span>は<br>ありませんか？
+        </h2>
+
+        <ul class="problem-list">
+          <li>エアコンの汚れが気になる</li>
+          <li>不用品を処分したい</li>
+          <li>庭の草が伸びて困っている</li>
+          <li>重たい荷物を運べない</li>
+          <li>買い物に行くのが難しい</li>
+          <li>その他、どこに頼めばいいかわからない</li>
+        </ul>
+      </div>
+
+      <div class="problems__aside">
+        <div class="ph ph--character" role="img" aria-label="キャラクター（画像プレースホルダー）">
+          <span class="ph__label">[ CHARACTER ]</span>
+        </div>
+        <p class="problems__balloon">そのお困りごと、<br>私たちが解決します！</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       04 | 主力サービス
+       ============================================================ -->
+  <section id="main-services" class="section main-services">
+    <div class="container">
+      <h2 class="heading heading--slash">主力サービス</h2>
+
+      <div class="service-cards">
+        <article class="service-card">
+          <div class="service-card__img ph" role="img" aria-label="サービス写真（画像プレースホルダー）">
+            <span class="ph__label">[ PHOTO ]</span>
+          </div>
+          <h3 class="service-card__name">エアコン清掃</h3>
+          <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__img ph" role="img" aria-label="サービス写真（画像プレースホルダー）">
+            <span class="ph__label">[ PHOTO ]</span>
+          </div>
+          <h3 class="service-card__name">不用品処分</h3>
+          <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__img ph" role="img" aria-label="サービス写真（画像プレースホルダー）">
+            <span class="ph__label">[ PHOTO ]</span>
+          </div>
+          <h3 class="service-card__name">高齢者生活サポート</h3>
+          <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       05 | その他のサービス
+       ============================================================ -->
+  <section id="other-services" class="section other-services">
+    <div class="container">
+      <h2 class="heading heading--plain heading--center">その他のサービス</h2>
+
+      <ul class="mini-cards">
+        <li class="mini-card">
+          <span class="mini-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="mini-card__name">草刈り</span>
+        </li>
+        <li class="mini-card">
+          <span class="mini-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="mini-card__name">ハウスメンテナンス</span>
+        </li>
+        <li class="mini-card">
+          <span class="mini-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="mini-card__name">引越し</span>
+        </li>
+        <li class="mini-card">
+          <span class="mini-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="mini-card__name">買い物代行</span>
+        </li>
+        <li class="mini-card">
+          <span class="mini-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="mini-card__name">雨樋清掃</span>
+        </li>
+        <li class="mini-card">
+          <span class="mini-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="mini-card__name">その他</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       06 | HELPが選ばれる理由
+       ============================================================ -->
+  <section id="reasons" class="section reasons">
+    <div class="container">
+      <h2 class="heading heading--ondark heading--center"><span class="is-underline">HELP</span>が選ばれる理由</h2>
+
+      <ul class="reason-cards">
+        <li class="reason-card">
+          <span class="reason-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="reason-card__text">最短即日対応</span>
+        </li>
+        <li class="reason-card">
+          <span class="reason-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="reason-card__text">100件以上の<br>対応実績</span>
+        </li>
+        <li class="reason-card">
+          <span class="reason-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="reason-card__text">無料見積もり</span>
+        </li>
+        <li class="reason-card">
+          <span class="reason-card__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="reason-card__text">長崎県内対応</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       07 | 作業実績
+       ============================================================ -->
+  <section id="works" class="section works">
+    <div class="container">
+      <h2 class="heading heading--slash">作業実績</h2>
+
+      <div class="work-cards">
+        <article class="work-card">
+          <h3 class="work-card__name">エアコン清掃</h3>
+          <div class="work-card__compare">
+            <div class="ph work-card__img" role="img" aria-label="BEFORE（画像プレースホルダー）">
+              <span class="work-card__tag">BEFORE</span>
+            </div>
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <div class="ph work-card__img" role="img" aria-label="AFTER（画像プレースホルダー）">
+              <span class="work-card__tag work-card__tag--after">AFTER</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">草刈り</h3>
+          <div class="work-card__compare">
+            <div class="ph work-card__img" role="img" aria-label="BEFORE（画像プレースホルダー）">
+              <span class="work-card__tag">BEFORE</span>
+            </div>
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <div class="ph work-card__img" role="img" aria-label="AFTER（画像プレースホルダー）">
+              <span class="work-card__tag work-card__tag--after">AFTER</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">不用品処分</h3>
+          <div class="work-card__compare">
+            <div class="ph work-card__img" role="img" aria-label="BEFORE（画像プレースホルダー）">
+              <span class="work-card__tag">BEFORE</span>
+            </div>
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <div class="ph work-card__img" role="img" aria-label="AFTER（画像プレースホルダー）">
+              <span class="work-card__tag work-card__tag--after">AFTER</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="works__dots" aria-hidden="true">
+        <span class="is-active"></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="section__more">
+        <a href="#" class="btn btn--outline">もっと見る <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       08 | 料金一覧
+       ============================================================ -->
+  <section id="prices" class="section prices">
+    <div class="container">
+      <h2 class="heading heading--slash heading--ondark">料金一覧</h2>
+
+      <div class="price-tabs" role="tablist" aria-label="料金カテゴリ">
+        <button class="price-tab is-active" role="tab" aria-selected="true" data-target="price-ac">エアコン清掃</button>
+        <button class="price-tab" role="tab" aria-selected="false" data-target="price-waste">不用品処分</button>
+        <button class="price-tab" role="tab" aria-selected="false" data-target="price-house">ハウスクリーニング</button>
+        <button class="price-tab" role="tab" aria-selected="false" data-target="price-grass">草刈り</button>
+      </div>
+
+      <div class="price-panels">
+        <div class="price-panel is-active" id="price-ac" role="tabpanel">
+          <table class="price-table">
+            <tbody>
+              <tr><th>壁掛けエアコン（お掃除機能なし）</th><td>8,000円〜</td></tr>
+              <tr><th>壁掛けエアコン（お掃除機能あり）</th><td>15,000円〜</td></tr>
+              <tr><th>業務用エアコン（天井カセット4方向）</th><td>25,000円〜</td></tr>
+              <tr><th>室外機洗浄</th><td>3,000円</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="price-panel" id="price-waste" role="tabpanel" hidden>
+          <p class="price-placeholder">［不用品処分の料金表が入ります］</p>
+        </div>
+        <div class="price-panel" id="price-house" role="tabpanel" hidden>
+          <p class="price-placeholder">［ハウスクリーニングの料金表が入ります］</p>
+        </div>
+        <div class="price-panel" id="price-grass" role="tabpanel" hidden>
+          <p class="price-placeholder">［草刈りの料金表が入ります］</p>
+        </div>
+      </div>
+
+      <p class="price-note">※ 表示価格はすべて税抜き価格になります。</p>
+
+      <div class="section__more">
+        <a href="#" class="btn btn--outline">料金をもっと見る <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       09 | ご依頼の流れ
+       ============================================================ -->
+  <section id="flow" class="section flow">
+    <div class="container">
+      <h2 class="heading heading--slash">ご依頼の流れ</h2>
+
+      <ol class="flow-steps">
+        <li class="flow-step">
+          <span class="flow-step__num">01</span>
+          <span class="flow-step__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="flow-step__label">お問い合わせ</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-step__num">02</span>
+          <span class="flow-step__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="flow-step__label">内容確認</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-step__num">03</span>
+          <span class="flow-step__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="flow-step__label">無料お見積り</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-step__num">04</span>
+          <span class="flow-step__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="flow-step__label">作業開始</span>
+        </li>
+        <li class="flow-step">
+          <span class="flow-step__num">05</span>
+          <span class="flow-step__icon ph"><span class="ph__label">ICON</span></span>
+          <span class="flow-step__label">お支払い</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       10 | 対応エリア・会社情報
+       ============================================================ -->
+  <section id="area-company" class="section area-company">
+    <div class="container area-company__inner">
+      <div class="area">
+        <h2 class="heading heading--plain">対応エリア</h2>
+        <div class="ph area__map" role="img" aria-label="対応エリアマップ（画像プレースホルダー）">
+          <span class="ph__label">[ AREA MAP ]</span>
+        </div>
+        <p class="area__lead"><b>佐世保市中心</b><br>長崎県内のご依頼に対応しています。</p>
+        <a href="#" class="btn btn--outline btn--sm">対応エリアを詳しく見る <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="company">
+        <h2 class="heading heading--plain">会社情報</h2>
+        <table class="company-table">
+          <tbody>
+            <tr><th>会社名</th><td>株式会社COLORS</td></tr>
+            <tr><th>代表者</th><td>松井 亮典</td></tr>
+            <tr><th>所在地</th><td>長崎県佐世保市本島町1-1<br>シネマ太陽本島ビル401号</td></tr>
+            <tr><th>電話番号</th><td>090-9407-5525</td></tr>
+            <tr><th>営業時間</th><td>9:00〜17:00</td></tr>
+            <tr><th>定休日</th><td>無休</td></tr>
+            <tr><th>古物商許可</th><td>第921180000678号</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       11 | よくある質問
+       ============================================================ -->
+  <section id="faq" class="section faq">
+    <div class="container">
+      <h2 class="heading heading--plain">よくある質問</h2>
+
+      <ul class="faq-list" id="faqList">
+        <li class="faq-item">
+          <button type="button" class="faq-item__q" aria-expanded="false">
+            <span>見積もりは無料ですか？</span>
+            <span class="faq-item__mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__a"><p>［回答テキストが入ります］</p></div>
+        </li>
+        <li class="faq-item">
+          <button type="button" class="faq-item__q" aria-expanded="false">
+            <span>急ぎでも対応できますか？</span>
+            <span class="faq-item__mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__a"><p>［回答テキストが入ります］</p></div>
+        </li>
+        <li class="faq-item">
+          <button type="button" class="faq-item__q" aria-expanded="false">
+            <span>支払い方法は？</span>
+            <span class="faq-item__mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__a"><p>［回答テキストが入ります］</p></div>
+        </li>
+        <li class="faq-item">
+          <button type="button" class="faq-item__q" aria-expanded="false">
+            <span>長崎県外でも対応できますか？</span>
+            <span class="faq-item__mark" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-item__a"><p>［回答テキストが入ります］</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       12 | 最終CTA
+       ============================================================ -->
+  <section id="cta" class="section final-cta">
+    <div class="final-cta__bg ph" role="img" aria-label="背景ビジュアル（画像プレースホルダー）">
+      <span class="ph__label">[ CTA BACKGROUND VISUAL ]</span>
+
+      <div class="container final-cta__inner">
+        <p class="final-cta__copy">暮らしの「<span class="is-red">困った</span>」は、<br>HELPにお任せください！</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn--tel">
+            <span class="btn__icon" aria-hidden="true">TEL</span>
+            電話で相談する
+          </a>
+          <a href="#" class="btn btn--line">
+            <span class="btn__icon" aria-hidden="true">LINE</span>
+            LINEで相談する
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__top">
+      <a href="#fv" class="logo logo--footer">
+        <span class="logo__mark" aria-hidden="true">HELP</span>
+        <span class="logo__text">便利屋<b>HELP</b></span>
+      </a>
+      <ul class="sns-list">
+        <li><a href="#" class="sns-list__item" aria-label="Instagram">IG</a></li>
+        <li><a href="#" class="sns-list__item" aria-label="LINE">LINE</a></li>
+      </ul>
+    </div>
+
+    <nav class="fnav" aria-label="フッターナビゲーション">
+      <ul>
+        <li><a href="#main-services">サービス</a></li>
+        <li><a href="#prices">料金</a></li>
+        <li><a href="#works">実績</a></li>
+        <li><a href="#area-company">対応エリア</a></li>
+        <li><a href="#area-company">会社情報</a></li>
+      </ul>
+    </nav>
+
+    <p class="fnav__sub"><a href="#">プライバシーポリシー</a></p>
+    <p class="copyright">&copy; 2024 COLORS. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
