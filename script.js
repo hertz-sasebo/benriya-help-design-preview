@@ -61,4 +61,30 @@
       btn.setAttribute('aria-expanded', String(open));
     });
   });
+
+  /* ---------- 4. 追従CTA ----------
+     FV を過ぎたら透過 → フェード表示。
+     よくある質問の末尾を画面下部が通過したらフェードで非表示。 */
+  var floatingCta = document.getElementById('floatingCta');
+  var fv = document.getElementById('fv');
+  var faq = document.getElementById('faq');
+
+  if (floatingCta && fv && faq) {
+    var updateFloatingCta = function () {
+      var scrollY = window.pageYOffset;
+      var viewportBottom = scrollY + window.innerHeight;
+
+      var pastFirstView = scrollY > (fv.offsetTop + fv.offsetHeight - 80);
+      var faqBottom = faq.offsetTop + faq.offsetHeight;
+      var passedFaqEnd = viewportBottom > faqBottom;
+
+      var visible = pastFirstView && !passedFaqEnd;
+      floatingCta.classList.toggle('is-visible', visible);
+      floatingCta.setAttribute('aria-hidden', String(!visible));
+    };
+
+    window.addEventListener('scroll', updateFloatingCta, { passive: true });
+    window.addEventListener('resize', updateFloatingCta);
+    updateFloatingCta();
+  }
 })();

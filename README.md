@@ -11,6 +11,7 @@
 | `index.html` | 12セクション構成のワイヤーフレーム本体 |
 | `style.css` | モバイルファースト。`@media (min-width: 768px)` でPC展開。セクション単位で整理 |
 | `script.js` | ハンバーガーメニュー / 料金タブ切替 / FAQアコーディオン |
+| `images/icons/*.svg` | セクション内アイコン（SVGマスク方式、`color` で色替え可） |
 | `design-mobile-one-page.png` / `design-pc.png` | 元デザイン資料 |
 | `design-preview.html` / `style-preview-backup.css` | 差し替え前の画像プレビュー版（参照用） |
 
@@ -33,6 +34,14 @@
 
 グレーのプレースホルダーは `.ph` クラス。該当箇所を `<img>` / `<picture>` に
 置き換えるだけで反映される（巨大な背景画像で再現する実装はしていない）。
+
+アイコンは `<i class="icon" style="--icon:url(images/icons/xxx.svg)">`。
+SVG を差し替えるだけで変更でき、色は親要素の `color` で決まる。
+
+## 追従CTA
+
+`#floatingCta` はファーストビューを過ぎると下部にフェード表示、
+「よくある質問」末尾を画面下端が通過すると非表示（`script.js` で制御）。
 
 ## 確認方法
 
