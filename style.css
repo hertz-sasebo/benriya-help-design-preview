@@ -252,13 +252,17 @@ ul, ol { list-style: none; }
   justify-content: center;
   width: 34px;
   height: 34px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+span.logo__mark {
   background: var(--black);
   color: var(--white);
   font-size: 10px;
   font-weight: 800;
-  border-radius: 6px;
   transform: rotate(-4deg);
 }
+img.logo__mark { object-fit: contain; }
 .logo__text b { color: var(--red); }
 
 .gnav__list { display: none; }
@@ -314,6 +318,14 @@ ul, ol { list-style: none; }
    ============================================================ */
 .fv { padding: 24px 0 40px; position: relative; }
 .fv__inner { display: flex; flex-direction: column; gap: 20px; }
+
+.fv__visual { display: flex; justify-content: center; }
+.fv__visual-img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin-inline: auto;
+}
 
 .fv__title {
   font-size: 40px;
@@ -881,7 +893,8 @@ ul, ol { list-style: none; }
   }
   .fv__head   { grid-area: head; align-self: end; }
   .fv__foot   { grid-area: foot; }
-  .fv__visual { grid-area: visual; height: 100%; }
+  .fv__visual { grid-area: visual; height: 100%; align-items: center; }
+  .fv__visual-img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
   .fv__title { font-size: 60px; }
   .fv__scroll { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); }
 
