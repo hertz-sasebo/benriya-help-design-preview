@@ -316,15 +316,28 @@ img.logo__mark { object-fit: contain; }
 /* ============================================================
    01 | ファーストビュー
    ============================================================ */
-.fv { padding: 24px 0 40px; position: relative; }
-.fv__inner { display: flex; flex-direction: column; gap: 20px; }
+.fv { padding: 24px 0 40px; position: relative; overflow: hidden; }
+.fv__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 380px;
+}
+.fv__head, .fv__foot { position: relative; z-index: 2; }
+.fv__head { padding-right: 34%; }
 
-.fv__visual { display: flex; justify-content: center; }
+/* ゴリラは右側に重ねて配置（文字はその上） */
 .fv__visual-img {
-  width: 100%;
-  max-width: 420px;
+  position: absolute;
+  bottom: 0;
+  right: -8%;
+  width: 64%;
+  max-width: 360px;
   height: auto;
-  margin-inline: auto;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .fv__title {
@@ -410,7 +423,15 @@ img.logo__mark { object-fit: contain; }
 /* ============================================================
    03 | こんなお困りごとはありませんか？
    ============================================================ */
-.problems__inner { display: flex; flex-direction: column; gap: 20px; }
+.problems { overflow: hidden; }
+.problems__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 340px;
+}
+.problems__body { position: relative; z-index: 2; }
 .problem-list { margin-top: 8px; display: flex; flex-direction: column; gap: 12px; }
 .problem-list li {
   position: relative;
@@ -433,15 +454,22 @@ img.logo__mark { object-fit: contain; }
   font-size: 13px;
   border-radius: 4px;
 }
-.problems__aside {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
+.problems__character {
+  position: absolute;
+  right: -6%;
+  bottom: 0;
+  width: 52%;
+  max-width: 260px;
+  height: auto;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
-.ph--character { width: 100%; max-width: 320px; min-height: 220px; }
 .problems__balloon {
   position: relative;
+  z-index: 3;
+  align-self: flex-start;
+  max-width: 60%;
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 10px;
@@ -882,20 +910,13 @@ img.logo__mark { object-fit: contain; }
   /* 01 FV */
   .fv { padding: 48px 0 56px; }
   .fv__inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "head visual"
-      "foot visual";
-    align-items: start;
-    column-gap: 40px;
-    row-gap: 20px;
+    min-height: 560px;
+    justify-content: center;
+    gap: 24px;
   }
-  .fv__head   { grid-area: head; align-self: end; }
-  .fv__foot   { grid-area: foot; }
-  .fv__visual { grid-area: visual; height: 100%; align-items: center; }
-  .fv__visual-img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+  .fv__visual-img { width: 52%; max-width: 560px; right: -2%; bottom: 0; }
   .fv__title { font-size: 60px; }
+  .fv__head { padding-right: 44%; }
   .fv__scroll { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); }
 
   /* 02 features */
@@ -904,9 +925,9 @@ img.logo__mark { object-fit: contain; }
   .cta-group { flex-direction: row; max-width: 640px; }
 
   /* 03 problems */
-  .problems__inner { flex-direction: row; align-items: flex-start; gap: 40px; }
-  .problems__body { flex: 1 1 55%; }
-  .problems__aside { flex: 1 1 45%; }
+  .problems__inner { min-height: 460px; }
+  .problems__character { width: 46%; max-width: 440px; right: -2%; }
+  .problems__balloon { max-width: 340px; }
 
   /* 04 main services */
   .service-cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
