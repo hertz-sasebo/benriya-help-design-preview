@@ -93,7 +93,6 @@ ul, ol { list-style: none; }
 }
 
 /* アイコンを載せる枠は中央寄せグリッドに */
-.feature-badge__icon,
 .mini-card__icon,
 .reason-card__icon,
 .flow-step__icon {
@@ -314,110 +313,231 @@ img.logo__mark { object-fit: contain; }
 
 
 /* ============================================================
-   01 | ファーストビュー
+   01 | ファーストビュー（1画面に収める）
    ============================================================ */
-.fv { padding: 24px 0 40px; position: relative; overflow: hidden; }
-.fv__inner {
+.fv {
   position: relative;
+  overflow: hidden;
+  background: var(--white);
+  padding: 10px 0 14px;
+  min-height: calc(100svh - 58px);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  min-height: 380px;
 }
-.fv__head, .fv__foot { position: relative; z-index: 2; }
-.fv__head { padding-right: 34%; }
+.fv__inner {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(5px, 1.5vh, 15px);
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  overflow: hidden;
+}
 
-/* ゴリラは右側に重ねて配置（文字はその上） */
+/* ---- 見出し「困ったら、HELP。」 ---- */
+.fv__title {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 12px;
+  line-height: 0.95;
+  letter-spacing: -.01em;
+  text-align: center;
+}
+.fv__title-jp {
+  display: block;
+  text-align: left;
+  font-family: "Dela Gothic One", var(--font);
+  font-weight: 400;
+  font-size: clamp(24px, 6.8vw, 38px);
+  color: var(--black);
+}
+.fv__title-en {
+  display: block;
+  margin-top: 1px;
+  font-family: "Dela Gothic One", var(--font);
+  font-weight: 400;
+  font-size: clamp(38px, 13.4vw, 76px);
+  line-height: 0.84;
+  color: var(--red);
+  letter-spacing: -.03em;
+  transform: skewX(-5deg);
+  white-space: nowrap;
+}
+.fv__title-dot { color: var(--black); font-size: .62em; }
+
+/* ---- ゴリラ + 赤い刷毛 + 帯 ---- */
+.fv__visual {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 150px;
+  max-height: 460px;
+  margin-top: -1%;
+}
+.fv__visual::before,
+.fv__visual::after {
+  content: "";
+  position: absolute;
+  background: var(--red);
+  z-index: 0;
+}
+.fv__visual::before {           /* 左上へ伸びる赤い刷毛 */
+  left: 2%;
+  top: 10%;
+  width: 150px;
+  height: 22px;
+  transform: rotate(-26deg);
+  clip-path: polygon(0 35%, 100% 0, 100% 65%, 0 100%);
+}
+.fv__visual::after {            /* 右下へ伸びる赤い刷毛 */
+  right: 0%;
+  bottom: 24%;
+  width: 165px;
+  height: 24px;
+  transform: rotate(-20deg);
+  clip-path: polygon(0 0, 100% 35%, 100% 100%, 0 65%);
+}
 .fv__visual-img {
   position: absolute;
+  left: 50%;
   bottom: 0;
-  right: -8%;
-  width: 64%;
-  max-width: 360px;
-  height: auto;
+  transform: translateX(-50%);
   z-index: 1;
-  mix-blend-mode: multiply;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
 }
-
-.fv__title {
-  font-size: 40px;
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -.01em;
-}
-.fv__lead {
-  margin-top: 12px;
-  font-size: 17px;
-  font-weight: 700;
+.fv__catch {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  z-index: 3;
+  font-family: "Yusei Magic", var(--font);
+  font-size: clamp(10px, 2.9vw, 14px);
+  line-height: 1.35;
+  text-align: right;
+  color: var(--black);
+  transform: rotate(-3deg);
 }
 .fv__band {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  z-index: 4;
+  width: 96%;
+  max-width: 400px;
+  transform: translateX(-50%) rotate(-1.5deg);
   background: var(--black);
   color: var(--white);
+  text-align: center;
   font-weight: 800;
-  font-size: 17px;
-  line-height: 1.5;
-  padding: 12px 14px;
-  border-radius: 6px;
+  font-size: clamp(13px, 3.9vw, 18px);
+  line-height: 1.45;
+  padding: 9px 6px;
+  border-radius: 3px;
 }
-.fv__foot { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.fv__band-line { display: block; white-space: nowrap; }
+.fv__band-em {
+  display: inline-block;
+  background: var(--red);
+  color: var(--white);
+  padding: 0 7px;
+  margin-right: 3px;
+  border-radius: 3px;
+}
+
+/* ---- 料金タグ ---- */
 .fv__price {
+  position: relative;
+  z-index: 5;
+  align-self: center;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
+  margin-top: -6px;
+  padding: 5px 26px 7px;
   background: var(--red);
   color: var(--white);
-  padding: 10px 24px;
-  border-radius: 8px;
-  transform: rotate(-1deg);
+  border-radius: 4px;
+  transform: rotate(-1.5deg);
 }
-.fv__price-label { font-size: 13px; font-weight: 700; }
-.fv__price-value { font-size: 30px; font-weight: 900; line-height: 1.1; }
+.fv__price-label { font-size: 12px; font-weight: 700; }
+.fv__price-value {
+  font-family: "Dela Gothic One", var(--font);
+  font-size: clamp(24px, 7.4vw, 34px);
+  line-height: 1.05;
+}
 
+/* ---- 丸バッジ（見積無料 / 即日対応 / 実績） ---- */
+.fv__badges {
+  display: flex;
+  justify-content: center;
+  gap: clamp(6px, 2.4vw, 16px);
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+}
+.fv__badge {
+  flex: 0 1 auto;
+  width: clamp(72px, 22vw, 100px);
+  min-width: 0;
+  aspect-ratio: 1;
+  border: 2.5px solid var(--black);
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+}
+.fv__badge-ic {
+  width: clamp(20px, 6vw, 26px);
+  height: clamp(20px, 6vw, 26px);
+  color: var(--black);
+  display: grid;
+  place-items: center;
+}
+.fv__badge-ic .icon { width: 100%; height: 100%; }
+.fv__badge-tx { font-size: clamp(9px, 2.6vw, 11px); font-weight: 800; line-height: 1.15; }
+
+/* ---- CTA（横並び） ---- */
+.fv__cta {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  padding: 0 12px;
+}
+.fv__cta .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 50px;
+  padding: 10px 4px;
+  border-radius: 10px;
+  font-size: clamp(12px, 3.4vw, 15px);
+  gap: 5px;
+}
+.fv__cta .btn__icon { min-width: 24px; height: 22px; font-size: 9px; padding: 0 4px; }
+
+/* ---- スクロール誘導 ---- */
 .fv__scroll {
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  margin-top: 24px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: .1em;
+  letter-spacing: .14em;
   color: var(--red);
 }
-.fv__scroll span { font-size: 18px; line-height: 1; }
-
-
-/* ============================================================
-   02 | 特徴アイコン + CTA
-   ============================================================ */
-.features { background: var(--gray); }
-
-.feature-badges {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 24px;
-}
-.feature-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-  min-width: 0;
-}
-.feature-badge__icon {
-  width: 84px;
-  max-width: 100%;
-  aspect-ratio: 1;
-  border: 2px solid var(--black);
-  border-radius: 50%;
-  background: var(--white);
-  padding: 18px;
-  color: var(--black);
-}
-.feature-badge__text { font-size: 14px; font-weight: 800; line-height: 1.3; }
+.fv__scroll span { font-size: 16px; line-height: 1; }
 
 
 /* ============================================================
@@ -908,21 +1028,19 @@ img.logo__mark { object-fit: contain; }
   .gnav__list a { padding: 4px 0; }
 
   /* 01 FV */
-  .fv { padding: 48px 0 56px; }
+  .fv { min-height: min(calc(100svh - 72px), 880px); padding: 16px 0 20px; }
   .fv__inner {
-    min-height: 560px;
-    justify-content: center;
-    gap: 24px;
+    max-width: 680px;
+    gap: clamp(10px, 1.8vh, 20px);
   }
-  .fv__visual-img { width: 52%; max-width: 560px; right: -2%; bottom: 0; }
-  .fv__title { font-size: 60px; }
-  .fv__head { padding-right: 44%; }
-  .fv__scroll { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); }
-
-  /* 02 features */
-  .feature-badges { max-width: 640px; margin-inline: auto; gap: 20px; }
-  .feature-badge__icon { width: 120px; }
-  .cta-group { flex-direction: row; max-width: 640px; }
+  .fv__title-jp { font-size: clamp(32px, 3.6vw, 42px); }
+  .fv__title-en { font-size: clamp(70px, 8vw, 88px); }
+  .fv__catch { font-size: 18px; }
+  .fv__badge { width: 112px; }
+  .fv__badges { max-width: 380px; }
+  .fv__cta { max-width: 520px; }
+  .fv__visual::before { width: 190px; height: 26px; }
+  .fv__visual::after { width: 210px; height: 28px; }
 
   /* 03 problems */
   .problems__inner { min-height: 460px; }

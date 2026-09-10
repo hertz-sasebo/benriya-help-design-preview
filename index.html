@@ -6,7 +6,10 @@
 <title>便利屋HELP | ワイヤーフレーム</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="便利屋HELP モバイル版ワイヤーフレーム（骨格）。テキスト・画像は後から差し替え可能な構造。">
-<link rel="stylesheet" href="style.css?v=20260909-2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Yusei+Magic&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20260910-1">
 </head>
 <body>
 
@@ -42,52 +45,43 @@
        01 | ファーストビュー
        ============================================================ -->
   <section id="fv" class="section fv">
-    <div class="container fv__inner">
-      <img src="images/IMG_2069.JPG" alt="便利屋HELPのゴリラキャラクター" class="fv__visual-img">
+    <div class="fv__inner">
 
-      <div class="fv__head">
-        <h1 class="fv__title">困ったら、<span class="is-red">HELP。</span></h1>
-        <p class="fv__lead">どんな困りごとでも、俺たちに任せろ！</p>
-      </div>
+      <h1 class="fv__title">
+        <span class="fv__title-jp">困ったら、</span>
+        <span class="fv__title-en">HELP<span class="fv__title-dot">。</span></span>
+      </h1>
 
-      <div class="fv__foot">
-        <p class="fv__band">佐世保から長崎県内全域対応！<br>最短即日で訪問・解決！</p>
-
-        <p class="fv__price">
-          <span class="fv__price-label">作業料金</span>
-          <span class="fv__price-value">8,000円〜</span>
+      <div class="fv__visual">
+        <p class="fv__catch">どんな困りごとでも、<br>俺たちに<br>任せろ！</p>
+        <img src="images/IMG_2069.JPG" alt="便利屋HELPのゴリラキャラクター" class="fv__visual-img">
+        <p class="fv__band">
+          <span class="fv__band-line">佐世保から長崎県内全域対応！</span>
+          <span class="fv__band-line"><span class="fv__band-em">最短即日</span>で訪問・解決！</span>
         </p>
       </div>
-    </div>
 
-    <a class="fv__scroll" href="#features">
-      <span aria-hidden="true">˅</span>
-      SCROLL
-    </a>
-  </section>
+      <p class="fv__price">
+        <span class="fv__price-label">作業料金</span>
+        <span class="fv__price-value">8,000円〜</span>
+      </p>
 
-
-  <!-- ============================================================
-       02 | 特徴アイコン + メインCTA
-       ============================================================ -->
-  <section id="features" class="section features">
-    <div class="container">
-      <ul class="feature-badges">
-        <li class="feature-badge">
-          <span class="feature-badge__icon"><i class="icon" style="--icon:url(images/icons/doc-pen.svg)"></i></span>
-          <span class="feature-badge__text">見積無料</span>
+      <ul class="fv__badges">
+        <li class="fv__badge">
+          <span class="fv__badge-ic"><i class="icon" style="--icon:url(images/icons/doc-pen.svg)"></i></span>
+          <span class="fv__badge-tx">見積<br>無料</span>
         </li>
-        <li class="feature-badge">
-          <span class="feature-badge__icon"><i class="icon" style="--icon:url(images/icons/rush.svg)"></i></span>
-          <span class="feature-badge__text">即日対応</span>
+        <li class="fv__badge">
+          <span class="fv__badge-ic"><i class="icon" style="--icon:url(images/icons/rush.svg)"></i></span>
+          <span class="fv__badge-tx">即日<br>対応</span>
         </li>
-        <li class="feature-badge">
-          <span class="feature-badge__icon"><i class="icon" style="--icon:url(images/icons/security.svg)"></i></span>
-          <span class="feature-badge__text">100件以上の<br>対応実績</span>
+        <li class="fv__badge">
+          <span class="fv__badge-ic"><i class="icon" style="--icon:url(images/icons/security.svg)"></i></span>
+          <span class="fv__badge-tx">100件以上の<br>対応実績</span>
         </li>
       </ul>
 
-      <div class="cta-group">
+      <div class="fv__cta">
         <a href="#" class="btn btn--tel">
           <span class="btn__icon" aria-hidden="true">TEL</span>
           電話で相談する
@@ -97,6 +91,12 @@
           LINEで相談する
         </a>
       </div>
+
+      <a class="fv__scroll" href="#problems">
+        <span aria-hidden="true">˅</span>
+        SCROLL
+      </a>
+
     </div>
   </section>
 
