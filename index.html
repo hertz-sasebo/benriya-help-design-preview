@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260910-2">
+<link rel="stylesheet" href="style.css?v=20260910-3">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="#fv" class="logo">
-      <img src="images/IMG_2069.JPG" alt="便利屋HELP" class="logo__mark">
+      <span class="logo__mark" aria-hidden="true">HELP</span>
       <span class="logo__text">便利屋<b>HELP</b></span>
     </a>
 
@@ -53,8 +53,9 @@
       </h1>
 
       <div class="fv__visual">
-        <p class="fv__catch">どんな困りごとでも、<br>俺たちに<br>任せろ！</p>
-        <img src="images/IMG_2069.JPG" alt="便利屋HELPのゴリラキャラクター" class="fv__visual-img">
+        <div class="ph fv__ph" role="img" aria-label="メインビジュアル（画像プレースホルダー）">
+          <span class="ph__label">[ MAIN VISUAL / GORILLA ]</span>
+        </div>
         <p class="fv__band">
           <span class="fv__band-line">佐世保から長崎県内全域対応！</span>
           <span class="fv__band-line"><span class="fv__band-em">最短即日</span>で訪問・解決！</span>
@@ -83,7 +84,7 @@
 
       <div class="fv__cta">
         <a href="#" class="btn btn--tel">
-          <span class="btn__icon" aria-hidden="true">TEL</span>
+          <span class="btn__icon btn__icon--phone" aria-hidden="true"><i class="icon" style="--icon:url(images/icons/phone.svg)"></i></span>
           電話で相談する
         </a>
         <a href="#" class="btn btn--line">
@@ -121,8 +122,12 @@
         </ul>
       </div>
 
-      <img src="images/gorilla-2.png" alt="便利屋HELPのゴリラキャラクター" class="problems__character">
-      <p class="problems__balloon">そのお困りごと、<br>私たちが解決します！</p>
+      <div class="problems__aside">
+        <div class="ph ph--character" role="img" aria-label="キャラクター（画像プレースホルダー）">
+          <span class="ph__label">[ CHARACTER ]</span>
+        </div>
+        <p class="problems__balloon">そのお困りごと、<br>私たちが解決します！</p>
+      </div>
     </div>
   </section>
 
@@ -477,7 +482,7 @@
         <p class="final-cta__copy">暮らしの「<span class="is-red">困った</span>」は、<br><span class="acc">HELP</span>にお任せください！</p>
         <div class="cta-group">
           <a href="#" class="btn btn--tel">
-            <span class="btn__icon" aria-hidden="true">TEL</span>
+            <span class="btn__icon btn__icon--phone" aria-hidden="true"><i class="icon" style="--icon:url(images/icons/phone.svg)"></i></span>
             電話で相談する
           </a>
           <a href="#" class="btn btn--line">
@@ -530,7 +535,7 @@
 <div class="floating-cta" id="floatingCta" aria-hidden="true">
   <div class="floating-cta__inner">
     <a href="#" class="btn btn--tel">
-      <span class="btn__icon" aria-hidden="true">TEL</span>
+      <span class="btn__icon btn__icon--phone" aria-hidden="true"><i class="icon" style="--icon:url(images/icons/phone.svg)"></i></span>
       電話で相談する
     </a>
     <a href="#" class="btn btn--line">

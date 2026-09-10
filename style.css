@@ -192,6 +192,15 @@ ul, ol { list-style: none; }
   font-weight: 400;
   letter-spacing: .03em;
 }
+/* 電話ボタンのアイコン：phone.svg を白で表示（枠なし） */
+.btn__icon--phone {
+  border: none;
+  padding: 0;
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+}
+.btn__icon--phone .icon { background-color: var(--white); }
 .btn--tel  { background: var(--red); }
 .btn--line { background: var(--line-green); }
 .btn--outline {
@@ -241,14 +250,23 @@ ul, ol { list-style: none; }
   margin-inline: auto;
 }
 .floating-cta .btn {
-  min-height: 52px;
-  font-size: 15px;
-  gap: 8px;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 50px;
+  padding: 8px 6px;
+  font-size: clamp(12px, 3.5vw, 15px);
+  gap: 6px;
+  white-space: nowrap;   /* 改行させず1行で表示 */
 }
 .floating-cta .btn__icon {
-  min-width: 26px;
-  height: 24px;
+  min-width: 22px;
+  height: 22px;
   font-size: 10px;
+}
+.floating-cta .btn__icon--phone {
+  min-width: 19px;
+  width: 19px;
+  height: 19px;
 }
 
 
@@ -391,96 +409,55 @@ img.logo__mark { object-fit: contain; }
   display: block;
   text-align: left;
   padding-left: 4px;
+  margin-bottom: .28em;
   font-family: var(--font-jp);
   font-weight: var(--fw-heading-max);   /* 困ったら、= Noto Sans JP 900 */
   font-size: clamp(25px, 7.2vw, 40px);
+  line-height: 1.2;
   letter-spacing: .04em;
   color: var(--black);
 }
 .fv__title-en {
   display: block;
-  margin-top: .02em;
   font-family: var(--font-display);     /* HELP。= Anton */
   font-weight: 400;
-  font-size: clamp(54px, 21vw, 126px);
-  line-height: 0.8;
+  font-size: clamp(52px, 20vw, 122px);
+  line-height: 0.92;
   color: var(--red);
-  letter-spacing: .015em;
-  transform: skewX(-4deg) scaleX(1.1);
+  letter-spacing: .01em;
+  transform: skewX(-4deg) scaleX(1.06);
   transform-origin: center;
   white-space: nowrap;
 }
 .fv__title-dot {
   display: inline-block;
-  margin-left: -.42em;
+  margin-left: -.52em;
   color: var(--black);
   font-family: var(--font-jp);
   font-weight: var(--fw-heading-max);
-  font-size: .5em;
+  font-size: .46em;
   transform: scaleX(.8);
   transform-origin: left center;
 }
 
-/* ---- ゴリラ + 赤い刷毛 + 帯 ---- */
+/* ---- メインビジュアル（ワイヤーフレーム: 画像プレースホルダー）+ 帯 ---- */
 .fv__visual {
   position: relative;
   flex: 1 1 0;
-  min-height: 150px;
+  min-height: 160px;
   max-height: 460px;
-  margin-top: -1%;
 }
-.fv__visual::before,
-.fv__visual::after {
-  content: "";
+.fv__ph {
   position: absolute;
-  background: var(--red);
-  z-index: 0;
-}
-.fv__visual::before {           /* 左上へ伸びる赤い刷毛 */
-  left: 2%;
-  top: 10%;
-  width: 150px;
-  height: 22px;
-  transform: rotate(-26deg);
-  clip-path: polygon(0 35%, 100% 0, 100% 65%, 0 100%);
-}
-.fv__visual::after {            /* 右下へ伸びる赤い刷毛 */
-  right: 0%;
-  bottom: 24%;
-  width: 165px;
-  height: 24px;
-  transform: rotate(-20deg);
-  clip-path: polygon(0 0, 100% 35%, 100% 100%, 0 65%);
-}
-.fv__visual-img {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
-}
-.fv__catch {
-  position: absolute;
-  top: 3%;
-  right: 3%;
-  z-index: 3;
-  font-family: var(--font-jp);
-  font-weight: var(--fw-label);
-  font-size: clamp(10px, 2.9vw, 14px);
-  line-height: 1.4;
-  letter-spacing: .01em;
-  text-align: right;
-  color: var(--black);
-  transform: rotate(-3deg);
+  inset: 0;
+  align-items: flex-start;
+  padding-top: 24%;
+  border-radius: var(--radius);
 }
 .fv__band {
   position: absolute;
   left: 50%;
-  bottom: 2%;
+  bottom: 8%;
   z-index: 4;
   width: 96%;
   max-width: 400px;
@@ -613,15 +590,11 @@ img.logo__mark { object-fit: contain; }
 /* ============================================================
    03 | こんなお困りごとはありませんか？
    ============================================================ */
-.problems { overflow: hidden; }
 .problems__inner {
-  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  min-height: 340px;
+  gap: 24px;
 }
-.problems__body { position: relative; z-index: 2; }
 .problem-list { margin-top: 8px; display: flex; flex-direction: column; gap: 12px; }
 .problem-list li {
   position: relative;
@@ -645,22 +618,15 @@ img.logo__mark { object-fit: contain; }
   font-size: 13px;
   border-radius: 4px;
 }
-.problems__character {
-  position: absolute;
-  right: -6%;
-  bottom: 0;
-  width: 52%;
-  max-width: 260px;
-  height: auto;
-  z-index: 1;
-  mix-blend-mode: multiply;
-  pointer-events: none;
+.problems__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
+.ph--character { width: 100%; max-width: 320px; min-height: 220px; }
 .problems__balloon {
   position: relative;
-  z-index: 3;
-  align-self: flex-start;
-  max-width: 60%;
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 10px;
@@ -1151,16 +1117,14 @@ img.logo__mark { object-fit: contain; }
   }
   .fv__title-jp { font-size: clamp(30px, 3.6vw, 42px); }
   .fv__title-en { font-size: clamp(90px, 11.5vw, 144px); transform: skewX(-4deg) scaleX(1.08); }
-  .fv__catch { font-size: 18px; }
   .fv__badge { width: 112px; }
   .fv__badges { max-width: 380px; }
   .fv__cta { max-width: 520px; }
-  .fv__visual::before { width: 190px; height: 26px; }
-  .fv__visual::after { width: 210px; height: 28px; }
 
   /* 03 problems */
-  .problems__inner { min-height: 460px; }
-  .problems__character { width: 46%; max-width: 440px; right: -2%; }
+  .problems__inner { flex-direction: row; align-items: flex-start; gap: 40px; }
+  .problems__body { flex: 1 1 55%; }
+  .problems__aside { flex: 1 1 45%; }
   .problems__balloon { max-width: 340px; }
 
   /* 04 main services */
