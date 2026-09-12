@@ -103,4 +103,24 @@
     window.addEventListener('scroll', updateFvScroll, { passive: true });
     updateFvScroll();
   }
+
+  /* ---------- 6. ページ最下部へジャンプ ----------
+     href="#page-bottom" のリンクは、ネイティブのアンカー着地
+     （scroll-padding-top やフォント読み込み後のレイアウト変化で
+     着地位置がずれることがある）に頼らず、クリック時点の実際の
+     ドキュメント高さから「これ以上スクロールできない位置」を
+     その場で計算してスクロールする。PC/モバイルどちらでも
+     最終CTA〜フッターが画面内に収まった状態で着地する。 */
+  var jumpToBottomLinks = document.querySelectorAll('a[href="#page-bottom"]');
+
+  jumpToBottomLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var maxScroll = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight,
+        0
+      );
+      window.scrollTo({ top: maxScroll, behavior: 'smooth' });
+    });
+  });
 })();
