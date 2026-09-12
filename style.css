@@ -400,62 +400,42 @@ img.logo__mark { object-fit: contain; }
   overflow: hidden;
 }
 
-/* ---- 見出し「困ったら、HELP。」---- 明確な階層 ---- */
+/* ---- 見出し「困ったら、HELP。」---- ロゴ画像（images/fv-komattara.png / fv-help.png） ---- */
 .fv__title {
   width: 100%;
   overflow: hidden;
   padding: 0 8px;
-  line-height: 0.95;
-  text-align: center;
 }
-.fv__title-jp {
+.fv__title-img {
   display: block;
-  text-align: left;
-  padding-left: 4px;
-  margin-bottom: .28em;
-  font-family: var(--font-jp);
-  font-weight: var(--fw-heading-max);   /* 困ったら、= Noto Sans JP 900 */
-  font-size: clamp(25px, 7.2vw, 40px);
-  line-height: 1.2;
-  letter-spacing: .04em;
-  color: var(--black);
+  height: auto;
 }
-.fv__title-en {
-  display: block;
-  font-family: var(--font-display);     /* HELP。= Anton */
-  font-weight: 400;
-  font-size: clamp(52px, 20vw, 122px);
-  line-height: 0.92;
-  color: var(--red);
-  letter-spacing: .01em;
-  transform: skewX(-4deg) scaleX(1.06);
-  transform-origin: center;
-  white-space: nowrap;
+.fv__title-img--jp {
+  width: 86%;
+  margin: 0 auto -9% 0;   /* 左寄り・HELP。と近接させる */
 }
-.fv__title-dot {
-  display: inline-block;
-  margin-left: -.52em;
-  color: var(--black);
-  font-family: var(--font-jp);
-  font-weight: var(--fw-heading-max);
-  font-size: .46em;
-  transform: scaleX(.8);
-  transform-origin: left center;
+.fv__title-img--help {
+  width: 98%;
+  margin: -9% auto 0;     /* HELP。は大きく・ほぼ全幅 */
 }
 
-/* ---- メインビジュアル（ワイヤーフレーム: 画像プレースホルダー）+ 帯 ---- */
+/* ---- メインビジュアル: 背景（images/fv-bg-red.svg）+ ゴリラ（未着手のため空白）+ 帯 ---- */
 .fv__visual {
   position: relative;
   flex: 1 1 0;
   min-height: 160px;
   max-height: 460px;
 }
-.fv__ph {
+.fv__visual-bg {
   position: absolute;
   inset: 0;
-  align-items: flex-start;
-  padding-top: 24%;
-  border-radius: var(--radius);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
 }
 .fv__band {
   position: absolute;
@@ -1117,8 +1097,6 @@ img.logo__mark { object-fit: contain; }
     max-width: 680px;
     gap: clamp(10px, 1.8vh, 20px);
   }
-  .fv__title-jp { font-size: clamp(30px, 3.6vw, 42px); }
-  .fv__title-en { font-size: clamp(90px, 11.5vw, 144px); transform: skewX(-4deg) scaleX(1.08); }
   .fv__badge { width: 112px; }
   .fv__badges { max-width: 380px; }
   .fv__cta { max-width: 520px; }
