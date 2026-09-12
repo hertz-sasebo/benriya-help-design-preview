@@ -573,7 +573,7 @@ img.logo__mark { object-fit: contain; }
 
 /* ---- スクロール誘導 ----
    通常時：不透明度100%⇄20%を1秒間隔で往復して点滅。
-   スクロールしたら即座に非表示、ページ最上部に戻った時のみ再表示。 */
+   スクロールしたらふわっと（0.15秒）非表示、ページ最上部に戻った時のみ再表示。 */
 .fv__scroll {
   align-self: center;
   display: flex;
@@ -587,6 +587,7 @@ img.logo__mark { object-fit: contain; }
   color: var(--red);
   opacity: 1;
   animation: fv-scroll-blink 2s ease-in-out infinite;
+  transition: opacity .15s ease-out;
 }
 .fv__scroll span { font-size: 16px; line-height: 1; }
 .fv__scroll.is-hidden {
