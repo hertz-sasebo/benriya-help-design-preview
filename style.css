@@ -571,7 +571,9 @@ img.logo__mark { object-fit: contain; }
 }
 .fv__cta .btn__icon { min-width: 24px; height: 22px; font-size: 9px; padding: 0 4px; }
 
-/* ---- スクロール誘導 ---- */
+/* ---- スクロール誘導 ----
+   通常時：不透明度100%⇄20%を1秒間隔で往復して点滅。
+   スクロールしたら即座に非表示、ページ最上部に戻った時のみ再表示。 */
 .fv__scroll {
   align-self: center;
   display: flex;
@@ -583,8 +585,19 @@ img.logo__mark { object-fit: contain; }
   font-weight: 400;
   letter-spacing: .22em;
   color: var(--red);
+  opacity: 1;
+  animation: fv-scroll-blink 2s ease-in-out infinite;
 }
 .fv__scroll span { font-size: 16px; line-height: 1; }
+.fv__scroll.is-hidden {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes fv-scroll-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .2; }
+}
 
 
 /* ============================================================
@@ -1169,4 +1182,5 @@ img.logo__mark { object-fit: contain; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
+  .fv__scroll { animation: none !important; opacity: 1; }
 }
