@@ -380,7 +380,10 @@ img.logo__mark { object-fit: contain; }
   overflow: hidden;
   background: var(--white);
   padding: 10px 0 14px;
-  min-height: calc(100svh - 58px);
+  /* 100svh をそのまま使うと、ウィンドウ高が異常に大きい環境（PCでモバイル幅
+     まで狭めた場合など）で justify-content:space-between が余白を間延びさせる。
+     実機のモバイル高では影響しない上限（760px）を設けて抑制する。 */
+  min-height: min(calc(100svh - 58px), 760px);
   display: flex;
   flex-direction: column;
 }
@@ -816,21 +819,6 @@ img.logo__mark { object-fit: contain; }
   border-radius: 50%;
   font-size: 12px;
 }
-
-.works__dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 18px;
-}
-.works__dots span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--line);
-}
-.works__dots span.is-active { background: var(--black); }
-
 
 /* ============================================================
    08 | 料金一覧
