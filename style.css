@@ -423,8 +423,8 @@ img.logo__mark { object-fit: contain; }
 .fv__visual {
   position: relative;
   flex: 1 1 0;
-  min-height: 160px;
-  max-height: 460px;
+  min-height: 200px;
+  max-height: 520px;
 }
 .fv__visual-bg {
   position: absolute;
@@ -436,6 +436,18 @@ img.logo__mark { object-fit: contain; }
   z-index: 1;
   pointer-events: none;
   user-select: none;
+}
+.fv__gorilla {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 2;
+  width: min(70%, 300px);
+  height: auto;
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .28));
 }
 .fv__band {
   position: absolute;
