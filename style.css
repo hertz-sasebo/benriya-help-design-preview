@@ -411,20 +411,23 @@ img.logo__mark { object-fit: contain; }
   height: auto;
 }
 .fv__title-img--jp {
-  width: 44%;
+  width: 36%;
   margin: 0 auto -5% 0;   /* 左寄り・控えめなサイズでHELPを引き立てる */
 }
 .fv__title-img--help {
-  width: 92%;
+  width: 80%;
   margin: -6% auto 0;     /* HELP。を主役として大きく強調（詰めて省スペース化） */
 }
 
-/* ---- メインビジュアル: 背景（images/fv-bg-red.svg）+ ゴリラ（未着手のため空白）+ 帯 ---- */
+/* ---- メインビジュアル: 背景（images/fv-bg-red.svg）+ ゴリラ + 帯 ----
+   HELP文字とゴリラを1枚の広告ビジュアルとして見せるため、
+   .fv__title に負のmargin-topで重ねて一体化させる。 */
 .fv__visual {
   position: relative;
   flex: 1 1 0;
   min-height: 145px;
   max-height: 440px;
+  margin-top: -18px;
 }
 .fv__visual-bg {
   position: absolute;
@@ -442,8 +445,7 @@ img.logo__mark { object-fit: contain; }
   left: 50%;
   bottom: 0;
   z-index: 2;
-  width: min(58%, 230px);
-  max-height: calc(100% - 6px);
+  width: min(72%, 260px);   /* 原画(700x769)の比率を height:auto でそのまま維持 */
   height: auto;
   transform: translateX(-50%);
   pointer-events: none;
@@ -506,45 +508,6 @@ img.logo__mark { object-fit: contain; }
   font-size: clamp(26px, 8vw, 36px);
   line-height: 1.02;
   letter-spacing: .01em;
-}
-
-/* ---- 丸バッジ（見積無料 / 即日対応 / 実績） ---- */
-.fv__badges {
-  display: flex;
-  justify-content: center;
-  gap: clamp(6px, 2.4vw, 16px);
-  width: 100%;
-  max-width: 340px;
-  margin-inline: auto;
-}
-.fv__badge {
-  flex: 0 1 auto;
-  width: clamp(72px, 22vw, 100px);
-  min-width: 0;
-  aspect-ratio: 1;
-  border: 2.5px solid var(--black);
-  border-radius: 50%;
-  background: var(--white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  text-align: center;
-}
-.fv__badge-ic {
-  width: clamp(20px, 6vw, 26px);
-  height: clamp(20px, 6vw, 26px);
-  color: var(--black);
-  display: grid;
-  place-items: center;
-}
-.fv__badge-ic .icon { width: 100%; height: 100%; }
-.fv__badge-tx {
-  font-family: var(--font-price);   /* 100 = Anton / 件以上の対応実績 = Noto */
-  font-size: clamp(9px, 2.6vw, 11px);
-  font-weight: var(--fw-heading);
-  line-height: 1.2;
 }
 
 /* ---- CTA（横並び） ---- */
@@ -1115,8 +1078,6 @@ img.logo__mark { object-fit: contain; }
     max-width: 680px;
     gap: clamp(10px, 1.8vh, 20px);
   }
-  .fv__badge { width: 112px; }
-  .fv__badges { max-width: 380px; }
   .fv__cta { max-width: 520px; }
 
   /* 03 problems */
