@@ -651,7 +651,12 @@ img.logo__mark { object-fit: contain; }
   padding: 12px 12px 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,.05);
 }
-.service-card__img { aspect-ratio: 16 / 10; width: 100%; }
+.service-card__img {
+  aspect-ratio: 16 / 10;   /* 実写真とほぼ一致（1586×992 ≒ 16:10） */
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
 .service-card__name {
   font-family: var(--font-jp);
   font-size: 18px;
