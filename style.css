@@ -773,10 +773,10 @@ img.logo__mark { object-fit: contain; }
   gap: 6px;
 }
 .work-card__img {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;   /* 実写真（縦長・約 0.81）に合わせて調整 */
   width: 100%;
-  align-items: flex-start;
-  justify-content: flex-start;
+  object-fit: cover;
+  border-radius: var(--radius);
 }
 .work-card__tag {
   position: relative;
