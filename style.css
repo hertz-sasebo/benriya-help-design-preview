@@ -575,12 +575,40 @@ img.logo__mark { object-fit: contain; }
 
 /* ============================================================
    03 | こんなお困りごとはありませんか？
-   ============================================================ */
+   ゴリラ画像（images/gorilla-2.png）を右側に大きく配置し、
+   吹き出し画像（images/そのお困りごと、私たちが解決します！.png）を
+   その下に重ねる、ポスター風のレイアウト。 */
+.problems {
+  position: relative;
+  overflow: hidden;
+  padding-top: 20px;
+}
+.problems__visual {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  width: 45%;
+  max-width: 260px;
+  z-index: 1;
+  pointer-events: none;
+}
+.problems__gorilla {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* 左肩（画面左上）から背景へ徐々に透過させる */
+  -webkit-mask-image: linear-gradient(115deg, transparent 0%, transparent 10%, #000 42%);
+          mask-image: linear-gradient(115deg, transparent 0%, transparent 10%, #000 42%);
+}
 .problems__inner {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
+.problems__body { max-width: 54%; }
+.problems__body .heading { font-size: clamp(19px, 5.2vw, 24px); }
 .problem-list { margin-top: 8px; display: flex; flex-direction: column; gap: 12px; }
 .problem-list li {
   position: relative;
@@ -604,22 +632,14 @@ img.logo__mark { object-fit: contain; }
   font-size: 13px;
   border-radius: 4px;
 }
-.problems__aside {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
-.ph--character { width: 100%; max-width: 320px; min-height: 220px; }
 .problems__balloon {
+  display: block;
+  width: 64%;
+  max-width: 280px;
+  height: auto;
+  margin: 0 0 0 auto;
   position: relative;
-  background: var(--white);
-  border: 2px solid var(--black);
-  border-radius: 10px;
-  padding: 14px 18px;
-  font-weight: var(--fw-heading);
-  line-height: 1.5;
-  text-align: center;
+  z-index: 3;
 }
 
 
@@ -1094,10 +1114,10 @@ img.logo__mark { object-fit: contain; }
   .fv__cta { max-width: 520px; }
 
   /* 03 problems */
-  .problems__inner { flex-direction: row; align-items: flex-start; gap: 40px; }
-  .problems__body { flex: 1 1 55%; }
-  .problems__aside { flex: 1 1 45%; }
-  .problems__balloon { max-width: 340px; }
+  .problems { padding-top: 40px; }
+  .problems__visual { width: 42%; max-width: 420px; top: -16px; }
+  .problems__body { max-width: 52%; }
+  .problems__balloon { width: 46%; max-width: 320px; }
 
   /* 04 main services */
   .service-cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
