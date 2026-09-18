@@ -87,4 +87,20 @@
     window.addEventListener('resize', updateFloatingCta);
     updateFloatingCta();
   }
+
+  /* ---------- 5. FVのSCROLL誘導 ----------
+     ページ最上部にいる間だけ点滅表示。
+     少しでもスクロールしたら即座に非表示にし、
+     最上部に戻った時だけ再表示する。 */
+  var fvScroll = document.querySelector('.fv__scroll');
+
+  if (fvScroll) {
+    var updateFvScroll = function () {
+      var atTop = window.pageYOffset <= 0;
+      fvScroll.classList.toggle('is-hidden', !atTop);
+    };
+
+    window.addEventListener('scroll', updateFvScroll, { passive: true });
+    updateFvScroll();
+  }
 })();
