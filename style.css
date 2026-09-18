@@ -400,8 +400,12 @@ img.logo__mark { object-fit: contain; }
   overflow: hidden;
 }
 
-/* ---- 見出し「困ったら、HELP。」---- ロゴ画像（images/fv-komattara.png / fv-help.png） ---- */
+/* ---- 見出し「困ったら、HELP。」---- ロゴ画像（images/fv-komattara.png / fv-help.png） ----
+   .fv__visual-bg（赤ブラシ背景）を裏に回り込ませるため、position + z-index で
+   背景より前面に重ねる。 */
 .fv__title {
+  position: relative;
+  z-index: 3;
   width: 100%;
   overflow: hidden;
   padding: 0 8px;
@@ -431,9 +435,14 @@ img.logo__mark { object-fit: contain; }
 }
 .fv__visual-bg {
   position: absolute;
-  inset: 0;
+  top: -70px;   /* 右上が途中で切れて見えないよう、HELP文字の裏まで伸ばす */
+  left: 0;
+  right: 0;
   width: 100%;
-  height: 100%;
+  /* SVGはwidth/height属性を持たずviewBoxのみのため、top+bottomの併用だと
+     ブラウザが比率ベースの自動計算にフォールバックし高さが崩れる。
+     heightを明示指定して回避する。 */
+  height: calc(100% + 70px);
   object-fit: cover;
   object-position: center;
   z-index: 1;
