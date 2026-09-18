@@ -448,6 +448,10 @@ img.logo__mark { object-fit: contain; }
   z-index: 1;
   pointer-events: none;
   user-select: none;
+  /* ゴリラの帽子の「安全第一」ラインより上を徐々に透明化し、
+     HELP文字を目立たせる。 */
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 70%, transparent 100%);
+          mask-image: linear-gradient(to top, #000 0%, #000 70%, transparent 100%);
 }
 .fv__gorilla {
   position: absolute;
