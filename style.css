@@ -504,8 +504,9 @@ img.logo__mark { object-fit: contain; }
   align-items: center;
   margin-top: -6px;
   padding: 5px 26px 7px;
-  background: var(--red);
-  color: var(--white);
+  background: var(--white);
+  color: var(--black);
+  border: 2.5px solid var(--black);
   border-radius: 4px;
   transform: rotate(-1.5deg);
 }
@@ -516,12 +517,13 @@ img.logo__mark { object-fit: contain; }
   letter-spacing: .06em;
 }
 .fv__price-value {
-  font-family: var(--font-price);   /* 8,000 = Anton / 円〜 = Noto Sans JP 900 */
+  font-family: var(--font-price);   /* 8,000 = Anton（赤） / 円〜 = Noto Sans JP 900（黒） */
   font-weight: var(--fw-heading-max);
   font-size: clamp(26px, 8vw, 36px);
   line-height: 1.02;
   letter-spacing: .01em;
 }
+.fv__price-num { color: var(--red); }   /* 電話CTAの赤と競合しないよう、料金は白地に赤の数字のみをアクセントに */
 
 /* ---- CTA（横並び） ---- */
 .fv__cta {
