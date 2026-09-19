@@ -577,22 +577,54 @@ img.logo__mark { object-fit: contain; }
 
 /* ============================================================
    03 | こんなお困りごとはありませんか？
-   ゴリラ画像（images/gorilla-2.png）を右側に大きく配置し、
-   吹き出し画像（images/そのお困りごと、私たちが解決します！.png）を
-   その下に重ねる、ポスター風のレイアウト。 */
+   チェックリスト（左）とゴリラ＋吹き出し（右）を横並びに。
+   吹き出しはゴリラを基準にabsolute positioningで下部に重ね、
+   「ゴリラが発言している」1つのビジュアルとして一体化させる。 */
 .problems {
   position: relative;
   overflow: hidden;
-  padding-top: 20px;
+  padding: 28px 0 10px;
 }
-.problems__visual {
+.problems__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4%;
+}
+.problems__body { flex: 1 1 auto; min-width: 0; }
+.problems__body .heading { font-size: clamp(18px, 4.6vw, 23px); margin-bottom: 0; }
+.problem-list { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.problem-list li {
+  position: relative;
+  padding-left: 25px;
+  font-size: clamp(12px, 3.2vw, 13.5px);
+  font-weight: var(--fw-note);
+  line-height: 1.4;
+}
+.problem-list li::before {
+  content: "\2713";
   position: absolute;
-  top: -8px;
-  right: 0;
-  width: 45%;
-  max-width: 260px;
-  z-index: 1;
-  pointer-events: none;
+  left: 0;
+  top: 1px;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--red);
+  color: var(--red);
+  font-size: 10px;
+  border-radius: 4px;
+}
+
+/* ---- ゴリラ＋吹き出し：1グループとして扱う ---- */
+.problems__char {
+  position: relative;
+  flex: 0 0 auto;
+  width: 38%;
+  max-width: 200px;
 }
 .problems__gorilla {
   display: block;
@@ -602,46 +634,15 @@ img.logo__mark { object-fit: contain; }
   -webkit-mask-image: linear-gradient(115deg, transparent 0%, transparent 10%, #000 42%);
           mask-image: linear-gradient(115deg, transparent 0%, transparent 10%, #000 42%);
 }
-.problems__inner {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.problems__body { max-width: 54%; }
-.problems__body .heading { font-size: clamp(19px, 5.2vw, 24px); }
-.problem-list { margin-top: 8px; display: flex; flex-direction: column; gap: 12px; }
-.problem-list li {
-  position: relative;
-  padding-left: 34px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.6;
-}
-.problem-list li::before {
-  content: "\2713";
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--red);
-  color: var(--red);
-  font-size: 13px;
-  border-radius: 4px;
-}
 .problems__balloon {
   display: block;
-  width: 64%;
-  max-width: 280px;
+  width: 78%;
   height: auto;
-  margin: 0 0 0 auto;
-  position: relative;
+  position: absolute;
+  right: -14%;
+  bottom: -8%;
   z-index: 3;
+  pointer-events: none;
 }
 
 
@@ -1116,10 +1117,8 @@ img.logo__mark { object-fit: contain; }
   .fv__cta { max-width: 520px; }
 
   /* 03 problems */
-  .problems { padding-top: 40px; }
-  .problems__visual { width: 42%; max-width: 420px; top: -16px; }
-  .problems__body { max-width: 52%; }
-  .problems__balloon { width: 46%; max-width: 320px; }
+  .problems { padding: 40px 0 16px; }
+  .problems__char { width: 34%; max-width: 260px; }
 
   /* 04 main services */
   .service-cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
