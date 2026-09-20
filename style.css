@@ -645,6 +645,31 @@ img.logo__mark { object-fit: contain; }
   pointer-events: none;
 }
 
+/* ---- モバイルのみ: ゴリラを大きく・左肩の透明部分をチェックリストに重ねる ----
+   PC/タブレット（min-width:768px）には影響させないため、ここに閉じる。
+   ゴリラ画像は親幅(.problems__char)より大きく描画して右へオーバーフローさせ、
+   .problems__char自体はtransformで左上に寄せて、透過した左肩をチェックリストに重ねる。 */
+@media (max-width: 767px) {
+  .problems__inner { align-items: flex-start; gap: 1%; }
+  .problems__char {
+    width: 40%;
+    max-width: 210px;
+    /* marginは.problems__body(flex-grow:1)に打ち消されるため、
+       レイアウトに影響しないtransformで左上に寄せる */
+    transform: translate(-46px, -8px);
+  }
+  .problems__gorilla {
+    width: 140%;
+    max-width: none;
+  }
+  .problems__balloon {
+    width: 68%;
+    right: -6%;
+    bottom: -2%;
+  }
+  .problems .heading .is-red { font-size: 1.13em; }
+}
+
 
 /* ============================================================
    04 | 主力サービス
