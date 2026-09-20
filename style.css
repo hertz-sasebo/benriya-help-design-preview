@@ -658,7 +658,7 @@ img.logo__mark { object-fit: contain; }
     max-width: 210px;
     /* marginは.problems__body(flex-grow:1)に打ち消されるため、
        レイアウトに影響しないtransformで左上に寄せる */
-    transform: translate(-46px, -8px);
+    transform: translate(-66px, -8px);
   }
   .problems__gorilla {
     width: 205%;
@@ -670,6 +670,14 @@ img.logo__mark { object-fit: contain; }
     bottom: -3%;
   }
   .problems .heading .is-red { font-size: 1.13em; }
+
+  /* チェックリスト: 文字を大きく・行間を広げる（下限は吹き出しの
+     「私たちが解決します！」の行付近） */
+  .problem-list { gap: 23px; }
+  .problem-list li {
+    font-size: clamp(13px, 3.4vw, 15px);
+    line-height: 1.5;
+  }
 }
 
 
@@ -1146,6 +1154,7 @@ img.logo__mark { object-fit: contain; }
   /* 03 problems */
   .problems { padding: 40px 0 16px; }
   .problems__char { width: 34%; max-width: 260px; }
+  .problems__break { display: none; }
 
   /* 04 main services */
   .service-cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
