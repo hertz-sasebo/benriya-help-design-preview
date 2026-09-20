@@ -651,6 +651,8 @@ img.logo__mark { object-fit: contain; }
    .problems__char自体はtransformで左上に寄せて、透過した左肩をチェックリストに重ねる。 */
 @media (max-width: 767px) {
   .problems__inner { align-items: flex-start; gap: 1%; }
+  /* ゴリラ(.problems__char)が前面に重なっても文字が隠れないよう、本文を最前面に */
+  .problems__body { position: relative; z-index: 5; }
   .problems__char {
     width: 40%;
     max-width: 210px;
@@ -659,13 +661,13 @@ img.logo__mark { object-fit: contain; }
     transform: translate(-46px, -8px);
   }
   .problems__gorilla {
-    width: 140%;
+    width: 205%;
     max-width: none;
   }
   .problems__balloon {
-    width: 68%;
-    right: -6%;
-    bottom: -2%;
+    width: 100%;
+    right: -18%;
+    bottom: -3%;
   }
   .problems .heading .is-red { font-size: 1.13em; }
 }
