@@ -658,8 +658,10 @@ img.logo__mark { object-fit: contain; }
     width: 40%;
     max-width: 210px;
     /* marginは.problems__body(flex-grow:1)に打ち消されるため、
-       レイアウトに影響しないtransformで左上に寄せる */
-    transform: translate(-66px, -8px);
+       レイアウトに影響しないtransformで左上に寄せる。
+       Y軸: ゴリラの下限ライン（ボディが切れるライン）を
+       チェックリスト最終行「いいかわからない」と同じ高さに揃える。 */
+    transform: translate(-66px, 25px);
   }
   .problems__gorilla {
     width: 205%;
