@@ -1156,18 +1156,90 @@ img.logo__mark { object-fit: contain; }
   .gnav__list li { border: none; }
   .gnav__list a { padding: 4px 0; }
 
-  /* 01 FV */
-  .fv { min-height: min(calc(100svh - 72px), 880px); padding: 16px 0 20px; }
-  .fv__inner {
-    max-width: 680px;
-    gap: clamp(10px, 1.8vh, 20px);
+  /* 01 FV ----------------------------------------------------------
+     PC専用: モバイルの縦積みをそのまま拡大するのではなく、
+     左＝情報／右＝ゴリラビジュアル の2カラム構成に再設計する。
+     モバイル側のルール（@media (max-width:767px) 含むベース値）は
+     一切変更していない。 */
+  .fv {
+    min-height: 0;
+    padding: 56px 0;
   }
-  .fv__cta { max-width: 520px; }
+  .fv__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 480px) minmax(0, 520px);
+    grid-template-rows: auto auto auto auto;
+    align-items: center;
+    column-gap: 56px;
+    row-gap: 22px;
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 40px;
+    overflow: visible;
+  }
+  .fv__title {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+  }
+  .fv__title-img--jp { width: 46%; }
+  .fv__title-img--help { width: 96%; }
+  .fv__price {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+    margin-top: 0;
+  }
+  .fv__cta {
+    grid-column: 1;
+    grid-row: 3;
+    max-width: 460px;
+    padding: 0;
+    margin-inline: 0;
+  }
+  .fv__scroll {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    align-self: end;
+    justify-self: center;
+  }
+  .fv__visual {
+    grid-column: 2;
+    grid-row: 1 / 5;
+    align-self: stretch;
+    min-height: 560px;
+    max-height: 640px;
+    margin-top: 0;
+  }
+  .fv__visual-bg {
+    top: 0;
+    height: 100%;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .fv__gorilla {
+    width: min(88%, 480px);
+  }
+  .fv__band {
+    bottom: 4%;
+    width: 88%;
+  }
 
-  /* 03 problems */
-  .problems { padding: 40px 0 16px; }
-  .problems__char { width: 34%; max-width: 260px; }
-  .problems__break { display: none; }
+  /* 03 problems ------------------------------------------------
+     PC専用: FVと同じ最大幅(1240px)の中央コンテナに合わせ、
+     チェックリスト（左）とゴリラ＋吹き出し（右）の2カラムを
+     はっきり分ける。ゴリラ＋吹き出しはモバイルより大きく表示。 */
+  .problems { padding: 64px 0; }
+  .problems__inner {
+    max-width: 1240px;
+    padding-inline: 40px;
+    gap: 6%;
+  }
+  .problems__body { max-width: 480px; }
+  .problems__body .heading { font-size: clamp(26px, 2.6vw, 34px); }
+  .problem-list li { font-size: 16px; }
+  .problems__char { width: 40%; max-width: 380px; }
 
   /* 04 main services */
   .service-cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
