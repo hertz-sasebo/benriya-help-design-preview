@@ -581,7 +581,8 @@ img.logo__mark { object-fit: contain; }
 .problems {
   position: relative;
   overflow: hidden;
-  padding: 28px 0 10px;
+  /* padding指定なし = .section の共通値(48px 0)を継承し、
+     他セクションとスクロール時の余白リズムを揃える。 */
 }
 .problems__inner {
   position: relative;
@@ -1059,7 +1060,7 @@ img.logo__mark { object-fit: contain; }
   border-radius: 0;
   min-height: 0;
   background: var(--black);
-  padding: 40px 0;
+  padding: 48px 0;   /* 他セクションのモバイル余白(48px)に揃える */
   display: block;
 }
 .final-cta__bg > .ph__label {
