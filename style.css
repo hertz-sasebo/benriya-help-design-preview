@@ -468,11 +468,11 @@ img.logo__mark { object-fit: contain; }
 .fv__band {
   position: absolute;
   left: 50%;
-  bottom: 8%;
+  bottom: -1%;   /* 背景赤の下端（直線の切れ目）を帯で隠す */
   z-index: 4;
   width: 96%;
   max-width: 400px;
-  transform: translateX(-50%) rotate(-1.5deg);
+  transform: translateX(-50%);
   background: var(--black);
   color: var(--white);
   text-align: center;
@@ -508,7 +508,6 @@ img.logo__mark { object-fit: contain; }
   color: var(--black);
   border: 2.5px solid var(--black);
   border-radius: 4px;
-  transform: rotate(-1.5deg);
 }
 .fv__price-label {
   font-family: var(--font-jp);
@@ -563,7 +562,6 @@ img.logo__mark { object-fit: contain; }
   animation: fv-scroll-blink 2s ease-in-out infinite;
   transition: opacity .15s ease-out;
 }
-.fv__scroll span { font-size: 16px; line-height: 1; }
 .fv__scroll.is-hidden {
   animation: none;
   opacity: 0;
