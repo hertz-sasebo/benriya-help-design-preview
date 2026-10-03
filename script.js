@@ -76,28 +76,31 @@
   });
 
   /* ---------- 4. 追従CTA ----------
-     FV を過ぎたら透過 → フェード表示。
-     よくある質問の末尾を画面下部が通過したらフェードで非表示。 */
+     FV を過ぎたら表示し、最終CTAセクションが画面に入ったら非表示。
+     IntersectionObserver で判定し、読み込み・復帰・回転時にも再判定する。 */
   var floatingCta = document.getElementById('floatingCta');
   var fv = document.getElementById('fv');
-  var faq = document.getElementById('faq');
+  var finalCta = document.getElementById('cta');
 
-  if (floatingCta && fv && faq) {
+  if (floatingCta && fv && finalCta) {
     var updateFloatingCta = function () {
-      var scrollY = window.pageYOffset;
-      var viewportBottom = scrollY + window.innerHeight;
-
-      var pastFirstView = scrollY > (fv.offsetTop + fv.offsetHeight - 80);
-      var faqBottom = faq.offsetTop + faq.offsetHeight;
-      var passedFaqEnd = viewportBottom > faqBottom;
-
-      var visible = pastFirstView && !passedFaqEnd;
+      var pastFv = fv.getBoundingClientRect().bottom < 80;
+      var ctaRect = finalCta.getBoundingClientRect();
+      var finalCtaInView = ctaRect.top < window.innerHeight && ctaRect.bottom > 0;
+      var visible = pastFv && !finalCtaInView;
       floatingCta.classList.toggle('is-visible', visible);
       floatingCta.setAttribute('aria-hidden', String(!visible));
     };
 
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(updateFloatingCta).observe(finalCta);
+    }
+
     window.addEventListener('scroll', updateFloatingCta, { passive: true });
     window.addEventListener('resize', updateFloatingCta);
+    window.addEventListener('orientationchange', updateFloatingCta);
+    window.addEventListener('pageshow', updateFloatingCta);
+    window.addEventListener('load', updateFloatingCta);
     updateFloatingCta();
   }
 
