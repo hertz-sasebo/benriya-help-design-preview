@@ -1863,3 +1863,8 @@ img.logo__mark { object-fit: contain; }
 @media (min-width: 768px) and (max-width: 959px) {
   .problems__balloon { right: 0; }
 }
+
+/* ---- 03 お困りごと（PC・タブレット）: ゴリラの肩の透過を解除し全体を表示 ---- */
+@media (min-width: 768px) {
+  .problems__gorilla { -webkit-mask-image: none; mask-image: none; }
+}
