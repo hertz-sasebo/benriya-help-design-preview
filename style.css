@@ -468,11 +468,11 @@ img.logo__mark { object-fit: contain; }
 .fv__band {
   position: absolute;
   left: 50%;
-  bottom: 8%;
+  bottom: -1%;   /* 背景赤の下端（直線の切れ目）を帯で隠す */
   z-index: 4;
   width: 96%;
   max-width: 400px;
-  transform: translateX(-50%) rotate(-1.5deg);
+  transform: translateX(-50%);
   background: var(--black);
   color: var(--white);
   text-align: center;
@@ -508,7 +508,6 @@ img.logo__mark { object-fit: contain; }
   color: var(--black);
   border: 2.5px solid var(--black);
   border-radius: 4px;
-  transform: rotate(-1.5deg);
 }
 .fv__price-label {
   font-family: var(--font-jp);
@@ -564,7 +563,6 @@ img.logo__mark { object-fit: contain; }
   animation: fv-scroll-blink 2s ease-in-out infinite;
   transition: opacity .15s ease-out;
 }
-.fv__scroll span { font-size: 16px; line-height: 1; }
 .fv__scroll.is-hidden {
   animation: none;
   opacity: 0;
@@ -584,7 +582,8 @@ img.logo__mark { object-fit: contain; }
 .problems {
   position: relative;
   overflow: hidden;
-  padding: 28px 0 10px;
+  /* padding指定なし = .section の共通値(48px 0)を継承し、
+     他セクションとスクロール時の余白リズムを揃える。 */
 }
 .problems__inner {
   position: relative;
@@ -631,9 +630,10 @@ img.logo__mark { object-fit: contain; }
   display: block;
   width: 100%;
   height: auto;
-  /* 左肩（画面左上）から背景へ、輪郭が出ないよう非常になだらかに透過させる */
-  -webkit-mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.08) 15%, rgba(0,0,0,.35) 25%, rgba(0,0,0,.7) 35%, #000 45%);
-          mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.08) 15%, rgba(0,0,0,.35) 25%, rgba(0,0,0,.7) 35%, #000 45%);
+  /* 左端は透明→中央付近で完全に不透明になる、柔らかい横方向グラデーション。
+     輪郭線がパキッと見えないよう直線的でなだらかなフェードにする。 */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 50%, #000 100%);
+          mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 50%, #000 100%);
 }
 .problems__balloon {
   display: block;
@@ -658,15 +658,18 @@ img.logo__mark { object-fit: contain; }
     width: 40%;
     max-width: 210px;
     /* marginは.problems__body(flex-grow:1)に打ち消されるため、
-       レイアウトに影響しないtransformで左上に寄せる */
-    transform: translate(-66px, -8px);
+       レイアウトに影響しないtransformで左上に寄せる。
+       Y軸: ゴリラの下限ライン（ボディが切れるライン）を
+       チェックリスト最終行「いいかわからない」と同じ高さに揃える。 */
+    transform: translate(-66px, 25px);
   }
   .problems__gorilla {
     width: 205%;
     max-width: none;
-    /* 左端は完全に透明、そこから中央にかけて輪郭が出ないようになだらかに復元 */
-    -webkit-mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.06) 18%, rgba(0,0,0,.3) 26%, rgba(0,0,0,.65) 34%, #000 44%);
-            mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.06) 18%, rgba(0,0,0,.3) 26%, rgba(0,0,0,.65) 34%, #000 44%);
+    /* 左端は透明→中央付近で完全に不透明になる、柔らかい横方向グラデーション。
+       輪郭線がパキッと見えないよう直線的でなだらかなフェードにする。 */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 50%, #000 100%);
+            mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 50%, #000 100%);
   }
   .problems__balloon {
     width: 100%;
@@ -1058,7 +1061,7 @@ img.logo__mark { object-fit: contain; }
   border-radius: 0;
   min-height: 0;
   background: var(--black);
-  padding: 40px 0;
+  padding: 48px 0;   /* 他セクションのモバイル余白(48px)に揃える */
   display: block;
 }
 .final-cta__bg > .ph__label {
@@ -1163,10 +1166,20 @@ img.logo__mark { object-fit: contain; }
   }
   .fv__cta { max-width: 640px; }
 
-  /* 03 problems */
-  .problems { padding: 40px 0 16px; }
-  .problems__char { width: 34%; max-width: 260px; }
-  .problems__break { display: none; }
+  /* 03 problems ------------------------------------------------
+     PC専用: FVと同じ最大幅(1240px)の中央コンテナに合わせ、
+     チェックリスト（左）とゴリラ＋吹き出し（右）の2カラムを
+     はっきり分ける。ゴリラ＋吹き出しはモバイルより大きく表示。 */
+  .problems { padding: 64px 0; }
+  .problems__inner {
+    max-width: 1240px;
+    padding-inline: 40px;
+    gap: 6%;
+  }
+  .problems__body { max-width: 480px; }
+  .problems__body .heading { font-size: clamp(26px, 2.6vw, 34px); }
+  .problem-list li { font-size: 16px; }
+  .problems__char { width: 40%; max-width: 380px; }
 
   /* 04 main services */
   .service-cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
