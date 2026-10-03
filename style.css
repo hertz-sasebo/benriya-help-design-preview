@@ -524,6 +524,7 @@ img.logo__mark { object-fit: contain; }
   letter-spacing: .01em;
 }
 .fv__price-num { color: var(--red); }   /* 電話CTAの赤と競合しないよう、料金は白地に赤の数字のみをアクセントに */
+.fv__badges { display: none; }   /* PC（960px以上）のみ表示 */
 
 /* ---- CTA（横並び） ---- */
 .fv__cta {
@@ -630,9 +631,9 @@ img.logo__mark { object-fit: contain; }
   display: block;
   width: 100%;
   height: auto;
-  /* 左肩（画面左上）から背景へ徐々に透過させる */
-  -webkit-mask-image: linear-gradient(115deg, transparent 0%, transparent 10%, #000 42%);
-          mask-image: linear-gradient(115deg, transparent 0%, transparent 10%, #000 42%);
+  /* 左肩（画面左上）から背景へ、輪郭が出ないよう非常になだらかに透過させる */
+  -webkit-mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.08) 15%, rgba(0,0,0,.35) 25%, rgba(0,0,0,.7) 35%, #000 45%);
+          mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.08) 15%, rgba(0,0,0,.35) 25%, rgba(0,0,0,.7) 35%, #000 45%);
 }
 .problems__balloon {
   display: block;
@@ -663,9 +664,9 @@ img.logo__mark { object-fit: contain; }
   .problems__gorilla {
     width: 205%;
     max-width: none;
-    /* 文字と重ならない範囲までは透明、そこから先は一気に色を復元（ハードエッジ） */
-    -webkit-mask-image: linear-gradient(115deg, transparent 0%, transparent 36%, #000 38%);
-            mask-image: linear-gradient(115deg, transparent 0%, transparent 36%, #000 38%);
+    /* 左端は完全に透明、そこから中央にかけて輪郭が出ないようになだらかに復元 */
+    -webkit-mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.06) 18%, rgba(0,0,0,.3) 26%, rgba(0,0,0,.65) 34%, #000 44%);
+            mask-image: linear-gradient(115deg, transparent 0%, rgba(0,0,0,.06) 18%, rgba(0,0,0,.3) 26%, rgba(0,0,0,.65) 34%, #000 44%);
   }
   .problems__balloon {
     width: 100%;
@@ -970,7 +971,7 @@ img.logo__mark { object-fit: contain; }
    10 | 対応エリア・会社情報
    ============================================================ */
 .area-company__inner { display: flex; flex-direction: column; gap: 36px; }
-.area__map { aspect-ratio: 4 / 3; width: 100%; max-width: 360px; margin-bottom: 14px; }
+.area__map { aspect-ratio: 1312 / 1199; width: 100%; max-width: 360px; margin-bottom: 14px; object-fit: contain; }
 .area__lead { margin-bottom: 16px; }
 
 .company-table { width: 100%; border-collapse: collapse; }
@@ -1131,6 +1132,7 @@ img.logo__mark { object-fit: contain; }
    モバイル構造を維持したまま横方向に自然に広げる。
    ============================================================ */
 @media (min-width: 768px) {
+  :root { --container: 1200px; --gutter: 32px; }
   html { scroll-padding-top: 80px; }
   .section { padding: 72px 0; }
   .heading { font-size: clamp(28px, 3.4vw, 36px); line-height: 1.4; }
@@ -1156,10 +1158,10 @@ img.logo__mark { object-fit: contain; }
   /* 01 FV */
   .fv { min-height: min(calc(100svh - 72px), 880px); padding: 16px 0 20px; }
   .fv__inner {
-    max-width: 680px;
+    max-width: 960px;
     gap: clamp(10px, 1.8vh, 20px);
   }
-  .fv__cta { max-width: 520px; }
+  .fv__cta { max-width: 640px; }
 
   /* 03 problems */
   .problems { padding: 40px 0 16px; }
@@ -1171,6 +1173,8 @@ img.logo__mark { object-fit: contain; }
 
   /* 05 other services */
   .mini-cards { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .cta-group { max-width: 600px; }
+  .area__map { max-width: 440px; }
 
   /* 06 reasons */
   .reason-cards { grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -1195,12 +1199,293 @@ img.logo__mark { object-fit: contain; }
   .area, .company { flex: 1 1 50%; }
 
   /* 11 faq */
-  .faq-list { max-width: 820px; margin-inline: auto; }
+  .faq-list { max-width: 960px; margin-inline: auto; }
   .faq-item__q { font-size: 16px; }
 
   /* 12 final cta */
   .final-cta__bg { padding: 64px 0; }
   .final-cta__copy { font-size: 30px; }
+}
+
+@media (min-width: 1024px) {
+  .mini-cards { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ---- 01 FV（PC専用の横長2カラム）----
+   左：見出し・帯・料金・特徴バッジ・CTA ／ 右：ゴリラ＋赤筆跡の大きなビジュアル。
+   .fv__visual は display:contents で解除し、背景・ゴリラ・帯を .fv__inner 基準で配置する。 */
+@media (min-width: 960px) {
+  .fv { padding: 16px 0 24px; }
+  .fv__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 45%) minmax(0, 1fr);
+    align-content: center;
+    justify-items: start;
+    row-gap: 20px;
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+    overflow: visible;
+    margin-inline: auto;
+  }
+  .fv__title,
+  .fv__band,
+  .fv__price,
+  .fv__badges,
+  .fv__cta,
+  .fv__scroll { grid-column: 1; }
+
+  .fv__title { width: 100%; padding: 0; overflow: visible; }
+  .fv__title-img--jp { width: 56%; margin: 0 0 -2% 0; }
+  .fv__title-img--help { width: 92%; max-width: none; margin: -3% 0 0 0; position: relative; z-index: 3; }
+
+  .fv__visual { display: contents; }
+  .fv__visual-bg {
+    top: 0;
+    left: calc(50% - 50vw + 30vw);
+    right: calc(50% - 50vw);
+    width: auto;
+    height: 100%;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 30%),
+      linear-gradient(to top, #000 0%, #000 70%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-image:
+      linear-gradient(to right, transparent 0%, #000 30%),
+      linear-gradient(to top, #000 0%, #000 70%, transparent 100%);
+            mask-composite: intersect;
+  }
+  .fv__gorilla {
+    left: auto;
+    right: 0;
+    bottom: 0;
+    width: min(54%, 640px);
+    transform: none;
+  }
+  .fv__band {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 580px;
+    font-size: 22px;
+    transform: rotate(-1.5deg);
+  }
+
+  .fv__price {
+    align-self: start;
+    margin: 0;
+    padding: 10px 40px 12px;
+  }
+  .fv__price-label { font-size: 16px; }
+  .fv__price-value { font-size: 60px; }
+
+  .fv__badges {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+  }
+  .fv__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--black);
+    font-family: var(--font-jp);
+    font-weight: var(--fw-heading-max);
+    font-size: 17px;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .fv__cta { position: relative; z-index: 3; max-width: 600px; width: 100%; padding: 0; }
+  .fv__cta .btn { min-height: 74px; font-size: 20px; }
+  .fv__scroll { display: none; }
+}
+
+/* ---- 03 お困りごと（PC専用の2カラム）---- */
+@media (min-width: 960px) {
+  .problems { padding: 60px 0; background: var(--gray); }
+  .problems__inner {
+    display: grid;
+    grid-template-columns: 56% 44%;
+    align-items: center;
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+    z-index: auto;
+  }
+  .problems__body { min-width: 0; }
+  .problems__body .heading {
+    font-size: clamp(32px, 3.3vw, 48px);
+    font-weight: 800;
+    line-height: 1.3;
+    white-space: nowrap;
+    margin-bottom: 44px;
+  }
+  .problems__body .heading br { display: none; }
+  .problem-list { margin-top: 0; gap: 26px; }
+  .problem-list li {
+    padding-left: 56px;
+    font-size: clamp(20px, 1.7vw, 26px);
+    line-height: 1.8;
+  }
+  .problem-list li::before {
+    top: 5px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    border-width: 2.5px;
+    border-radius: 6px;
+  }
+  .problems__char {
+    justify-self: center;
+    width: clamp(420px, 38vw, 560px);
+    max-width: 100%;
+  }
+  .problems__gorilla { mix-blend-mode: multiply; }
+  .problems__balloon { right: 0; bottom: -2%; }
+}
+
+/* ---- 04 主力サービス（PC専用：3枚の大きなカード）---- */
+@media (min-width: 960px) {
+  .main-services .container {
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .main-services .heading {
+    font-size: clamp(36px, 3.9vw, 60px);
+    font-weight: 900;
+    gap: 28px;
+    margin-bottom: 52px;
+  }
+  .main-services .heading--slash::before,
+  .main-services .heading--slash::after {
+    width: 96px;
+    height: 12px;
+  }
+  .service-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .service-card {
+    padding: 16px 16px 24px;
+    border-radius: 14px;
+  }
+  .service-card__img { border-radius: 10px; }
+  .service-card__name {
+    font-size: clamp(20px, 1.8vw, 26px);
+    margin: 20px 0 12px;
+  }
+  .service-card__price {
+    font-size: clamp(26px, 2.4vw, 34px);
+  }
+  .service-card__arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+/* ---- 05 その他のサービス / 06 選ばれる理由（PC専用：大きなカード）---- */
+@media (min-width: 960px) {
+  .other-services { padding: 64px 0; }
+  .other-services .container,
+  .reasons .container {
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .other-services .heading {
+    font-size: clamp(32px, 3.2vw, 46px);
+    font-weight: 900;
+    margin-bottom: 40px;
+  }
+  .mini-cards { gap: 20px; }
+  .mini-card {
+    gap: 16px;
+    padding: 28px 12px 24px;
+    border-radius: 12px;
+  }
+  .mini-card__icon {
+    width: 80px;
+    height: 80px;
+    padding: 14px;
+  }
+  .mini-card__name {
+    font-size: clamp(15px, 1.2vw, 17px);
+    white-space: nowrap;
+  }
+
+  .reasons { padding: 72px 0; }
+  .reasons .heading {
+    font-size: clamp(34px, 3.4vw, 50px);
+    font-weight: 900;
+    margin-bottom: 52px;
+  }
+  .reason-cards { gap: 24px; }
+  .reason-card {
+    gap: 20px;
+    padding: 40px 16px;
+    border-radius: 14px;
+  }
+  .reason-card__icon {
+    width: 96px;
+    height: 96px;
+    padding: 16px;
+  }
+  .reason-card__text {
+    font-size: clamp(20px, 1.7vw, 26px);
+    line-height: 1.5;
+  }
+}
+
+.price-panel__head,
+.price-panel__more { display: none; }
+.price-panel__label { display: inline; }
+
+/* ---- 07 作業実績（PC専用：大型の比較カード）---- */
+@media (min-width: 960px) {
+  .works .container {
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .works .heading {
+    font-size: clamp(32px, 3.2vw, 46px);
+    font-weight: 900;
+    gap: 28px;
+    margin-bottom: 52px;
+  }
+  .works .heading--slash::before,
+  .works .heading--slash::after {
+    width: 96px;
+    height: 12px;
+  }
+  .work-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .work-card {
+    padding: 20px 20px 24px;
+    border-radius: 14px;
+  }
+  .work-card__name {
+    font-size: clamp(20px, 1.8vw, 26px);
+    margin-bottom: 18px;
+  }
+  .work-card__compare { gap: 10px; }
+  .work-card__img { border-radius: 10px; }
+  .work-card__mid {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
 }
 
 
@@ -1209,4 +1494,356 @@ img.logo__mark { object-fit: contain; }
   html { scroll-behavior: auto; }
   * { transition: none !important; }
   .fv__scroll { animation: none !important; opacity: 1; }
+}
+
+/* ---- 08 料金一覧（PC専用：4枚の料金カード）---- */
+@media (min-width: 960px) {
+  .prices { padding: 72px 0; }
+  .prices .container {
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .prices .heading {
+    font-size: clamp(32px, 3.2vw, 46px);
+    font-weight: 900;
+    gap: 28px;
+    margin-bottom: 52px;
+  }
+  .prices .heading--slash::before,
+  .prices .heading--slash::after {
+    width: 96px;
+    height: 12px;
+  }
+  .price-tabs { display: none; }
+  .price-panels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    background: none;
+    border-radius: 0;
+  }
+  .price-panel,
+  .price-panel[hidden] {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 28px 24px 24px;
+    color: var(--black);
+  }
+  .price-panel__head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 18px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid var(--red);
+  }
+  .price-panel__name {
+    font-size: clamp(20px, 1.8vw, 26px);
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--black);
+  }
+  .price-panel__from {
+    font-family: var(--font-price);
+    font-size: clamp(30px, 2.8vw, 40px);
+    font-weight: var(--fw-heading-max);
+    line-height: 1.1;
+    color: var(--red);
+  }
+  .price-table th,
+  .price-table td { font-size: 15px; padding: 12px 4px; }
+  .price-panel__more {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0 0 14px;
+    padding: 6px 0;
+    background: none;
+    border: none;
+    font-family: var(--font-jp);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--red);
+    cursor: pointer;
+  }
+  .price-panel__label--close,
+  .prices.is-open .price-panel__label--open { display: none; }
+  .prices.is-open .price-panel__label--close { display: inline; }
+  .price-panel__arrow {
+    display: inline-block;
+    transition: transform .35s ease;
+  }
+  .prices.is-open .price-panel__arrow { transform: rotate(-90deg); }
+  .price-panel__detail {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows .35s ease, visibility .35s;
+  }
+  .prices.is-open .price-panel__detail {
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+  .price-panel__inner { min-height: 0; overflow: hidden; }
+  .price-panel__more:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+  .price-note { margin-top: 28px; font-size: 14px; }
+  .prices .section__more { margin-top: 36px; }
+}
+
+/* ---- 09 ご依頼の流れ（PC専用：横一列のフロー）---- */
+@media (min-width: 960px) {
+  .flow { padding: 72px 0; }
+  .flow .container {
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .flow .heading {
+    font-size: clamp(32px, 3.2vw, 46px);
+    font-weight: 900;
+    gap: 28px;
+    margin-bottom: 52px;
+  }
+  .flow .heading--slash::before,
+  .flow .heading--slash::after {
+    width: 96px;
+    height: 12px;
+  }
+  .flow-steps {
+    display: flex;
+    gap: 40px;
+    overflow: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+    justify-content: space-between;
+  }
+  .flow-step {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 16px;
+    padding: 32px 16px 36px;
+    border-radius: 14px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .flow-step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    top: 50%;
+    right: -34px;
+    transform: translate(50%, -50%);
+    font-family: var(--font-display);
+    font-size: 36px;
+    line-height: 1;
+    color: var(--red);
+  }
+  .flow-step__num {
+    font-size: clamp(40px, 3.6vw, 52px);
+    line-height: 1;
+    color: var(--red);
+  }
+  .flow-step__icon { width: 96px; height: 96px; padding: 18px; }
+  .flow-step__label {
+    font-size: clamp(18px, 1.6vw, 22px);
+    font-weight: 800;
+  }
+}
+
+/* ---- 10 対応エリア / 会社情報（PC専用：2カラム）---- */
+@media (min-width: 960px) {
+  .area-company { padding: 72px 0; }
+  .area-company .container {
+    width: min(92vw, 1280px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .area-company__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+  .area-company .heading {
+    font-size: clamp(30px, 2.8vw, 40px);
+    font-weight: 900;
+    margin-bottom: 32px;
+  }
+  .area__map {
+    max-width: 520px;
+    margin-bottom: 24px;
+  }
+  .area__lead {
+    font-size: clamp(17px, 1.4vw, 20px);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .company-table th,
+  .company-table td {
+    font-size: clamp(16px, 1.3vw, 19px);
+    padding: 18px 16px;
+    line-height: 1.6;
+  }
+  .company-table th { width: 30%; }
+}
+
+/* ---- 11 よくある質問（PC専用：広いFAQブロック）---- */
+@media (min-width: 960px) {
+  .faq { padding: 72px 0; }
+  .faq .container {
+    width: min(92vw, 1080px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .faq .heading {
+    font-size: clamp(30px, 2.8vw, 40px);
+    font-weight: 900;
+    margin-bottom: 36px;
+  }
+  .faq-list { max-width: none; gap: 16px; }
+  .faq-item__q {
+    min-height: 72px;
+    padding: 20px 28px;
+    font-size: clamp(17px, 1.4vw, 20px);
+  }
+  .faq-item__mark { font-size: 28px; }
+  .faq-item__a > p {
+    font-size: clamp(16px, 1.3vw, 18px);
+    margin: 0 28px;
+  }
+  .faq-item.is-open .faq-item__a > p { padding: 0 0 20px; }
+}
+
+/* ---- 12 CTA / Footer（PC専用）---- */
+.final-cta__brush,
+.final-cta__gorilla { display: none; }
+
+@media (min-width: 960px) {
+  .final-cta__bg {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0;
+  }
+  .final-cta__brush {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .55;
+    z-index: 0;
+  }
+  .final-cta__gorilla {
+    display: block;
+    position: absolute;
+    left: 6%;
+    bottom: 0;
+    height: 115%;
+    width: auto;
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.4));
+  }
+  .final-cta__inner {
+    width: min(92vw, 1280px);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 48px;
+  }
+  .final-cta__inner > .final-cta__copy { grid-column: 2; margin: 0; }
+  .final-cta__copy {
+    font-size: clamp(32px, 3.4vw, 50px);
+    line-height: 1.45;
+  }
+  .final-cta__inner .cta-group {
+    grid-column: 2;
+    max-width: 480px;
+    margin-inline: 0;
+    gap: 18px;
+  }
+  .final-cta__inner .btn { min-height: 76px; font-size: 20px; }
+  .final-cta__inner .btn__icon--phone { width: 30px; height: 30px; }
+
+  .site-footer { padding: 56px 0 40px; }
+  .site-footer__inner {
+    width: min(92vw, 1280px);
+    padding-inline: 0;
+  }
+  .site-footer__top {
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .fnav ul { gap: 14px 40px; }
+  .fnav a { font-size: 16px; }
+  .fnav__sub { margin-top: 24px; }
+  .fnav__sub a { font-size: 14px; }
+  .copyright { font-size: 13px; margin-top: 16px; }
+}
+
+/* ---- Footer（PC専用：横一列レイアウト）---- */
+@media (min-width: 960px) {
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px 48px;
+  }
+  .site-footer__top { display: contents; }
+  .site-footer .logo--footer { grid-column: 1; }
+  .site-footer .fnav { grid-column: 2; }
+  .site-footer .sns-list { grid-column: 3; justify-self: end; }
+  .site-footer .fnav ul { justify-content: center; }
+  .site-footer .fnav__sub {
+    grid-column: 1;
+    margin: 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .site-footer .copyright {
+    grid-column: 2 / 4;
+    justify-self: end;
+    margin: 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* ---- 固定CTAバー（PC専用：視認性を強化）---- */
+@media (min-width: 960px) {
+  .floating-cta { padding: 12px 24px; }
+  .floating-cta__inner {
+    max-width: 760px;
+    justify-content: center;
+    gap: 16px;
+  }
+  .floating-cta .btn {
+    flex: 0 0 340px;
+    min-height: 64px;
+    font-size: 18px;
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .floating-cta .btn:hover {
+    transform: scale(1.02);
+    filter: brightness(1.08);
+    box-shadow: 0 6px 16px rgba(0,0,0,.2);
+  }
+  .floating-cta .btn__icon { min-width: 26px; height: 26px; font-size: 11px; }
+  .floating-cta .btn__icon--phone { min-width: 22px; width: 22px; height: 22px; }
+}
+
+/* ---- CTA内ゴリラ：CTA枠内に収める ---- */
+@media (min-width: 960px) {
+  .final-cta__gorilla {
+    height: 92%;
+    bottom: 6%;
+  }
 }

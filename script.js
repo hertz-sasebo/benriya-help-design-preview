@@ -51,6 +51,19 @@
     });
   });
 
+  /* ---------- 2-2. 料金カード詳細の開閉（PC） ---------- */
+  var pricesSection = document.querySelector('.prices');
+  var priceDetailButtons = document.querySelectorAll('.price-panel__more');
+
+  priceDetailButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var open = pricesSection.classList.toggle('is-open');
+      priceDetailButtons.forEach(function (b) {
+        b.setAttribute('aria-expanded', String(open));
+      });
+    });
+  });
+
   /* ---------- 3. よくある質問アコーディオン ---------- */
   var faqButtons = document.querySelectorAll('.faq-item__q');
 

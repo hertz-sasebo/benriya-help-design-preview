@@ -66,6 +66,12 @@
         <span class="fv__price-value"><span class="fv__price-num">8,000</span>円〜</span>
       </p>
 
+      <ul class="fv__badges">
+        <li class="fv__badge">見積<br>無料</li>
+        <li class="fv__badge">即日<br>対応</li>
+        <li class="fv__badge">100件以上の<br>対応実績</li>
+      </ul>
+
       <div class="fv__cta">
         <a href="#" class="btn btn--tel">
           <span class="btn__icon btn__icon--phone" aria-hidden="true"><i class="icon" style="--icon:url(images/icons/phone.svg)"></i></span>
@@ -265,6 +271,9 @@
 
       <div class="price-panels">
         <div class="price-panel is-active" id="price-ac" role="tabpanel">
+          <p class="price-panel__head"><span class="price-panel__name">エアコン清掃</span><span class="price-panel__from">8,000円〜</span></p>
+          <button type="button" class="price-panel__more" aria-expanded="false" aria-controls="price-ac-detail"><span class="price-panel__label price-panel__label--open">詳細を見る</span><span class="price-panel__label price-panel__label--close">詳細を閉じる</span><span class="price-panel__arrow" aria-hidden="true">→</span></button>
+          <div class="price-panel__detail" id="price-ac-detail"><div class="price-panel__inner">
           <table class="price-table">
             <tbody>
               <tr><th>壁掛けエアコン（お掃除機能なし）</th><td>8,000円〜</td></tr>
@@ -273,9 +282,13 @@
               <tr><th>室外機洗浄</th><td>3,000円</td></tr>
             </tbody>
           </table>
+          </div></div>
         </div>
 
         <div class="price-panel" id="price-waste" role="tabpanel" hidden>
+          <p class="price-panel__head"><span class="price-panel__name">不用品処分</span><span class="price-panel__from">8,000円〜</span></p>
+          <button type="button" class="price-panel__more" aria-expanded="false" aria-controls="price-waste-detail"><span class="price-panel__label price-panel__label--open">詳細を見る</span><span class="price-panel__label price-panel__label--close">詳細を閉じる</span><span class="price-panel__arrow" aria-hidden="true">→</span></button>
+          <div class="price-panel__detail" id="price-waste-detail"><div class="price-panel__inner">
           <table class="price-table">
             <tbody>
               <tr><th>家庭用不用品回収</th><td>8,000円〜</td></tr>
@@ -284,8 +297,12 @@
               <tr><th>駐車場なし運び出し</th><td>3,000円／人</td></tr>
             </tbody>
           </table>
+          </div></div>
         </div>
         <div class="price-panel" id="price-house" role="tabpanel" hidden>
+          <p class="price-panel__head"><span class="price-panel__name">ハウスクリーニング</span><span class="price-panel__from">15,000円〜</span></p>
+          <button type="button" class="price-panel__more" aria-expanded="false" aria-controls="price-house-detail"><span class="price-panel__label price-panel__label--open">詳細を見る</span><span class="price-panel__label price-panel__label--close">詳細を閉じる</span><span class="price-panel__arrow" aria-hidden="true">→</span></button>
+          <div class="price-panel__detail" id="price-house-detail"><div class="price-panel__inner">
           <table class="price-table">
             <tbody>
               <tr><th>1K・1R</th><td>15,000円〜</td></tr>
@@ -295,8 +312,12 @@
               <tr><th>一戸建／その他</th><td>要相談</td></tr>
             </tbody>
           </table>
+          </div></div>
         </div>
         <div class="price-panel" id="price-grass" role="tabpanel" hidden>
+          <p class="price-panel__head"><span class="price-panel__name">草刈り</span><span class="price-panel__from">8,000円〜</span></p>
+          <button type="button" class="price-panel__more" aria-expanded="false" aria-controls="price-grass-detail"><span class="price-panel__label price-panel__label--open">詳細を見る</span><span class="price-panel__label price-panel__label--close">詳細を閉じる</span><span class="price-panel__arrow" aria-hidden="true">→</span></button>
+          <div class="price-panel__detail" id="price-grass-detail"><div class="price-panel__inner">
           <table class="price-table">
             <tbody>
               <tr><th>草刈り</th><td>8,000円〜</td></tr>
@@ -304,6 +325,7 @@
               <tr><th>除草剤（要お見積り）</th><td>100円〜200円／㎡</td></tr>
             </tbody>
           </table>
+          </div></div>
         </div>
       </div>
 
@@ -361,11 +383,8 @@
     <div class="container area-company__inner">
       <div class="area">
         <h2 class="heading heading--plain">対応エリア</h2>
-        <div class="ph area__map" role="img" aria-label="対応エリアマップ（画像プレースホルダー）">
-          <span class="ph__label">[ AREA MAP ]</span>
-        </div>
+        <img class="area__map" src="images/area-map.png" alt="長崎県の対応エリアマップ">
         <p class="area__lead"><b>佐世保市中心</b><br>長崎県内のご依頼に対応しています。</p>
-        <a href="#" class="btn btn--outline btn--sm">対応エリアを詳しく見る <span aria-hidden="true">→</span></a>
       </div>
 
       <div class="company">
@@ -432,7 +451,8 @@
        ============================================================ -->
   <section id="cta" class="section final-cta">
     <div class="final-cta__bg ph" role="img" aria-label="背景ビジュアル（画像プレースホルダー）">
-      <span class="ph__label">[ CTA BACKGROUND VISUAL ]</span>
+      <img class="final-cta__brush" src="images/fv-bg-red.svg" alt="" aria-hidden="true">
+      <img class="final-cta__gorilla" src="images/fv-gorilla.png" alt="" aria-hidden="true">
 
       <div class="container final-cta__inner">
         <p class="final-cta__copy">暮らしの「<span class="is-red">困った</span>」は、<br><span class="acc">HELP</span>にお任せください！</p>
