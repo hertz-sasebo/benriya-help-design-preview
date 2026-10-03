@@ -46,6 +46,7 @@
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 
 body {
+  padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   font-family: var(--font-jp);
   font-weight: var(--fw-body);
   color: var(--text);
@@ -236,12 +237,15 @@ ul, ol { list-style: none; }
   box-shadow: 0 -4px 18px rgba(0, 0, 0, .12);
   padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity .4s ease;
+  transition: opacity .4s ease, visibility 0s linear .4s;
 }
 .floating-cta.is-visible {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity .4s ease, visibility 0s;
 }
 .floating-cta__inner {
   display: flex;
