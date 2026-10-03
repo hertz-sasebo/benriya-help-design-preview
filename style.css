@@ -1559,6 +1559,9 @@ img.logo__mark { object-fit: contain; }
     line-height: 1.3;
     color: var(--black);
   }
+  @media (max-width: 1199px) {
+    .price-panel__name { min-height: 2.6em; }
+  }
   .price-panel__from {
     font-family: var(--font-price);
     font-size: clamp(30px, 2.8vw, 40px);
@@ -1859,4 +1862,9 @@ img.logo__mark { object-fit: contain; }
     height: 92%;
     bottom: 6%;
   }
+}
+
+/* ---- 03 お困りごと（タブレット 768〜959px）: 吹き出しを列内に収める ---- */
+@media (min-width: 768px) and (max-width: 959px) {
+  .problems__balloon { right: 0; }
 }
