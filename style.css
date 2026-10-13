@@ -1230,8 +1230,19 @@ img.logo__mark { object-fit: contain; }
   /* 04 main services */
   .service-cards { grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
-  /* 05 other services */
-  .mini-cards { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  /* 05 other services ------------------------------------------
+     タブレット(768〜1023px): 「アイコン一覧」のサイズ感にするため、
+     主力サービス/作業実績などの大きなカード幅(1280px)とは別に、
+     グリッド自体に狭い最大幅を設けて中央寄せする。 */
+  .other-services .container {
+    width: min(92vw, 600px);
+    max-width: none;
+    padding-inline: 0;
+  }
+  .mini-cards { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .mini-card { padding: 20px 12px; }
+  .mini-card__icon { width: 44px; height: 44px; padding: 8px; }
+  .mini-card__name { font-size: 14px; }
   .cta-group { max-width: 600px; }
   .area__map { max-width: 440px; }
 
@@ -1269,8 +1280,14 @@ img.logo__mark { object-fit: contain; }
 }
 
 @media (min-width: 1024px) {
-  /* 12項目を4列×3行で表示（スマホ/タブレットは3列×4行） */
-  .mini-cards { grid-template-columns: repeat(4, 1fr); }
+  /* 12項目を4列×3行で表示（スマホ/タブレットは3列×4行）。
+     PCでもグリッド幅を840pxに抑え、アイコン一覧として
+     見えるサイズ感を維持する。 */
+  .other-services .container { width: min(92vw, 840px); }
+  .mini-cards { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .mini-card { padding: 24px 12px; }
+  .mini-card__icon { width: 48px; height: 48px; padding: 8px; }
+  .mini-card__name { font-size: 15px; }
 }
 
 /* ---- 01 FV（PC専用の横長2カラム）----
@@ -1455,10 +1472,11 @@ img.logo__mark { object-fit: contain; }
   }
 }
 
-/* ---- 05 その他のサービス / 06 選ばれる理由（PC専用：大きなカード）---- */
+/* ---- 05 その他のサービス（見出しサイズのみ。タイル/グリッド幅は
+   768px・1024pxブロックで別途スコープ済み）/ 06 選ばれる理由
+   （PC専用：大きなカード）---- */
 @media (min-width: 960px) {
   .other-services { padding: 64px 0; }
-  .other-services .container,
   .reasons .container {
     width: min(92vw, 1280px);
     max-width: none;
@@ -1468,20 +1486,6 @@ img.logo__mark { object-fit: contain; }
     font-size: clamp(32px, 3.2vw, 46px);
     font-weight: 900;
     margin-bottom: 40px;
-  }
-  .mini-cards { gap: 20px; }
-  .mini-card {
-    gap: 16px;
-    padding: 28px 12px 24px;
-    border-radius: 12px;
-  }
-  .mini-card__icon {
-    width: 80px;
-    height: 80px;
-    padding: 14px;
-  }
-  .mini-card__name {
-    font-size: clamp(15px, 1.2vw, 17px);
   }
   .other-services__more { font-size: 18px; padding: 20px 24px; }
 
