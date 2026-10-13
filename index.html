@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260929-6">
+<link rel="stylesheet" href="style.css?v=20261013-1">
 </head>
 <body>
 
@@ -222,6 +222,8 @@
     <div class="container">
       <h2 class="heading heading--slash">作業実績</h2>
 
+      <!-- PC・タブレット：1ページ3ボックス×3ページ / スマホ：1ページ2ボックス×4ページ -->
+      <div class="works-carousel" data-works-carousel>
       <div class="work-cards">
         <article class="work-card">
           <h3 class="work-card__name">換気扇</h3>
@@ -241,7 +243,7 @@
           </div>
         </article>
 
-        <article class="work-card">
+        <article class="work-card work-card--pc-only">
           <h3 class="work-card__name">不用品処分</h3>
           <div class="work-card__compare">
             <img src="images/works/waste-before.jpg" alt="不用品処分 施工前" class="work-card__img">
@@ -249,7 +251,67 @@
             <img src="images/works/waste-after.jpg" alt="不用品処分 施工後" class="work-card__img">
           </div>
         </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">キッチン</h3>
+          <div class="work-card__compare">
+            <img src="images/works/kitchen-before.jpg" alt="キッチン 施工前" class="work-card__img" loading="lazy">
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <img src="images/works/kitchen-after.jpg" alt="キッチン 施工後" class="work-card__img" loading="lazy">
+          </div>
+        </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">浴室</h3>
+          <div class="work-card__compare">
+            <img src="images/works/bath-before.jpg" alt="浴室 施工前" class="work-card__img" loading="lazy">
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <img src="images/works/bath-after.jpg" alt="浴室 施工後" class="work-card__img" loading="lazy">
+          </div>
+        </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">トイレ</h3>
+          <div class="work-card__compare">
+            <img src="images/works/toilet-before.jpg" alt="トイレ 施工前" class="work-card__img" loading="lazy">
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <img src="images/works/toilet-after.jpg" alt="トイレ 施工後" class="work-card__img" loading="lazy">
+          </div>
+        </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">窓清掃</h3>
+          <div class="work-card__compare">
+            <img src="images/works/window-before.jpg" alt="窓清掃 施工前" class="work-card__img" loading="lazy">
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <img src="images/works/window-after.jpg" alt="窓清掃 施工後" class="work-card__img" loading="lazy">
+          </div>
+        </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">タイルカーペット施工</h3>
+          <div class="work-card__compare">
+            <img src="images/works/carpet-before.jpg" alt="タイルカーペット施工 施工前" class="work-card__img" loading="lazy">
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <img src="images/works/carpet-after.jpg" alt="タイルカーペット施工 施工後" class="work-card__img" loading="lazy">
+          </div>
+        </article>
+
+        <article class="work-card">
+          <h3 class="work-card__name">家具組み立て</h3>
+          <div class="work-card__compare">
+            <img src="images/works/furniture-before.jpg" alt="家具組み立て 施工前" class="work-card__img" loading="lazy">
+            <span class="work-card__mid" aria-hidden="true">▶</span>
+            <img src="images/works/furniture-after.jpg" alt="家具組み立て 施工後" class="work-card__img" loading="lazy">
+          </div>
+        </article>
       </div>
+      <div class="works-carousel__controls">
+        <button type="button" class="works-carousel__arrow works-carousel__arrow--prev" aria-label="前の実績へ">&#9664;</button>
+        <div class="works-carousel__dots"></div>
+        <button type="button" class="works-carousel__arrow works-carousel__arrow--next" aria-label="次の実績へ">&#9654;</button>
+      </div>
+      </div><!-- /.works-carousel -->
     </div>
   </section>
 
@@ -520,6 +582,6 @@
   </div>
 </div>
 
-<script src="script.js?v=20260913-1"></script>
+<script src="script.js?v=20261013-1"></script>
 </body>
 </html>

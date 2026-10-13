@@ -1501,6 +1501,110 @@ img.logo__mark { object-fit: contain; }
     font-size: 18px;
   }
 }
+/* ---- 07 作業実績カルーセル ----
+   スマホ：1ページ2ボックス（縦積み）×4ページ / 768px以上：1ページ3ボックス×3ページ。
+   スマホでは .work-card--pc-only を非表示にして8ボックスにする。
+   矢印・ドットのページ送りは script.js（6. 作業実績カルーセル）で行う。 */
+.works-carousel .work-cards {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-columns: 100%;
+  column-gap: 16px;
+  row-gap: 18px;
+  padding: 4px 0 10px;   /* カードの影が切れないように */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.works-carousel .work-cards::-webkit-scrollbar { display: none; }
+.works-carousel .work-card {
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.works-carousel__controls { display: none; }
+.works-carousel.is-ready .works-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+.works-carousel__arrow { display: none; }
+.works-carousel__dots {
+  display: flex;
+  justify-content: center;
+}
+.works-carousel__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.works-carousel__dot::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background .2s ease;
+}
+.works-carousel__dot.is-active::before { background: var(--red); }
+
+@media (max-width: 767px) {
+  .works-carousel .work-card--pc-only { display: none; }
+}
+
+@media (min-width: 768px) {
+  .works-carousel .work-cards {
+    grid-template-rows: auto;
+    grid-auto-columns: calc((100% - 2 * 18px) / 3);
+    column-gap: 18px;
+  }
+  .works-carousel .work-card { scroll-snap-align: none; }
+  .works-carousel .work-card:nth-child(3n+1) { scroll-snap-align: start; }
+  .works-carousel.is-ready .works-carousel__controls { margin-top: 16px; }
+  .works-carousel__arrow {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--white);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background .2s ease, opacity .2s ease;
+  }
+  .works-carousel__arrow:hover { background: var(--red-dark); }
+  .works-carousel__arrow:disabled {
+    opacity: .3;
+    cursor: default;
+  }
+  .works-carousel__arrow:disabled:hover { background: var(--red); }
+}
+
+@media (min-width: 960px) {
+  .works-carousel .work-cards {
+    grid-auto-columns: calc((100% - 2 * 32px) / 3);
+    column-gap: 32px;
+  }
+}
+
 
 
 /* ---------- reduce motion ---------- */
