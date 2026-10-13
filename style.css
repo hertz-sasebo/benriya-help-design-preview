@@ -918,8 +918,11 @@ img.logo__mark { object-fit: contain; }
 .price-table td {
   text-align: right;
   white-space: nowrap;
-  font-family: var(--font-price);   /* 8,000 = Anton / 円〜・要相談 = Noto（通常より細めの700） */
-  font-weight: var(--fw-label);
+  /* 8,000 = Anton（既存のまま）/ 円〜・要相談 = Zen Kaku Gothic New。
+     ウェイトは900のまま、Noto Sans JPより字面が細いフォントに
+     差し替えて「太すぎる」印象を解消する。 */
+  font-family: "Anton", "Zen Kaku Gothic New", var(--font-jp);
+  font-weight: var(--fw-heading-max);
   letter-spacing: .01em;
   color: var(--red);
   padding-left: 12px;
@@ -1622,7 +1625,10 @@ img.logo__mark { object-fit: contain; }
 @media (min-width: 960px) {
   .prices { padding: 72px 0; }
   .prices .container {
-    width: min(92vw, 1280px);
+    /* FAQなど単一カラムのセクションと同じ幅基準(1080px)に揃える。
+       以前の1280px+内側640px制限だと、他セクションと比べて
+       ボックスが狭く見えていたため統一。 */
+    width: min(92vw, 1080px);
     max-width: none;
     padding-inline: 0;
   }
@@ -1637,8 +1643,6 @@ img.logo__mark { object-fit: contain; }
     width: 96px;
     height: 12px;
   }
-  .price-tabs { max-width: 640px; margin-inline: auto; }
-  .price-panels { max-width: 640px; margin-inline: auto; }
   .price-table th,
   .price-table td { font-size: 16px; padding: 18px 6px; }
   .price-note { margin-top: 28px; font-size: 14px; }
