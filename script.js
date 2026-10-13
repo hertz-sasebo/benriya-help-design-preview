@@ -125,7 +125,8 @@
   /* ---------- 6. 作業実績カルーセル ----------
      1ページのボックス数（スマホ2 / 768px以上3）は CSS のグリッドで決まる。
      ここでは矢印・ドットのページ送りと、スワイプ後の現在ページ表示を行い、
-     画面幅が変わったら表示中の先頭ボックスを含むページに合わせ直す。 */
+     画面幅が変わったら表示中の先頭ボックスを含むページに合わせ直す。
+     1秒ごとに自動でページを送る（操作中は停止）。 */
   var worksCarousel = document.querySelector('[data-works-carousel]');
 
   if (worksCarousel) {
@@ -221,7 +222,41 @@
     window.addEventListener('resize', onWorksResize);
     window.addEventListener('orientationchange', onWorksResize);
 
+    // 自動スワイプ：1秒ごとに次のページへ（最後のページの次は1ページ目）。
+    // マウスを乗せている間・タッチ中・キーボード操作中は止める。
+    // 「視差効果を減らす」設定の端末では自動で動かさない。
+    var WORKS_AUTOPLAY_MS = 1000;
+    var worksAutoplayTimer = null;
+    var worksPause = { hover: false, touch: false, focus: false };
+
+    var startWorksAutoplay = function () {
+      clearInterval(worksAutoplayTimer);
+      if (worksPause.hover || worksPause.touch || worksPause.focus || reduceMotion.matches) { return; }
+      worksAutoplayTimer = setInterval(function () {
+        goTo(current >= worksDots.children.length - 1 ? 0 : current + 1, true);
+      }, WORKS_AUTOPLAY_MS);
+    };
+    var setWorksPause = function (reason, value) {
+      worksPause[reason] = value;
+      startWorksAutoplay();
+    };
+
+    worksCarousel.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'mouse') { setWorksPause('hover', true); }
+    });
+    worksCarousel.addEventListener('pointerleave', function (e) {
+      if (e.pointerType === 'mouse') { setWorksPause('hover', false); }
+    });
+    worksCarousel.addEventListener('touchstart', function () { setWorksPause('touch', true); }, { passive: true });
+    worksCarousel.addEventListener('touchend', function () { setWorksPause('touch', false); });
+    worksCarousel.addEventListener('touchcancel', function () { setWorksPause('touch', false); });
+    worksCarousel.addEventListener('focusin', function (e) {
+      if (e.target.matches(':focus-visible')) { setWorksPause('focus', true); }
+    });
+    worksCarousel.addEventListener('focusout', function () { setWorksPause('focus', false); });
+
     buildWorks();
     worksCarousel.classList.add('is-ready');
+    startWorksAutoplay();
   }
 })();
