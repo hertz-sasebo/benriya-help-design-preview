@@ -758,27 +758,68 @@ img.logo__mark { object-fit: contain; }
    ============================================================ */
 .mini-cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 .mini-card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   background: var(--gray);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 20px 10px;
   text-align: center;
+  /* グリッドアイテムのデフォルトmin-width:autoのままだと、
+     長い語句チャンクの内容幅にグリッド列が引っ張られて
+     はみ出すため、明示的に0にして正しく縮小・折り返しさせる。 */
+  min-width: 0;
 }
 .mini-card__icon {
   width: 54px;
   height: 54px;
   padding: 8px;
   color: var(--black);
+  flex-shrink: 0;
 }
-.mini-card__name { font-size: 15px; font-weight: var(--fw-heading); line-height: 1.4; }
+/* テキスト領域は常に2行分の高さを確保し、1行の項目は
+   その中で上下中央に揃える（全タイルの高さを統一するため）。 */
+.mini-card__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 2.8em;
+  font-size: 15px;
+  font-weight: var(--fw-heading);
+  line-height: 1.4;
+  text-align: center;
+}
+/* 単語の途中で折り返さないよう、意味の区切りでinline-blockにする。
+   inline-blockだけでは日本語の文字間で内部改行されてしまうため、
+   white-space:nowrapも併用し語句内の改行を禁止する
+   （語句間の半角スペースでのみ改行される）。 */
+.mini-card__word { display: inline-block; white-space: nowrap; }
+
+/* ---- 「その他」帯（CTA）: グリッドの下に赤系の帯として配置 ---- */
+.other-services__more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 18px 20px;
+  background: var(--red);
+  color: var(--white);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: var(--fw-heading);
+  text-align: center;
+}
 
 
 /* ============================================================
@@ -1228,7 +1269,8 @@ img.logo__mark { object-fit: contain; }
 }
 
 @media (min-width: 1024px) {
-  .mini-cards { grid-template-columns: repeat(6, 1fr); }
+  /* 12項目を4列×3行で表示（スマホ/タブレットは3列×4行） */
+  .mini-cards { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* ---- 01 FV（PC専用の横長2カラム）----
@@ -1440,8 +1482,8 @@ img.logo__mark { object-fit: contain; }
   }
   .mini-card__name {
     font-size: clamp(15px, 1.2vw, 17px);
-    white-space: nowrap;
   }
+  .other-services__more { font-size: 18px; padding: 20px 24px; }
 
   .reasons { padding: 72px 0; }
   .reasons .heading {
