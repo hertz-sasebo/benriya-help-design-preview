@@ -5,6 +5,7 @@
    3. よくある質問アコーディオン
    4. 追従CTA / 5. FVのSCROLL誘導
    6. 作業実績カルーセル
+   7. オープニングローダー
    ============================================================ */
 (function () {
   'use strict';
@@ -245,5 +246,155 @@
     buildWorks();
     worksCarousel.classList.add('is-ready');
     startWorksAutoplay();
+  }
+
+  /* ---------- 7. オープニングローダー ----------
+     ゲージ（円・2秒）→ 決め台詞（困ったら、HELP。）→ フェードアウト、
+     合計4秒前後の演出。ゴリラ画像をゲージの先端に乗せて円周を一周させる。
+     参考実装: hertz-sasebo/HOME-PAGE の #loader と同じ仕組み
+     （SVG circle の stroke-dasharray/dashoffset を rAF + easeInOutCubic
+     で進行させ、カウンターを同期表示）。
+     ・同一セッション中の2回目以降はsessionStorageでスキップ
+     ・画面タップ/SKIPボタンで即フェードアウト
+     ・prefers-reduced-motion: reduce では表示しない ---------- */
+  var openingLoader = document.getElementById('openingLoader');
+
+  if (openingLoader) {
+    var LOADER_SESSION_KEY = 'helpOpeningLoaderShown';
+    var loaderReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var loaderAlreadyShown = false;
+    try { loaderAlreadyShown = sessionStorage.getItem(LOADER_SESSION_KEY) === '1'; } catch (e) {}
+
+    if (loaderReduceMotion || loaderAlreadyShown) {
+      openingLoader.parentNode.removeChild(openingLoader);
+    } else {
+      try { sessionStorage.setItem(LOADER_SESSION_KEY, '1'); } catch (e) {}
+
+      (function () {
+        var ringWrap = document.getElementById('openingLoaderRingWrap');
+        var arc      = document.getElementById('openingLoaderArc');
+        var mark     = document.getElementById('openingLoaderMark');
+        var gorilla  = document.getElementById('openingLoaderGorilla');
+        var counter  = document.getElementById('openingLoaderCounter');
+        var jpImg    = document.getElementById('openingLoaderJp');
+        var helpImg  = document.getElementById('openingLoaderHelp');
+        var skipBtn  = document.getElementById('openingLoaderSkip');
+
+        var RADIUS = 42; // SVGのcx/cy/rと一致させる（viewBox 0 0 100 100）
+        var CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+        arc.style.strokeDasharray = String(CIRCUMFERENCE);
+        arc.style.strokeDashoffset = String(CIRCUMFERENCE);
+
+        // ローダー表示中は背面をスクロールさせない
+        var htmlEl = document.documentElement;
+        var prevHtmlOverflow = htmlEl.style.overflow;
+        var prevBodyOverflow = document.body.style.overflow;
+        htmlEl.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        function restoreScroll() {
+          htmlEl.style.overflow = prevHtmlOverflow;
+          document.body.style.overflow = prevBodyOverflow;
+        }
+
+        var GAUGE_DURATION = 2000;
+        var finished = false;
+        var rafId = null;
+        var timers = [];
+        function setLoaderTimer(fn, delay) {
+          var id = setTimeout(fn, delay);
+          timers.push(id);
+          return id;
+        }
+        function clearLoaderTimers() {
+          timers.forEach(function (id) { clearTimeout(id); });
+          timers = [];
+        }
+
+        // easeInOutCubic
+        function ease(t) {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        // 進捗p(0〜1)から円周上の座標を計算し、ゴリラを正立のまま配置する。
+        // 開始位置は12時(-90deg)、時計回りに一周。
+        function placeGorilla(p) {
+          var size = ringWrap.getBoundingClientRect().width;
+          if (!size) { return; }
+          var r = size / 2 - 6;
+          var angle = (-90 + p * 360) * Math.PI / 180;
+          var dx = r * Math.cos(angle);
+          var dy = r * Math.sin(angle);
+          gorilla.style.transform = 'translate(-50%, -50%) translate(' + dx + 'px, ' + dy + 'px)';
+        }
+        placeGorilla(0);
+
+        function startGauge() {
+          var startTime = null;
+          function tick(ts) {
+            if (finished) { return; }
+            if (!startTime) { startTime = ts; }
+            var raw = Math.min((ts - startTime) / GAUGE_DURATION, 1);
+            var p = ease(raw);
+            arc.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - p));
+            counter.textContent = String(Math.floor(p * 100)).padStart(3, '0') + '%';
+            placeGorilla(p);
+            if (raw < 1) {
+              rafId = requestAnimationFrame(tick);
+            } else {
+              arc.style.strokeDashoffset = '0';
+              counter.textContent = '100%';
+              placeGorilla(1);
+              setLoaderTimer(showCopy, 200);
+            }
+          }
+          rafId = requestAnimationFrame(tick);
+        }
+
+        function showCopy() {
+          counter.classList.add('is-hidden');
+          mark.classList.add('is-lit');
+          jpImg.classList.add('is-revealed');
+          setLoaderTimer(function () { helpImg.classList.add('is-revealed'); }, 450);
+          setLoaderTimer(finish, 450 + 350 + 600);
+        }
+
+        function finish() {
+          if (finished) { return; }
+          finished = true;
+          if (rafId) { cancelAnimationFrame(rafId); }
+          clearLoaderTimers();
+          restoreScroll();
+          openingLoader.classList.add('is-done');
+          openingLoader.addEventListener('transitionend', removeLoader, { once: true });
+          // transitionendが発火しない環境向けの保険
+          setTimeout(removeLoader, 900);
+        }
+        function removeLoader() {
+          if (openingLoader.parentNode) { openingLoader.parentNode.removeChild(openingLoader); }
+        }
+
+        openingLoader.addEventListener('click', finish);
+        skipBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          finish();
+        });
+
+        // ゴリラ・決め台詞画像の読み込みを待つ（最大1.5秒）
+        var sources = [gorilla.getAttribute('src'), jpImg.getAttribute('src'), helpImg.getAttribute('src')];
+        var loadPromises = sources.map(function (src) {
+          return new Promise(function (resolve) {
+            var img = new Image();
+            img.onload = resolve;
+            img.onerror = resolve;
+            img.src = src;
+          });
+        });
+
+        Promise.race([
+          Promise.all(loadPromises),
+          new Promise(function (resolve) { setLoaderTimer(resolve, 1500); })
+        ]).then(startGauge);
+      })();
+    }
   }
 })();
