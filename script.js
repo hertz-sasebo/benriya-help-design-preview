@@ -126,7 +126,7 @@
      1ページのボックス数（スマホ2 / 768px以上3）は CSS のグリッドで決まる。
      ここでは矢印・ドットのページ送りと、スワイプ後の現在ページ表示を行い、
      画面幅が変わったら表示中の先頭ボックスを含むページに合わせ直す。
-     1秒ごとに自動でページを送る（操作中は停止）。 */
+     3.5秒ごとに自動でページを送る（操作中は停止）。 */
   var worksCarousel = document.querySelector('[data-works-carousel]');
 
   if (worksCarousel) {
@@ -222,10 +222,10 @@
     window.addEventListener('resize', onWorksResize);
     window.addEventListener('orientationchange', onWorksResize);
 
-    // 自動スワイプ：1秒ごとに次のページへ（最後のページの次は1ページ目）。
+    // 自動スワイプ：3.5秒ごとに次のページへ（最後のページの次は1ページ目）。
     // マウスを乗せている間・タッチ中・キーボード操作中は止める。
     // 「視差効果を減らす」設定の端末では自動で動かさない。
-    var WORKS_AUTOPLAY_MS = 1000;
+    var WORKS_AUTOPLAY_MS = 3500;
     var worksAutoplayTimer = null;
     var worksPause = { hover: false, touch: false, focus: false };
 
