@@ -9,9 +9,53 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+JP:wght@400;500;700;800;900&family=Zen+Kaku+Gothic+New:wght@900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261014-1">
+<link rel="stylesheet" href="style.css?v=20261014-2">
 </head>
 <body>
+
+<!-- ============================================================
+     OPENING LOADER
+     ゲージ(円)→決め台詞→フェードアウトの3段演出。
+     参考実装: hertz-sasebo/HOME-PAGE の #loader と同じ仕組み
+     （SVG円のstroke-dasharray/dashoffsetでゲージ描画、
+     requestAnimationFrame + easeInOutCubicで進行）。
+     ゴリラ画像(images/fv-gorilla.png)をゲージの先端に乗せて
+     円周上を一周させ、決め台詞はFVと同じ画像
+     （fv-komattara.png / fv-help.png）を使い回す。
+     ============================================================ -->
+<div id="openingLoader" class="opening-loader" role="status" aria-label="読み込み中">
+  <div class="opening-loader__inner">
+    <div class="opening-loader__ring-wrap" id="openingLoaderRingWrap">
+      <svg class="opening-loader__ring" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="opening-loader__track" cx="50" cy="50" r="42"></circle>
+        <circle id="openingLoaderArc" class="opening-loader__progress" cx="50" cy="50" r="42" transform="rotate(-90 50 50)"></circle>
+      </svg>
+      <span class="opening-loader__mark" id="openingLoaderMark" aria-hidden="true">HELP</span>
+      <img class="opening-loader__gorilla" id="openingLoaderGorilla" src="images/fv-gorilla.png" alt="" aria-hidden="true">
+    </div>
+    <div class="opening-loader__foot">
+      <span id="openingLoaderCounter" class="opening-loader__counter">000%</span>
+      <div id="openingLoaderCopy" class="opening-loader__copy">
+        <img class="opening-loader__copy-jp" id="openingLoaderJp" src="images/fv-komattara.png" alt="困ったら、">
+        <img class="opening-loader__copy-help" id="openingLoaderHelp" src="images/fv-help.png?v=2" alt="HELP。">
+      </div>
+    </div>
+  </div>
+  <button type="button" class="opening-loader__skip" id="openingLoaderSkip" aria-label="演出をスキップ">SKIP</button>
+</div>
+<noscript><style>#openingLoader{display:none}</style></noscript>
+<script>
+/* JS無効時・2回目以降の訪問時に一瞬でも表示させないための
+   同期的な先行チェック（本体の演出ロジックはscript.js側）。 */
+(function () {
+  try {
+    if (sessionStorage.getItem('helpOpeningLoaderShown') === '1') {
+      var el = document.getElementById('openingLoader');
+      if (el) { el.style.display = 'none'; }
+    }
+  } catch (e) {}
+})();
+</script>
 
 <!-- ============================================================
      HEADER
@@ -608,6 +652,6 @@
   </div>
 </div>
 
-<script src="script.js?v=20261013-4"></script>
+<script src="script.js?v=20261014-1"></script>
 </body>
 </html>
