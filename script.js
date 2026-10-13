@@ -3,6 +3,8 @@
    1. ハンバーガーメニュー開閉
    2. 料金一覧タブ切り替え
    3. よくある質問アコーディオン
+   4. 追従CTA / 5. FVのSCROLL誘導
+   6. 作業実績カルーセル
    ============================================================ */
 (function () {
   'use strict';
@@ -118,5 +120,143 @@
 
     window.addEventListener('scroll', updateFvScroll, { passive: true });
     updateFvScroll();
+  }
+
+  /* ---------- 6. 作業実績カルーセル ----------
+     1ページのボックス数（スマホ2 / 768px以上3）は CSS のグリッドで決まる。
+     ここでは矢印・ドットのページ送りと、スワイプ後の現在ページ表示を行い、
+     画面幅が変わったら表示中の先頭ボックスを含むページに合わせ直す。
+     1秒ごとに自動でページを送る（操作中は停止）。 */
+  var worksCarousel = document.querySelector('[data-works-carousel]');
+
+  if (worksCarousel) {
+    var worksTrack = worksCarousel.querySelector('.work-cards');
+    var worksCards = Array.prototype.slice.call(worksTrack.querySelectorAll('.work-card'));
+    var worksPrev = worksCarousel.querySelector('.works-carousel__arrow--prev');
+    var worksNext = worksCarousel.querySelector('.works-carousel__arrow--next');
+    var worksDots = worksCarousel.querySelector('.works-carousel__dots');
+    var worksMq = window.matchMedia('(min-width: 768px)');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var perPage = 0;
+    var current = 0;
+    var firstCard = worksCards[0];
+
+    var visibleCards = function () {
+      return worksCards.filter(function (card) { return card.getClientRects().length > 0; });
+    };
+
+    // 1ページ分の送り幅（ページ間の gap を含む）
+    var pageStep = function () {
+      var cards = visibleCards();
+      return cards.length > perPage ? cards[perPage].offsetLeft - cards[0].offsetLeft : worksTrack.clientWidth;
+    };
+
+    var updateWorks = function () {
+      Array.prototype.forEach.call(worksDots.children, function (dot, i) {
+        var active = i === current;
+        dot.classList.toggle('is-active', active);
+        if (active) { dot.setAttribute('aria-current', 'true'); } else { dot.removeAttribute('aria-current'); }
+      });
+      worksPrev.disabled = current === 0;
+      worksNext.disabled = current === worksDots.children.length - 1;
+      firstCard = visibleCards()[current * perPage];
+    };
+
+    var goTo = function (index, smooth) {
+      current = Math.max(0, Math.min(index, worksDots.children.length - 1));
+      worksTrack.scrollTo({
+        left: current * pageStep(),
+        behavior: smooth && !reduceMotion.matches ? 'smooth' : 'auto'
+      });
+      updateWorks();
+    };
+
+    var buildWorks = function () {
+      var cards = visibleCards();
+      perPage = worksMq.matches ? 3 : 2;
+      var pages = Math.ceil(cards.length / perPage);
+
+      if (worksDots.children.length !== pages) {
+        worksDots.innerHTML = '';
+        for (var i = 0; i < pages; i++) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'works-carousel__dot';
+          dot.setAttribute('aria-label', (i + 1) + 'ページ目の実績へ');
+          worksDots.appendChild(dot);
+        }
+      }
+
+      // 表示中だった先頭ボックスを含むページを開く（スマホで非表示のボックスなら1ページ目）
+      var index = cards.indexOf(firstCard);
+      goTo(index < 0 ? 0 : Math.floor(index / perPage), false);
+    };
+
+    worksPrev.addEventListener('click', function () { goTo(current - 1, true); });
+    worksNext.addEventListener('click', function () { goTo(current + 1, true); });
+    worksDots.addEventListener('click', function (e) {
+      var dot = e.target.closest('.works-carousel__dot');
+      if (dot) { goTo(Array.prototype.indexOf.call(worksDots.children, dot), true); }
+    });
+
+    // スワイプ・横スクロールで現在のページを追従
+    var worksScrollTimer;
+    worksTrack.addEventListener('scroll', function () {
+      clearTimeout(worksScrollTimer);
+      worksScrollTimer = setTimeout(function () {
+        // ブレークポイント切替直後のスクロールは buildWorks に任せる
+        if (perPage !== (worksMq.matches ? 3 : 2)) { return; }
+        var index = Math.round(worksTrack.scrollLeft / pageStep());
+        if (index !== current) {
+          current = index;
+          updateWorks();
+        }
+      }, 80);
+    }, { passive: true });
+
+    var worksResizeTimer;
+    var onWorksResize = function () {
+      clearTimeout(worksResizeTimer);
+      worksResizeTimer = setTimeout(buildWorks, 120);
+    };
+    window.addEventListener('resize', onWorksResize);
+    window.addEventListener('orientationchange', onWorksResize);
+
+    // 自動スワイプ：1秒ごとに次のページへ（最後のページの次は1ページ目）。
+    // マウスを乗せている間・タッチ中・キーボード操作中は止める。
+    // 「視差効果を減らす」設定の端末では自動で動かさない。
+    var WORKS_AUTOPLAY_MS = 1000;
+    var worksAutoplayTimer = null;
+    var worksPause = { hover: false, touch: false, focus: false };
+
+    var startWorksAutoplay = function () {
+      clearInterval(worksAutoplayTimer);
+      if (worksPause.hover || worksPause.touch || worksPause.focus || reduceMotion.matches) { return; }
+      worksAutoplayTimer = setInterval(function () {
+        goTo(current >= worksDots.children.length - 1 ? 0 : current + 1, true);
+      }, WORKS_AUTOPLAY_MS);
+    };
+    var setWorksPause = function (reason, value) {
+      worksPause[reason] = value;
+      startWorksAutoplay();
+    };
+
+    worksCarousel.addEventListener('pointerenter', function (e) {
+      if (e.pointerType === 'mouse') { setWorksPause('hover', true); }
+    });
+    worksCarousel.addEventListener('pointerleave', function (e) {
+      if (e.pointerType === 'mouse') { setWorksPause('hover', false); }
+    });
+    worksCarousel.addEventListener('touchstart', function () { setWorksPause('touch', true); }, { passive: true });
+    worksCarousel.addEventListener('touchend', function () { setWorksPause('touch', false); });
+    worksCarousel.addEventListener('touchcancel', function () { setWorksPause('touch', false); });
+    worksCarousel.addEventListener('focusin', function (e) {
+      if (e.target.matches(':focus-visible')) { setWorksPause('focus', true); }
+    });
+    worksCarousel.addEventListener('focusout', function () { setWorksPause('focus', false); });
+
+    buildWorks();
+    worksCarousel.classList.add('is-ready');
+    startWorksAutoplay();
   }
 })();
