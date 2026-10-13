@@ -918,8 +918,14 @@ img.logo__mark { object-fit: contain; }
 .price-table td {
   text-align: right;
   white-space: nowrap;
-  font-family: var(--font-price);   /* 8,000 = Anton / 円〜・要相談 = Noto 900 */
+  /* 8,000 = Anton（既存のまま）/ 円〜・要相談 = Zen Kaku Gothic New。
+     ウェイトは900のまま、Noto Sans JPより字面が細いフォントに
+     差し替えて「太すぎる」印象を解消する。
+     Antonは等サイズでも視覚的に大きく見えるため、
+     左側の項目名(th)よりも一回り小さいサイズにする。 */
+  font-family: "Anton", "Zen Kaku Gothic New", var(--font-jp);
   font-weight: var(--fw-heading-max);
+  font-size: 13px;
   letter-spacing: .01em;
   color: var(--red);
   padding-left: 12px;
@@ -1200,7 +1206,9 @@ img.logo__mark { object-fit: contain; }
 
   /* 08 prices */
   .price-panel { padding: 12px 24px; }
-  .price-table th, .price-table td { font-size: 16px; padding: 18px 6px; }
+  .price-table th, .price-table td { padding: 18px 6px; }
+  .price-table th { font-size: 16px; }
+  .price-table td { font-size: 14px; }
 
   /* 09 flow */
   .flow-steps { overflow: visible; justify-content: space-between; }
@@ -1614,11 +1622,18 @@ img.logo__mark { object-fit: contain; }
   .fv__scroll { animation: none !important; opacity: 1; }
 }
 
-/* ---- 08 料金一覧（PC専用：4枚の料金カード）---- */
+/* ---- 08 料金一覧（PC：お客様の要望によりスマホ版と同じ
+   タブ+テーブルのビジュアルに統一。4枚カード化は廃止し、
+   .price-panel__head/__more/__detail 等はモバイル同様
+   常時非表示のまま据え置く（HTML構造・JSは変更せず
+   CSSの上書きのみで対応）。 ---- */
 @media (min-width: 960px) {
   .prices { padding: 72px 0; }
   .prices .container {
-    width: min(92vw, 1280px);
+    /* FAQなど単一カラムのセクションと同じ幅基準(1080px)に揃える。
+       以前の1280px+内側640px制限だと、他セクションと比べて
+       ボックスが狭く見えていたため統一。 */
+    width: min(92vw, 1080px);
     max-width: none;
     padding-inline: 0;
   }
@@ -1633,84 +1648,10 @@ img.logo__mark { object-fit: contain; }
     width: 96px;
     height: 12px;
   }
-  .price-tabs { display: none; }
-  .price-panels {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    background: none;
-    border-radius: 0;
-  }
-  .price-panel,
-  .price-panel[hidden] {
-    display: flex;
-    flex-direction: column;
-    background: var(--white);
-    border-radius: 14px;
-    padding: 28px 24px 24px;
-    color: var(--black);
-  }
-  .price-panel__head {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-bottom: 18px;
-    margin-bottom: 14px;
-    border-bottom: 2px solid var(--red);
-  }
-  .price-panel__name {
-    font-size: clamp(20px, 1.8vw, 26px);
-    font-weight: 800;
-    line-height: 1.3;
-    color: var(--black);
-  }
-  @media (max-width: 1199px) {
-    .price-panel__name { min-height: 2.6em; }
-  }
-  .price-panel__from {
-    font-family: var(--font-price);
-    font-size: clamp(30px, 2.8vw, 40px);
-    font-weight: var(--fw-heading-max);
-    line-height: 1.1;
-    color: var(--red);
-  }
   .price-table th,
-  .price-table td { font-size: 15px; padding: 12px 4px; }
-  .price-panel__more {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    margin: 0 0 14px;
-    padding: 6px 0;
-    background: none;
-    border: none;
-    font-family: var(--font-jp);
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--red);
-    cursor: pointer;
-  }
-  .price-panel__label--close,
-  .prices.is-open .price-panel__label--open { display: none; }
-  .prices.is-open .price-panel__label--close { display: inline; }
-  .price-panel__arrow {
-    display: inline-block;
-    transition: transform .35s ease;
-  }
-  .prices.is-open .price-panel__arrow { transform: rotate(-90deg); }
-  .price-panel__detail {
-    display: grid;
-    grid-template-rows: 0fr;
-    visibility: hidden;
-    transition: grid-template-rows .35s ease, visibility .35s;
-  }
-  .prices.is-open .price-panel__detail {
-    grid-template-rows: 1fr;
-    visibility: visible;
-  }
-  .price-panel__inner { min-height: 0; overflow: hidden; }
-  .price-panel__more:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+  .price-table td { padding: 18px 6px; }
+  .price-table th { font-size: 16px; }
+  .price-table td { font-size: 14px; }
   .price-note { margin-top: 28px; font-size: 14px; }
   .prices .section__more { margin-top: 36px; }
 }
