@@ -22,13 +22,14 @@
   }, 4000);
 })();
 </script>
-<link rel="stylesheet" href="style.css?v=20261014-5">
+<link rel="stylesheet" href="style.css?v=20261014-6">
 </head>
 <body>
 
 <!-- ============================================================
      OPENING LOADER
-     ゲージ(円)→決め台詞→フェードアウトの3段演出。
+     ゲージ(円)→ゲージ・ゴリラをフェードアウト→決め台詞を画面いっぱいに表示
+     →フェードアウトの演出。
      参考実装: hertz-sasebo/HOME-PAGE の #loader と同じ仕組み
      （SVG円のstroke-dasharray/dashoffsetでゲージ描画、
      requestAnimationFrame + easeInOutCubicで進行）。
@@ -43,16 +44,15 @@
         <circle class="opening-loader__track" cx="50" cy="50" r="42"></circle>
         <circle id="openingLoaderArc" class="opening-loader__progress" cx="50" cy="50" r="42" transform="rotate(-90 50 50)"></circle>
       </svg>
-      <span class="opening-loader__mark" id="openingLoaderMark" aria-hidden="true">HELP</span>
       <img class="opening-loader__gorilla" id="openingLoaderGorilla" src="images/fv-gorilla.png" alt="" aria-hidden="true">
     </div>
     <div class="opening-loader__foot">
       <span id="openingLoaderCounter" class="opening-loader__counter">000%</span>
-      <div id="openingLoaderCopy" class="opening-loader__copy">
-        <img class="opening-loader__copy-jp" id="openingLoaderJp" src="images/fv-komattara.png" alt="困ったら、">
-        <img class="opening-loader__copy-help" id="openingLoaderHelp" src="images/fv-help.png?v=2" alt="HELP。">
-      </div>
     </div>
+  </div>
+  <div id="openingLoaderCopy" class="opening-loader__copy">
+    <img class="opening-loader__copy-jp" id="openingLoaderJp" src="images/fv-komattara.png" alt="困ったら、">
+    <img class="opening-loader__copy-help" id="openingLoaderHelp" src="images/fv-help.png?v=2" alt="HELP。">
   </div>
   <button type="button" class="opening-loader__skip" id="openingLoaderSkip" aria-label="演出をスキップ">SKIP</button>
 </div>
@@ -663,6 +663,6 @@
   </div>
 </div>
 
-<script src="script.js?v=20261014-2"></script>
+<script src="script.js?v=20261014-3"></script>
 </body>
 </html>

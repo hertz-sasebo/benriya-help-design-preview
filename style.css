@@ -1977,7 +1977,8 @@ img.logo__mark { object-fit: contain; }
 
 /* ============================================================
    OPENING LOADER
-   FV表示前のゲージ→決め台詞→フェードアウト演出。
+   FV表示前のゲージ→ゲージ・ゴリラのフェードアウト→決め台詞（画面いっぱい）
+   →フェードアウトの演出。
    #openingLoader配下にスコープを限定し、他要素には影響しない。
    ============================================================ */
 :root { --loader-size: 200px; }
@@ -2006,7 +2007,10 @@ img.logo__mark { object-fit: contain; }
   align-items: center;
   gap: 20px;
   cursor: pointer;
+  transition: opacity .3s ease;
 }
+/* ゲージ完了後：ゲージ・ゴリラ・カウンターをまとめてフェードアウト */
+#openingLoader.is-gauge-out .opening-loader__inner { opacity: 0; }
 
 .opening-loader__ring-wrap {
   position: relative;
@@ -2025,31 +2029,6 @@ img.logo__mark { object-fit: contain; }
   stroke-width: 5;
   stroke-linecap: round;
 }
-
-/* 中央のHELPマーク：ヘッダーの.logo__markと同じ見た目（黒地・白文字・
-   わずかな傾き）を再現し、薄く表示→ゲージ完了時に点灯させる。 */
-.opening-loader__mark {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 30%;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--black);
-  color: var(--white);
-  border-radius: 18%;
-  font-family: var(--font-display);
-  font-size: calc(var(--loader-size) * 0.095);
-  font-weight: 400;
-  transform: rotate(-4deg);
-  opacity: .2;
-  transition: opacity .5s ease;
-  pointer-events: none;
-  user-select: none;
-}
-.opening-loader__mark.is-lit { opacity: 1; }
 
 .opening-loader__gorilla {
   position: absolute;
@@ -2076,35 +2055,66 @@ img.logo__mark { object-fit: contain; }
   font-size: 15px;
   letter-spacing: .14em;
   color: var(--text-muted);
-  transition: opacity .3s ease;
 }
-.opening-loader__counter.is-hidden { opacity: 0; }
 
+/* 決め台詞：ゲージが消えた後、画面中央に大きく表示する。
+   横長の画面（縦横比 1:1 以上＝PC・タブレット横向き・スマホ横向き）は1行、
+   縦長の画面（スマホ・タブレット縦向き）は「困ったら、」／「HELP。」の2行。
+   幅は vw、上限は vh で決め、縦横比は aspect-ratio で保つ。 */
 .opening-loader__copy {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+  display: grid;
+  place-content: center;    /* 2つの画像をひとかたまりで画面中央へ */
+  justify-items: center;    /* 2行時：左右中央を揃える */
+  row-gap: clamp(8px, 2.5vw, 24px);
+  pointer-events: none;
 }
+/* fv-komattara.png は上に透明の余白があるため、文字部分（上下の余白を除いた範囲）だけを切り出して表示する */
+.opening-loader__copy-jp,
+.opening-loader__copy-help {
+  display: block;
+  height: auto;
+  max-width: none;
+}
+.opening-loader__copy-jp {
+  width: min(85vw, 85vh);
+  aspect-ratio: 1693 / 650;
+  object-fit: cover;
+  object-position: 50% 90%;
+}
+.opening-loader__copy-help {
+  width: min(85vw, 85vh);
+  aspect-ratio: 1699 / 700;
+}
+@media (min-aspect-ratio: 1 / 1) {
+  /* 1行：「HELP。」の高さを基準に、「困ったら、」をその75%の高さで下揃え。
+     全体の幅 ≒ 80vw（画像の縦横比から逆算）、高さの上限 70vh */
+  .opening-loader__copy {
+    --copy-h: min(17.8vw, 70vh);
+    grid-auto-flow: column;
+    align-items: end;       /* 行の中では下揃え（かたまり自体は画面中央） */
+    column-gap: 2vw;
+  }
+  .opening-loader__copy-jp {
+    width: auto;
+    height: calc(var(--copy-h) * .75);
+  }
+  .opening-loader__copy-help {
+    width: auto;
+    height: var(--copy-h);
+  }
+}
+
 /* 「困ったら、」は左→右にclip-pathのステップでワイプ表示
    （1コマ=約90ms×5コマ≒450msで、1文字ずつ現れるように見せる）。 */
 .opening-loader__copy-jp {
-  display: block;
-  width: auto;
-  height: 22px;
   clip-path: inset(0 100% 0 0);
   transition: clip-path .45s steps(5, end);
 }
 .opening-loader__copy-jp.is-revealed { clip-path: inset(0 0 0 0); }
 /* 「HELP。」は少し遅れて拡大→等倍のポップで表示 */
 .opening-loader__copy-help {
-  display: block;
-  width: auto;
-  height: 30px;
-  margin-top: 2px;
   opacity: 0;
   transform: scale(.7);
   transition: opacity .3s ease, transform .35s cubic-bezier(.34, 1.56, .64, 1);
