@@ -1044,28 +1044,36 @@ img.logo__mark { object-fit: contain; }
 .area__map { aspect-ratio: 1312 / 1199; width: 100%; max-width: 360px; margin-bottom: 14px; object-fit: contain; }
 .area__lead { margin-bottom: 16px; }
 
-.company-table { width: 100%; border-collapse: collapse; }
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+}
 .company-table th,
 .company-table td {
   text-align: left;
-  padding: 12px 8px;
+  padding: 12px 6px;
   border-bottom: 1px solid var(--line);
   font-size: 14px;
   line-height: 1.6;
   vertical-align: top;
 }
 .company-table th {
-  width: 34%;
+  width: 26%;
   font-family: var(--font-jp);
   font-weight: var(--fw-label);
   background: var(--gray);
   white-space: nowrap;
+  border-right: 1px solid var(--line);
 }
 .company-table td {
-  font-family: var(--font-price);   /* 電話番号・営業時間などの数字 = Anton */
+  font-family: var(--font-jp);   /* 数字・英字もAntonではなく本文と同じNoto Sans JPで統一 */
   font-weight: var(--fw-note);
+  font-variant-numeric: tabular-nums;
   letter-spacing: .01em;
 }
+.company-table tr:last-child th,
+.company-table tr:last-child td { border-bottom: none; }
 /* 許認可・研修修了：1セルに複数項目を縦に並べる。
    数字混じりの文章なのでAntonではなくNoto Sans JPに統一。 */
 .company-table__list {
@@ -1084,6 +1092,17 @@ img.logo__mark { object-fit: contain; }
   color: var(--text-muted);
 }
 .company-table__nowrap { white-space: nowrap; }
+/* 研修名2行：スマホ幅で途中改行されないよう縮小+nowrap。
+   極端に狭い端末のみ「〜研修会」」と「修了」の間で改行を許可する。 */
+.company-table__train {
+  font-size: clamp(12px, 3.4vw, 14px);
+  white-space: nowrap;
+}
+@media (max-width: 340px) {
+  .company-table__train { white-space: normal; }
+  .company-table__train-name,
+  .company-table__train-done { display: inline-block; white-space: nowrap; }
+}
 
 
 /* ============================================================
