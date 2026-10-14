@@ -2133,3 +2133,62 @@ img.logo__mark { object-fit: contain; }
 @media (prefers-reduced-motion: reduce) {
   #openingLoader { display: none; }
 }
+
+/* ============================================================
+   SCROLL REVEAL（スクロールアニメーション）
+   - <html> に .js-anim が付いている時だけ非表示状態を適用する
+     （JS無効・視差効果を減らす設定の端末では最初から全て表示）。
+   - 移動・拡大は個別プロパティ translate / scale で行い、
+     要素に既に掛かっている transform（FVゴリラの translateX(-50%) など）を上書きしない。
+   - 表示の遅延は script.js「8. スクロールアニメーション」で --reveal-delay に設定する。
+   ============================================================ */
+:root { --reveal-shift: 24px; }
+@media (max-width: 767px) {
+  :root { --reveal-shift: 16px; }
+}
+
+.js-anim .reveal {
+  opacity: 0;
+  translate: 0 var(--reveal-shift);
+  transition: opacity .6s ease-out, translate .6s ease-out, scale .6s ease-out;
+  transition-delay: var(--reveal-delay, 0s);
+}
+/* 左から（お困りごとのチェック項目） */
+.js-anim .reveal--left { translate: -16px 0; }
+/* 右から（FVのゴリラ） */
+.js-anim .reveal--right { translate: 20px 0; }
+/* フェードのみ（FVの赤い背景） */
+.js-anim .reveal--fade { translate: none; }
+/* ポップ（少しだけオーバーシュートして等倍に戻る） */
+.js-anim .reveal--pop {
+  translate: none;
+  scale: .85;
+  transition-timing-function: ease-out, ease-out, cubic-bezier(.34, 1.56, .64, 1);
+}
+/* ズーム（対応エリアの地図） */
+.js-anim .reveal--zoom {
+  translate: none;
+  scale: .96;
+  transition-duration: .8s;
+}
+.js-anim .reveal.is-visible {
+  opacity: 1;
+  translate: none;
+  scale: none;
+}
+
+/* カウントアップ中に桁数が変わっても横幅がガタつかないよう、数字部分の幅をJSで固定する */
+.count-up {
+  display: inline-block;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-anim .reveal {
+    opacity: 1;
+    translate: none;
+    scale: none;
+    transition: none;
+  }
+}

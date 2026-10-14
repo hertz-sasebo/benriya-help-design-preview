@@ -6,6 +6,7 @@
    4. 追従CTA / 5. FVのSCROLL誘導
    6. 作業実績カルーセル
    7. オープニングローダー
+   8. スクロールアニメーション
    ============================================================ */
 (function () {
   'use strict';
@@ -259,7 +260,16 @@
      ・prefers-reduced-motion: reduce では表示しない ---------- */
   var openingLoader = document.getElementById('openingLoader');
 
-  if (openingLoader) {
+  // ローダーの終了（スキップ・2回目訪問で表示しない時も含む）を FV の登場演出（8.）へ知らせる
+  var notifyLoaderDone = function () {
+    if (window.helpLoaderDone) { return; }
+    window.helpLoaderDone = true;
+    document.dispatchEvent(new CustomEvent('help:loader-done'));
+  };
+
+  if (!openingLoader) {
+    notifyLoaderDone();
+  } else {
     var LOADER_SESSION_KEY = 'helpOpeningLoaderShown';
     var loaderReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var loaderAlreadyShown = false;
@@ -267,6 +277,7 @@
 
     if (loaderReduceMotion || loaderAlreadyShown) {
       openingLoader.parentNode.removeChild(openingLoader);
+      notifyLoaderDone();
     } else {
       try { sessionStorage.setItem(LOADER_SESSION_KEY, '1'); } catch (e) {}
 
@@ -365,6 +376,7 @@
           clearLoaderTimers();
           restoreScroll();
           openingLoader.classList.add('is-done');
+          notifyLoaderDone();
           openingLoader.addEventListener('transitionend', removeLoader, { once: true });
           // transitionendが発火しない環境向けの保険
           setTimeout(removeLoader, 900);
@@ -396,5 +408,137 @@
         ]).then(startGauge);
       })();
     }
+  }
+
+  /* ---------- 8. スクロールアニメーション ----------
+     .reveal を付けた要素が画面に入ったら .is-visible を付ける（一度表示したら監視をやめる）。
+     ・遅延は data-reveal-delay（秒）。親に data-reveal-stagger（秒）があれば、
+       子の .reveal に「親の data-reveal-delay ＋ 間隔×順番」を割り当てる
+     ・同じセクション内は最初に表示した時刻を基準に順番を保ち、
+       後から画面に入った要素は待たせずに表示する
+     ・data-reveal-together の中は、その親が画面に入った時点でまとめて表示する
+       （お困りごと：項目→ゴリラの順番を守るため / ご依頼の流れ：スマホの横スクロール内も表示するため）
+     ・FV（data-reveal-on="loader"）はスクロールではなく、ローダーの終了で表示する
+     ・<html> の .js-anim は <head> で付与（視差効果を減らす設定では付かない＝最初から全て表示） */
+  var revealRoot = document.documentElement;
+
+  if (revealRoot.classList.contains('js-anim')) {
+    var toArray = function (list) { return Array.prototype.slice.call(list); };
+
+    toArray(document.querySelectorAll('[data-reveal-stagger]')).forEach(function (parent) {
+      var start = parseFloat(parent.getAttribute('data-reveal-delay')) || 0;
+      var step = parseFloat(parent.getAttribute('data-reveal-stagger')) || 0;
+      toArray(parent.children).filter(function (child) {
+        return child.classList.contains('reveal');
+      }).forEach(function (child, i) {
+        child.setAttribute('data-reveal-delay', (start + step * i).toFixed(2));
+      });
+    });
+
+    var revealDelay = function (el) {
+      return parseFloat(el.getAttribute('data-reveal-delay')) || 0;
+    };
+
+    var showReveal = function (el, wait) {
+      el.style.setProperty('--reveal-delay', wait.toFixed(2) + 's');
+      el.classList.add('is-visible');
+      el.dispatchEvent(new CustomEvent('help:reveal', { detail: { delay: wait } }));
+    };
+
+    // 同時に画面に入った要素をセクション単位でまとめて表示する
+    var revealGroupStart = [];
+    var showRevealBatch = function (els) {
+      var now = performance.now();
+      var groups = [];
+      els.forEach(function (el) {
+        var section = el.closest('section') || el;
+        var group = groups.filter(function (g) { return g.section === section; })[0];
+        if (!group) {
+          group = { section: section, items: [] };
+          groups.push(group);
+        }
+        group.items.push(el);
+      });
+
+      groups.forEach(function (group) {
+        var record = revealGroupStart.filter(function (r) { return r.section === group.section; })[0];
+        if (!record) {
+          record = { section: group.section, time: now };
+          revealGroupStart.push(record);
+        }
+        var elapsed = (now - record.time) / 1000;
+        var first = Math.min.apply(null, group.items.map(revealDelay));
+        // 先に表示した要素との順番は保ちつつ、すでに過ぎた分の待ち時間は詰める
+        var offset = Math.min(elapsed, first);
+        group.items.forEach(function (el) {
+          showReveal(el, Math.max(0, revealDelay(el) - offset));
+        });
+      });
+    };
+
+    var revealEls = toArray(document.querySelectorAll('.reveal'));
+    var fvRevealEls = revealEls.filter(function (el) { return el.closest('[data-reveal-on="loader"]'); });
+    var togetherBoxes = toArray(document.querySelectorAll('[data-reveal-together]'));
+    var scrollRevealEls = revealEls.filter(function (el) {
+      return fvRevealEls.indexOf(el) < 0 && !el.closest('[data-reveal-together]');
+    });
+    var revealTargetsOf = function (el) {
+      return el.hasAttribute('data-reveal-together') ? toArray(el.querySelectorAll('.reveal')) : [el];
+    };
+
+    // 「100件以上」のカウントアップ（カードの表示開始に合わせて 0 → 100、約1.2秒・easeOut）
+    toArray(document.querySelectorAll('[data-count-to]')).forEach(function (counter) {
+      var target = parseInt(counter.getAttribute('data-count-to'), 10);
+      var card = counter.closest('.reveal');
+      if (!card) { return; }
+
+      card.addEventListener('help:reveal', function (e) {
+        // 最終値の幅で固定してから 0 に戻す（数字以外の文字が動かないように）
+        counter.style.width = counter.offsetWidth + 'px';
+        counter.textContent = '0';
+        setTimeout(function () {
+          var startTime = null;
+          var tick = function (ts) {
+            if (!startTime) { startTime = ts; }
+            var t = Math.min((ts - startTime) / 1200, 1);
+            var eased = 1 - Math.pow(1 - t, 3);
+            counter.textContent = String(Math.round(target * eased));
+            if (t < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              counter.style.width = '';
+            }
+          };
+          requestAnimationFrame(tick);
+        }, e.detail.delay * 1000);
+      }, { once: true });
+    });
+
+    if ('IntersectionObserver' in window) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        var hits = [];
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) { return; }
+          revealObserver.unobserve(entry.target);
+          hits = hits.concat(revealTargetsOf(entry.target));
+        });
+        if (hits.length) { showRevealBatch(hits); }
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+      scrollRevealEls.concat(togetherBoxes).forEach(function (el) { revealObserver.observe(el); });
+    } else {
+      showRevealBatch(scrollRevealEls.concat.apply(scrollRevealEls, togetherBoxes.map(revealTargetsOf)));
+    }
+
+    // FV はローダーの終了を待って表示する
+    if (window.helpLoaderDone) {
+      showRevealBatch(fvRevealEls);
+    } else {
+      document.addEventListener('help:loader-done', function () {
+        showRevealBatch(fvRevealEls);
+      }, { once: true });
+    }
+
+    window.helpRevealReady = true;
   }
 })();
