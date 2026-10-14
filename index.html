@@ -9,7 +9,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+JP:wght@400;500;700;800;900&family=Zen+Kaku+Gothic+New:wght@900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261014-4">
+<script>
+/* スクロールアニメーション用：JSが動く環境だけ非表示状態を有効にする
+   （視差効果を減らす設定では付けない）。script.js が読み込めなかった時の保険として
+   4秒たっても準備完了にならなければ外す。 */
+(function () {
+  var root = document.documentElement;
+  if (!window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+  root.classList.add('js-anim');
+  setTimeout(function () {
+    if (!window.helpRevealReady) { root.classList.remove('js-anim'); }
+  }, 4000);
+})();
+</script>
+<link rel="stylesheet" href="style.css?v=20261014-5">
 </head>
 <body>
 
@@ -87,35 +100,35 @@
   <!-- ============================================================
        01 | ファーストビュー
        ============================================================ -->
-  <section id="fv" class="section fv">
+  <section id="fv" class="section fv" data-reveal-on="loader">
     <div class="fv__inner">
 
-      <h1 class="fv__title">
+      <h1 class="fv__title reveal" data-reveal-delay="0.1">
         <img class="fv__title-img fv__title-img--jp" src="images/fv-komattara.png" alt="困ったら、">
         <img class="fv__title-img fv__title-img--help" src="images/fv-help.png?v=2" alt="HELP。">
       </h1>
 
       <div class="fv__visual">
-        <img class="fv__visual-bg" src="images/fv-bg-red.svg" alt="" aria-hidden="true">
-        <img class="fv__gorilla" src="images/fv-gorilla.png" alt="便利屋HELPのゴリラキャラクター">
-        <p class="fv__band">
+        <img class="fv__visual-bg reveal reveal--fade" data-reveal-delay="0.25" src="images/fv-bg-red.svg" alt="" aria-hidden="true">
+        <img class="fv__gorilla reveal reveal--right" data-reveal-delay="0.25" src="images/fv-gorilla.png" alt="便利屋HELPのゴリラキャラクター">
+        <p class="fv__band reveal" data-reveal-delay="0.4">
           <span class="fv__band-line">佐世保から長崎県内全域対応！</span>
           <span class="fv__band-line"><span class="fv__band-em">最短即日</span>で訪問・解決！</span>
         </p>
       </div>
 
-      <p class="fv__price">
+      <p class="fv__price reveal" data-reveal-delay="0.4">
         <span class="fv__price-label">作業料金</span>
         <span class="fv__price-value"><span class="fv__price-num">8,000</span>円〜</span>
       </p>
 
-      <ul class="fv__badges">
+      <ul class="fv__badges reveal" data-reveal-delay="0.4">
         <li class="fv__badge">見積<br>無料</li>
         <li class="fv__badge">即日<br>対応</li>
         <li class="fv__badge">100件以上の<br>対応実績</li>
       </ul>
 
-      <div class="fv__cta">
+      <div class="fv__cta reveal" data-reveal-delay="0.55">
         <a href="tel:09065869995" class="btn btn--tel">
           <span class="btn__icon btn__icon--phone" aria-hidden="true"><i class="icon" style="--icon:url(images/icons/phone.svg)"></i></span>
           電話で相談する
@@ -138,25 +151,25 @@
        03 | こんなお困りごとはありませんか？
        ============================================================ -->
   <section id="problems" class="section problems">
-    <div class="container problems__inner">
+    <div class="container problems__inner" data-reveal-together>
       <div class="problems__body">
-        <h2 class="heading heading--plain">
+        <h2 class="heading heading--plain reveal">
           こんな<span class="is-red">お困りごと</span>は<br>ありませんか？
         </h2>
 
-        <ul class="problem-list">
-          <li>エアコンの汚れが気になる</li>
-          <li>不用品を処分したい</li>
-          <li>庭の草が伸びて困っている</li>
-          <li>重たい荷物を運べない</li>
-          <li>買い物に行くのが難しい</li>
-          <li>その他、どこに頼めば<br class="problems__break">いいかわからない</li>
+        <ul class="problem-list" data-reveal-delay="0.1" data-reveal-stagger="0.08">
+          <li class="reveal reveal--left">エアコンの汚れが気になる</li>
+          <li class="reveal reveal--left">不用品を処分したい</li>
+          <li class="reveal reveal--left">庭の草が伸びて困っている</li>
+          <li class="reveal reveal--left">重たい荷物を運べない</li>
+          <li class="reveal reveal--left">買い物に行くのが難しい</li>
+          <li class="reveal reveal--left">その他、どこに頼めば<br class="problems__break">いいかわからない</li>
         </ul>
       </div>
 
       <div class="problems__char">
-        <img class="problems__gorilla" src="images/gorilla-2.png" alt="">
-        <img class="problems__balloon" src="images/そのお困りごと、私たちが解決します！.png" alt="そのお困りごと、私たちが解決します！">
+        <img class="problems__gorilla reveal reveal--pop" data-reveal-delay="1.3" src="images/gorilla-2.png" alt="">
+        <img class="problems__balloon reveal reveal--pop" data-reveal-delay="1.4" src="images/そのお困りごと、私たちが解決します！.png" alt="そのお困りごと、私たちが解決します！">
       </div>
     </div>
   </section>
@@ -167,22 +180,22 @@
        ============================================================ -->
   <section id="main-services" class="section main-services">
     <div class="container">
-      <h2 class="heading heading--slash">主力サービス</h2>
+      <h2 class="heading heading--slash reveal">主力サービス</h2>
 
-      <div class="service-cards">
-        <article class="service-card">
+      <div class="service-cards" data-reveal-delay="0.1" data-reveal-stagger="0.12">
+        <article class="service-card reveal">
           <img src="images/services/aircon-cleaning.jpg" alt="エアコン清掃" class="service-card__img">
           <h3 class="service-card__name">エアコン清掃</h3>
           <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
         </article>
 
-        <article class="service-card">
+        <article class="service-card reveal">
           <img src="images/services/waste-disposal.jpg" alt="不用品処分" class="service-card__img">
           <h3 class="service-card__name">不用品処分</h3>
           <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
         </article>
 
-        <article class="service-card">
+        <article class="service-card reveal">
           <img src="images/services/elderly-support.jpg" alt="高齢者生活サポート" class="service-card__img">
           <h3 class="service-card__name">高齢者生活サポート</h3>
           <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
@@ -197,60 +210,60 @@
        ============================================================ -->
   <section id="other-services" class="section other-services">
     <div class="container">
-      <h2 class="heading heading--plain heading--center">その他のサービス</h2>
+      <h2 class="heading heading--plain heading--center reveal">その他のサービス</h2>
 
-      <ul class="mini-cards">
-        <li class="mini-card">
+      <ul class="mini-cards" data-reveal-delay="0.1" data-reveal-stagger="0.04">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/park.svg)"></i></span>
           <span class="mini-card__name">草刈り</span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/house.svg)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">ハウス</span> <span class="mini-card__word">メンテナンス</span></span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/truck.svg)"></i></span>
           <span class="mini-card__name">引越し</span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/basket.svg)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">買い物</span> <span class="mini-card__word">代行</span></span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/spray.svg)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">ハウス</span> <span class="mini-card__word">クリーニング</span></span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/pet-sitter.png)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">ペット</span> <span class="mini-card__word">シッター</span></span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/grave-visit.png)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">お墓参り</span> <span class="mini-card__word">代行</span></span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/wedding.png)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">結婚式</span> <span class="mini-card__word">代行</span></span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/bulb.png)"></i></span>
           <span class="mini-card__name">電球交換</span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/gacha.png)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">ガチャガチャ</span> <span class="mini-card__word">代行</span></span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/pest-control.png)"></i></span>
           <span class="mini-card__name">虫退治</span>
         </li>
-        <li class="mini-card">
+        <li class="mini-card reveal">
           <span class="mini-card__icon"><i class="icon" style="--icon:url(images/icons/locker.png)"></i></span>
           <span class="mini-card__name"><span class="mini-card__word">宅配ボックス</span> <span class="mini-card__word">設置</span></span>
         </li>
       </ul>
 
-      <a href="#page-bottom" class="other-services__more">その他、何でもご相談ください <span aria-hidden="true">→</span></a>
+      <a href="#page-bottom" class="other-services__more reveal" data-reveal-delay="0.6">その他、何でもご相談ください <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
@@ -260,22 +273,22 @@
        ============================================================ -->
   <section id="reasons" class="section reasons">
     <div class="container">
-      <h2 class="heading heading--ondark heading--center"><span class="is-underline acc">HELP</span>が選ばれる理由</h2>
+      <h2 class="heading heading--ondark heading--center reveal"><span class="is-underline acc">HELP</span>が選ばれる理由</h2>
 
-      <ul class="reason-cards">
-        <li class="reason-card">
+      <ul class="reason-cards" data-reveal-delay="0.1" data-reveal-stagger="0.1">
+        <li class="reason-card reveal reveal--pop">
           <span class="reason-card__icon"><i class="icon" style="--icon:url(images/icons/rush.svg)"></i></span>
           <span class="reason-card__text">最短即日対応</span>
         </li>
-        <li class="reason-card">
+        <li class="reason-card reveal reveal--pop">
           <span class="reason-card__icon"><i class="icon" style="--icon:url(images/icons/security.svg)"></i></span>
-          <span class="reason-card__text">100件以上の<br>対応実績</span>
+          <span class="reason-card__text"><span class="count-up" data-count-to="100">100</span>件以上の<br>対応実績</span>
         </li>
-        <li class="reason-card">
+        <li class="reason-card reveal reveal--pop">
           <span class="reason-card__icon"><i class="icon" style="--icon:url(images/icons/doc-pen.svg)"></i></span>
           <span class="reason-card__text">無料見積もり</span>
         </li>
-        <li class="reason-card">
+        <li class="reason-card reveal reveal--pop">
           <span class="reason-card__icon"><i class="icon" style="--icon:url(images/icons/pin.svg)"></i></span>
           <span class="reason-card__text">長崎県内対応</span>
         </li>
@@ -289,10 +302,10 @@
        ============================================================ -->
   <section id="works" class="section works">
     <div class="container">
-      <h2 class="heading heading--slash">作業実績</h2>
+      <h2 class="heading heading--slash reveal">作業実績</h2>
 
       <!-- PC・タブレット：1ページ3ボックス×3ページ / スマホ：1ページ2ボックス×4ページ -->
-      <div class="works-carousel" data-works-carousel>
+      <div class="works-carousel reveal" data-reveal-delay="0.1" data-works-carousel>
       <div class="work-cards">
         <article class="work-card">
           <h3 class="work-card__name">換気扇</h3>
@@ -390,16 +403,16 @@
        ============================================================ -->
   <section id="prices" class="section prices">
     <div class="container">
-      <h2 class="heading heading--slash heading--ondark">料金一覧</h2>
+      <h2 class="heading heading--slash heading--ondark reveal">料金一覧</h2>
 
-      <div class="price-tabs" role="tablist" aria-label="料金カテゴリ">
+      <div class="price-tabs reveal" data-reveal-delay="0.1" role="tablist" aria-label="料金カテゴリ">
         <button class="price-tab is-active" role="tab" aria-selected="true" data-target="price-ac">エアコン清掃</button>
         <button class="price-tab" role="tab" aria-selected="false" data-target="price-waste">不用品処分</button>
         <button class="price-tab" role="tab" aria-selected="false" data-target="price-house">ハウスクリーニング</button>
         <button class="price-tab" role="tab" aria-selected="false" data-target="price-grass">草刈り</button>
       </div>
 
-      <div class="price-panels">
+      <div class="price-panels reveal" data-reveal-delay="0.1">
         <div class="price-panel is-active" id="price-ac" role="tabpanel">
           <p class="price-panel__head"><span class="price-panel__name">エアコン清掃</span><span class="price-panel__from">8,000円〜</span></p>
           <button type="button" class="price-panel__more" aria-expanded="false" aria-controls="price-ac-detail"><span class="price-panel__label price-panel__label--open">詳細を見る</span><span class="price-panel__label price-panel__label--close">詳細を閉じる</span><span class="price-panel__arrow" aria-hidden="true">→</span></button>
@@ -459,9 +472,9 @@
         </div>
       </div>
 
-      <p class="price-note">※ 表示価格はすべて税抜き価格になります。</p>
+      <p class="price-note reveal" data-reveal-delay="0.1">※ 表示価格はすべて税抜き価格になります。</p>
 
-      <div class="section__more">
+      <div class="section__more reveal" data-reveal-delay="0.1">
         <a href="#page-bottom" class="btn btn--outline">問い合わせる <span aria-hidden="true">→</span></a>
       </div>
     </div>
@@ -473,30 +486,30 @@
        ============================================================ -->
   <section id="flow" class="section flow">
     <div class="container">
-      <h2 class="heading heading--slash">ご依頼の流れ</h2>
+      <h2 class="heading heading--slash reveal">ご依頼の流れ</h2>
 
-      <ol class="flow-steps">
-        <li class="flow-step">
+      <ol class="flow-steps" data-reveal-together data-reveal-delay="0.1" data-reveal-stagger="0.15">
+        <li class="flow-step reveal">
           <span class="flow-step__num">01</span>
           <span class="flow-step__icon"><i class="icon" style="--icon:url(images/icons/phone.svg)"></i></span>
           <span class="flow-step__label">お問い合わせ</span>
         </li>
-        <li class="flow-step">
+        <li class="flow-step reveal">
           <span class="flow-step__num">02</span>
           <span class="flow-step__icon"><i class="icon" style="--icon:url(images/icons/ear.svg)"></i></span>
           <span class="flow-step__label">内容確認</span>
         </li>
-        <li class="flow-step">
+        <li class="flow-step reveal">
           <span class="flow-step__num">03</span>
           <span class="flow-step__icon"><i class="icon" style="--icon:url(images/icons/doc-pen.svg)"></i></span>
           <span class="flow-step__label">無料お見積り</span>
         </li>
-        <li class="flow-step">
+        <li class="flow-step reveal">
           <span class="flow-step__num">04</span>
           <span class="flow-step__icon"><i class="icon" style="--icon:url(images/icons/tool.svg)"></i></span>
           <span class="flow-step__label">作業開始</span>
         </li>
-        <li class="flow-step">
+        <li class="flow-step reveal">
           <span class="flow-step__num">05</span>
           <span class="flow-step__icon"><i class="icon" style="--icon:url(images/icons/coin-yen.svg)"></i></span>
           <span class="flow-step__label">お支払い</span>
@@ -512,14 +525,14 @@
   <section id="area-company" class="section area-company">
     <div class="container area-company__inner">
       <div class="area">
-        <h2 class="heading heading--plain">対応エリア</h2>
-        <img class="area__map" src="images/area-map.png?v=2" alt="長崎県の対応エリアマップ">
-        <p class="area__lead"><b>佐世保市中心</b><br>長崎県内のご依頼に対応しています。</p>
+        <h2 class="heading heading--plain reveal">対応エリア</h2>
+        <img class="area__map reveal reveal--zoom" data-reveal-delay="0.1" src="images/area-map.png?v=2" alt="長崎県の対応エリアマップ">
+        <p class="area__lead reveal" data-reveal-delay="0.25"><b>佐世保市中心</b><br>長崎県内のご依頼に対応しています。</p>
       </div>
 
       <div class="company">
-        <h2 class="heading heading--plain">会社情報</h2>
-        <table class="company-table">
+        <h2 class="heading heading--plain reveal">会社情報</h2>
+        <table class="company-table reveal" data-reveal-delay="0.1">
           <tbody>
             <tr><th>会社名</th><td>株式会社COLORS</td></tr>
             <tr><th>代表者</th><td>松井 完舟</td></tr>
@@ -540,9 +553,9 @@
        ============================================================ -->
   <section id="faq" class="section faq">
     <div class="container">
-      <h2 class="heading heading--plain">よくある質問</h2>
+      <h2 class="heading heading--plain reveal">よくある質問</h2>
 
-      <ul class="faq-list" id="faqList">
+      <ul class="faq-list reveal" data-reveal-delay="0.1" id="faqList">
         <li class="faq-item">
           <button type="button" class="faq-item__q" aria-expanded="false">
             <span>見積もりは無料ですか？</span>
@@ -582,11 +595,11 @@
   <section id="cta" class="section final-cta">
     <div class="final-cta__bg ph" role="img" aria-label="背景ビジュアル（画像プレースホルダー）">
       <img class="final-cta__brush" src="images/fv-bg-red.svg" alt="" aria-hidden="true">
-      <img class="final-cta__gorilla" src="images/fv-gorilla.png" alt="" aria-hidden="true">
+      <img class="final-cta__gorilla reveal reveal--pop" src="images/fv-gorilla.png" alt="" aria-hidden="true">
 
       <div class="container final-cta__inner">
-        <p class="final-cta__copy">暮らしの「<span class="is-red">困った</span>」は、<br><span class="acc">HELP</span>にお任せください！</p>
-        <div class="cta-group">
+        <p class="final-cta__copy reveal" data-reveal-delay="0.15">暮らしの「<span class="is-red">困った</span>」は、<br><span class="acc">HELP</span>にお任せください！</p>
+        <div class="cta-group reveal" data-reveal-delay="0.3">
           <a href="tel:09065869995" class="btn btn--tel">
             <span class="btn__icon btn__icon--phone" aria-hidden="true"><i class="icon" style="--icon:url(images/icons/phone.svg)"></i></span>
             電話で相談する
@@ -650,6 +663,6 @@
   </div>
 </div>
 
-<script src="script.js?v=20261014-1"></script>
+<script src="script.js?v=20261014-2"></script>
 </body>
 </html>
