@@ -328,14 +328,15 @@
 
         // 進捗p(0〜1)から円周上の座標を計算し、ゴリラを正立のまま配置する。
         // 開始位置は12時(-90deg)、時計回りに一周。
+        // 移動は translate3d のみ（top/left は動かさない）で、ゴリラの中心を円周上に置く。
         function placeGorilla(p) {
-          var size = ringWrap.getBoundingClientRect().width;
+          var size = ringWrap.offsetWidth;
           if (!size) { return; }
           var r = size / 2 - 6;
           var angle = (-90 + p * 360) * Math.PI / 180;
-          var dx = r * Math.cos(angle);
-          var dy = r * Math.sin(angle);
-          gorilla.style.transform = 'translate(-50%, -50%) translate(' + dx + 'px, ' + dy + 'px)';
+          var x = size / 2 + r * Math.cos(angle) - gorilla.offsetWidth / 2;
+          var y = size / 2 + r * Math.sin(angle) - gorilla.offsetHeight / 2;
+          gorilla.style.transform = 'translate3d(' + x.toFixed(2) + 'px, ' + y.toFixed(2) + 'px, 0)';
         }
         placeGorilla(0);
 
@@ -377,6 +378,7 @@
           if (finished) { return; }
           finished = true;
           if (rafId) { cancelAnimationFrame(rafId); }
+          gorilla.style.willChange = 'auto';
           clearLoaderTimers();
           restoreScroll();
           openingLoader.classList.add('is-done');
