@@ -436,7 +436,7 @@ img.logo__mark { object-fit: contain; }
   margin: -6% auto 0;     /* HELP。を主役として大きく強調（詰めて省スペース化） */
 }
 
-/* ---- メインビジュアル: 背景（images/fv-bg-red.svg）+ ゴリラ + 帯 ----
+/* ---- メインビジュアル: 背景（images/fv-bg-red-*.webp / .png。元データは fv-bg-red.svg）+ ゴリラ + 帯 ----
    HELP文字とゴリラを1枚の広告ビジュアルとして見せるため、
    .fv__title に負のmargin-topで重ねて一体化させる。 */
 .fv__visual {
