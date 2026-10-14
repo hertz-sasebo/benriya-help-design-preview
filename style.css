@@ -1052,14 +1052,14 @@ img.logo__mark { object-fit: contain; }
 .company-table th,
 .company-table td {
   text-align: left;
-  padding: 12px 8px;
+  padding: 12px 6px;
   border-bottom: 1px solid var(--line);
   font-size: 14px;
   line-height: 1.6;
   vertical-align: top;
 }
 .company-table th {
-  width: 34%;
+  width: 26%;
   font-family: var(--font-jp);
   font-weight: var(--fw-label);
   background: var(--gray);
@@ -1092,6 +1092,17 @@ img.logo__mark { object-fit: contain; }
   color: var(--text-muted);
 }
 .company-table__nowrap { white-space: nowrap; }
+/* 研修名2行：スマホ幅で途中改行されないよう縮小+nowrap。
+   極端に狭い端末のみ「〜研修会」」と「修了」の間で改行を許可する。 */
+.company-table__train {
+  font-size: clamp(12px, 3.4vw, 14px);
+  white-space: nowrap;
+}
+@media (max-width: 340px) {
+  .company-table__train { white-space: normal; }
+  .company-table__train-name,
+  .company-table__train-done { display: inline-block; white-space: nowrap; }
+}
 
 
 /* ============================================================
