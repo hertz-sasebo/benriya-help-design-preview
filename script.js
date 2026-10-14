@@ -250,8 +250,9 @@
   }
 
   /* ---------- 7. オープニングローダー ----------
-     ゲージ（円・2秒）→ 決め台詞（困ったら、HELP。）→ フェードアウト、
-     合計4秒前後の演出。ゴリラ画像をゲージの先端に乗せて円周を一周させる。
+     ゲージ（円・2秒）→ 0.2秒後にゲージ・ゴリラをフェードアウト（0.3秒）
+     → 決め台詞（困ったら、HELP。）を画面いっぱいに表示 → フェードアウト、
+     合計4.4秒前後の演出。ゴリラ画像をゲージの先端に乗せて円周を一周させる。
      参考実装: hertz-sasebo/HOME-PAGE の #loader と同じ仕組み
      （SVG circle の stroke-dasharray/dashoffset を rAF + easeInOutCubic
      で進行させ、カウンターを同期表示）。
@@ -284,7 +285,6 @@
       (function () {
         var ringWrap = document.getElementById('openingLoaderRingWrap');
         var arc      = document.getElementById('openingLoaderArc');
-        var mark     = document.getElementById('openingLoaderMark');
         var gorilla  = document.getElementById('openingLoaderGorilla');
         var counter  = document.getElementById('openingLoaderCounter');
         var jpImg    = document.getElementById('openingLoaderJp');
@@ -355,15 +355,19 @@
               arc.style.strokeDashoffset = '0';
               counter.textContent = '100%';
               placeGorilla(1);
-              setLoaderTimer(showCopy, 200);
+              setLoaderTimer(hideGauge, 200);
             }
           }
           rafId = requestAnimationFrame(tick);
         }
 
+        // ゲージ・ゴリラ・カウンターをまとめてフェードアウト（0.3秒）してから決め台詞へ
+        function hideGauge() {
+          openingLoader.classList.add('is-gauge-out');
+          setLoaderTimer(showCopy, 300);
+        }
+
         function showCopy() {
-          counter.classList.add('is-hidden');
-          mark.classList.add('is-lit');
           jpImg.classList.add('is-revealed');
           setLoaderTimer(function () { helpImg.classList.add('is-revealed'); }, 450);
           setLoaderTimer(finish, 450 + 350 + 600);
@@ -377,7 +381,10 @@
           restoreScroll();
           openingLoader.classList.add('is-done');
           notifyLoaderDone();
-          openingLoader.addEventListener('transitionend', removeLoader, { once: true });
+          // 中の要素（決め台詞など）の transitionend は無視し、ローダー自身のフェード完了で消す
+          openingLoader.addEventListener('transitionend', function (e) {
+            if (e.target === openingLoader) { removeLoader(); }
+          });
           // transitionendが発火しない環境向けの保険
           setTimeout(removeLoader, 900);
         }
