@@ -321,13 +321,12 @@ span.logo__mark {
   transform: rotate(-4deg);
 }
 img.logo__mark { object-fit: contain; }
-/* ロゴ画像（便利屋 / HELP。の2段組） */
+/* ロゴ画像（ゴリラ＋便利屋 / HELP。）。ヘッダー・フッター共通の高さ */
 .logo__img {
   display: block;
   width: auto;
-  height: 48px;
+  height: 54px;
 }
-.logo--footer .logo__img { height: 56px; }
 .logo__text b {
   color: var(--red);
   font-family: var(--font-display);
@@ -1195,8 +1194,7 @@ img.logo__mark { object-fit: contain; }
 
   /* Header */
   .header-inner { min-height: 72px; }
-  .logo__img { height: 58px; }
-  .logo--footer .logo__img { height: 64px; }
+  .logo__img { height: 63px; }
   .hamburger { display: none; }
   .gnav {
     position: static;
