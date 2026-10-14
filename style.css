@@ -1066,6 +1066,24 @@ img.logo__mark { object-fit: contain; }
   font-weight: var(--fw-note);
   letter-spacing: .01em;
 }
+/* 許認可・研修修了：1セルに複数項目を縦に並べる。
+   数字混じりの文章なのでAntonではなくNoto Sans JPに統一。 */
+.company-table__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-jp);
+}
+.company-table__note {
+  display: block;
+  margin-top: 2px;
+  font-size: .82em;
+  color: var(--text-muted);
+}
+.company-table__nowrap { white-space: nowrap; }
 
 
 /* ============================================================
