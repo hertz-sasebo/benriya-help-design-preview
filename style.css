@@ -1044,7 +1044,11 @@ img.logo__mark { object-fit: contain; }
 .area__map { aspect-ratio: 1312 / 1199; width: 100%; max-width: 360px; margin-bottom: 14px; object-fit: contain; }
 .area__lead { margin-bottom: 16px; }
 
-.company-table { width: 100%; border-collapse: collapse; }
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+}
 .company-table th,
 .company-table td {
   text-align: left;
@@ -1060,12 +1064,16 @@ img.logo__mark { object-fit: contain; }
   font-weight: var(--fw-label);
   background: var(--gray);
   white-space: nowrap;
+  border-right: 1px solid var(--line);
 }
 .company-table td {
-  font-family: var(--font-price);   /* 電話番号・営業時間などの数字 = Anton */
+  font-family: var(--font-jp);   /* 数字・英字もAntonではなく本文と同じNoto Sans JPで統一 */
   font-weight: var(--fw-note);
+  font-variant-numeric: tabular-nums;
   letter-spacing: .01em;
 }
+.company-table tr:last-child th,
+.company-table tr:last-child td { border-bottom: none; }
 /* 許認可・研修修了：1セルに複数項目を縦に並べる。
    数字混じりの文章なのでAntonではなくNoto Sans JPに統一。 */
 .company-table__list {
