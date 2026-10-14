@@ -6,6 +6,11 @@
 <title>便利屋HELP | ワイヤーフレーム</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="便利屋HELP モバイル版ワイヤーフレーム（骨格）。テキスト・画像は後から差し替え可能な構造。">
+<link rel="preload" as="image" href="images/fv-komattara.webp" type="image/webp">
+<link rel="preload" as="image" href="images/fv-help.webp" type="image/webp">
+<link rel="preload" as="image" href="images/fv-gorilla.png">
+<link rel="preload" as="image" href="images/fv-bg-red.svg?v=20261015">
+<link rel="preload" as="image" href="images/gorilla-2.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+JP:wght@400;500;700;800;900&family=Zen+Kaku+Gothic+New:wght@900&display=swap" rel="stylesheet">
@@ -22,7 +27,7 @@
   }, 4000);
 })();
 </script>
-<link rel="stylesheet" href="style.css?v=20261015-1">
+<link rel="stylesheet" href="style.css?v=20261015-2">
 </head>
 <body>
 
@@ -51,8 +56,8 @@
     </div>
   </div>
   <div id="openingLoaderCopy" class="opening-loader__copy">
-    <img class="opening-loader__copy-jp" id="openingLoaderJp" src="images/fv-komattara.png" alt="困ったら、">
-    <img class="opening-loader__copy-help" id="openingLoaderHelp" src="images/fv-help.png?v=2" alt="HELP。">
+    <picture><source srcset="images/fv-komattara.webp" type="image/webp"><img class="opening-loader__copy-jp" id="openingLoaderJp" src="images/fv-komattara.png?v=20261015" alt="困ったら、" width="1340" height="637"></picture>
+    <picture><source srcset="images/fv-help.webp" type="image/webp"><img class="opening-loader__copy-help" id="openingLoaderHelp" src="images/fv-help.png?v=20261015" alt="HELP。" width="1658" height="683"></picture>
   </div>
   <button type="button" class="opening-loader__skip" id="openingLoaderSkip" aria-label="演出をスキップ">SKIP</button>
 </div>
@@ -76,7 +81,7 @@
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="#fv" class="logo">
-      <img src="images/logo-help-gorilla.png" alt="便利屋HELP" class="logo__img" width="607" height="200">
+      <picture><source srcset="images/logo-help-gorilla.webp" type="image/webp"><img src="images/logo-help-gorilla.png?v=20261015" alt="便利屋HELP" class="logo__img" width="382" height="126"></picture>
     </a>
 
     <nav class="gnav" id="gnav" aria-label="グローバルナビゲーション">
@@ -104,13 +109,13 @@
     <div class="fv__inner">
 
       <h1 class="fv__title reveal" data-reveal-delay="0.1">
-        <img class="fv__title-img fv__title-img--jp" src="images/fv-komattara.png" alt="困ったら、">
-        <img class="fv__title-img fv__title-img--help" src="images/fv-help.png?v=2" alt="HELP。">
+        <picture><source srcset="images/fv-komattara.webp" type="image/webp"><img class="fv__title-img fv__title-img--jp" src="images/fv-komattara.png?v=20261015" alt="困ったら、" width="1340" height="637"></picture>
+        <picture><source srcset="images/fv-help.webp" type="image/webp"><img class="fv__title-img fv__title-img--help" src="images/fv-help.png?v=20261015" alt="HELP。" width="1658" height="683"></picture>
       </h1>
 
       <div class="fv__visual">
-        <img class="fv__visual-bg reveal reveal--fade" data-reveal-delay="0.25" src="images/fv-bg-red.svg" alt="" aria-hidden="true">
-        <img class="fv__gorilla reveal reveal--right" data-reveal-delay="0.25" src="images/fv-gorilla.png" alt="便利屋HELPのゴリラキャラクター">
+        <img class="fv__visual-bg reveal reveal--fade" data-reveal-delay="0.25" src="images/fv-bg-red.svg?v=20261015" alt="" aria-hidden="true" width="1024" height="1523">
+        <img class="fv__gorilla reveal reveal--right" data-reveal-delay="0.25" src="images/fv-gorilla.png" alt="便利屋HELPのゴリラキャラクター" width="700" height="769">
         <p class="fv__band reveal" data-reveal-delay="0.4">
           <span class="fv__band-line">佐世保から長崎県内全域対応！</span>
           <span class="fv__band-line"><span class="fv__band-em">最短即日</span>で訪問・解決！</span>
@@ -168,8 +173,8 @@
       </div>
 
       <div class="problems__char">
-        <img class="problems__gorilla reveal reveal--pop" data-reveal-delay="1.3" src="images/gorilla-2.png" alt="">
-        <img class="problems__balloon reveal reveal--pop" data-reveal-delay="1.4" src="images/そのお困りごと、私たちが解決します！.png" alt="そのお困りごと、私たちが解決します！">
+        <picture><source srcset="images/gorilla-2.webp" type="image/webp"><img class="problems__gorilla reveal reveal--pop" data-reveal-delay="0.8" src="images/gorilla-2.jpg?v=20261015" alt="" width="1254" height="1254"></picture>
+        <picture><source srcset="images/そのお困りごと、私たちが解決します！.webp" type="image/webp"><img class="problems__balloon reveal reveal--pop" data-reveal-delay="0.9" src="images/そのお困りごと、私たちが解決します！.png?v=20261015" alt="そのお困りごと、私たちが解決します！" width="1000" height="667"></picture>
       </div>
     </div>
   </section>
@@ -184,19 +189,19 @@
 
       <div class="service-cards" data-reveal-delay="0.1" data-reveal-stagger="0.12">
         <article class="service-card reveal">
-          <img src="images/services/aircon-cleaning.jpg" alt="エアコン清掃" class="service-card__img">
+          <picture><source srcset="images/services/aircon-cleaning.webp" type="image/webp"><img src="images/services/aircon-cleaning.jpg?v=20261015" alt="エアコン清掃" class="service-card__img" width="1000" height="625" loading="lazy" decoding="async"></picture>
           <h3 class="service-card__name">エアコン清掃</h3>
           <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
         </article>
 
         <article class="service-card reveal">
-          <img src="images/services/waste-disposal.jpg" alt="不用品処分" class="service-card__img">
+          <picture><source srcset="images/services/waste-disposal.webp" type="image/webp"><img src="images/services/waste-disposal.jpg?v=20261015" alt="不用品処分" class="service-card__img" width="1000" height="625" loading="lazy" decoding="async"></picture>
           <h3 class="service-card__name">不用品処分</h3>
           <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
         </article>
 
         <article class="service-card reveal">
-          <img src="images/services/elderly-support.jpg" alt="高齢者生活サポート" class="service-card__img">
+          <picture><source srcset="images/services/elderly-support.webp" type="image/webp"><img src="images/services/elderly-support.jpg?v=20261015" alt="高齢者生活サポート" class="service-card__img" width="1000" height="626" loading="lazy" decoding="async"></picture>
           <h3 class="service-card__name">高齢者生活サポート</h3>
           <p class="service-card__price">8,000円〜 <span class="service-card__arrow" aria-hidden="true">→</span></p>
         </article>
@@ -310,81 +315,81 @@
         <article class="work-card">
           <h3 class="work-card__name">換気扇</h3>
           <div class="work-card__compare">
-            <img src="images/works/vent-before.jpg" alt="換気扇清掃 施工前" class="work-card__img">
+            <picture><source srcset="images/works/vent-before.webp" type="image/webp"><img src="images/works/vent-before.jpg?v=20261015" alt="換気扇清掃 施工前" class="work-card__img" width="493" height="600" loading="lazy" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/vent-after.jpg" alt="換気扇清掃 施工後" class="work-card__img">
+            <picture><source srcset="images/works/vent-after.webp" type="image/webp"><img src="images/works/vent-after.jpg?v=20261015" alt="換気扇清掃 施工後" class="work-card__img" width="492" height="600" loading="lazy" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card">
           <h3 class="work-card__name">草刈り</h3>
           <div class="work-card__compare">
-            <img src="images/works/grass-before.jpg" alt="草刈り 施工前" class="work-card__img">
+            <picture><source srcset="images/works/grass-before.webp" type="image/webp"><img src="images/works/grass-before.jpg?v=20261015" alt="草刈り 施工前" class="work-card__img" width="488" height="600" loading="lazy" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/grass-after.jpg" alt="草刈り 施工後" class="work-card__img">
+            <picture><source srcset="images/works/grass-after.webp" type="image/webp"><img src="images/works/grass-after.jpg?v=20261015" alt="草刈り 施工後" class="work-card__img" width="488" height="600" loading="lazy" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card work-card--pc-only">
           <h3 class="work-card__name">不用品処分</h3>
           <div class="work-card__compare">
-            <img src="images/works/waste-before.jpg" alt="不用品処分 施工前" class="work-card__img">
+            <picture><source srcset="images/works/waste-before.webp" type="image/webp"><img src="images/works/waste-before.jpg?v=20261015" alt="不用品処分 施工前" class="work-card__img" width="483" height="600" loading="lazy" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/waste-after.jpg" alt="不用品処分 施工後" class="work-card__img">
+            <picture><source srcset="images/works/waste-after.webp" type="image/webp"><img src="images/works/waste-after.jpg?v=20261015" alt="不用品処分 施工後" class="work-card__img" width="489" height="600" loading="lazy" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card">
           <h3 class="work-card__name">キッチン</h3>
           <div class="work-card__compare">
-            <img src="images/works/kitchen-before.jpg" alt="キッチン 施工前" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/kitchen-before.webp" type="image/webp"><img src="images/works/kitchen-before.jpg?v=20261015" alt="キッチン 施工前" class="work-card__img" loading="lazy" width="489" height="600" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/kitchen-after.jpg" alt="キッチン 施工後" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/kitchen-after.webp" type="image/webp"><img src="images/works/kitchen-after.jpg?v=20261015" alt="キッチン 施工後" class="work-card__img" loading="lazy" width="489" height="600" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card">
           <h3 class="work-card__name">浴室</h3>
           <div class="work-card__compare">
-            <img src="images/works/bath-before.jpg" alt="浴室 施工前" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/bath-before.webp" type="image/webp"><img src="images/works/bath-before.jpg?v=20261015" alt="浴室 施工前" class="work-card__img" loading="lazy" width="492" height="600" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/bath-after.jpg" alt="浴室 施工後" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/bath-after.webp" type="image/webp"><img src="images/works/bath-after.jpg?v=20261015" alt="浴室 施工後" class="work-card__img" loading="lazy" width="490" height="600" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card">
           <h3 class="work-card__name">トイレ</h3>
           <div class="work-card__compare">
-            <img src="images/works/toilet-before.jpg" alt="トイレ 施工前" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/toilet-before.webp" type="image/webp"><img src="images/works/toilet-before.jpg?v=20261015" alt="トイレ 施工前" class="work-card__img" loading="lazy" width="488" height="600" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/toilet-after.jpg" alt="トイレ 施工後" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/toilet-after.webp" type="image/webp"><img src="images/works/toilet-after.jpg?v=20261015" alt="トイレ 施工後" class="work-card__img" loading="lazy" width="489" height="600" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card">
           <h3 class="work-card__name">窓清掃</h3>
           <div class="work-card__compare">
-            <img src="images/works/window-before.jpg" alt="窓清掃 施工前" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/window-before.webp" type="image/webp"><img src="images/works/window-before.jpg?v=20261015" alt="窓清掃 施工前" class="work-card__img" loading="lazy" width="484" height="600" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/window-after.jpg" alt="窓清掃 施工後" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/window-after.webp" type="image/webp"><img src="images/works/window-after.jpg?v=20261015" alt="窓清掃 施工後" class="work-card__img" loading="lazy" width="485" height="600" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card">
           <h3 class="work-card__name">タイルカーペット施工</h3>
           <div class="work-card__compare">
-            <img src="images/works/carpet-before.jpg" alt="タイルカーペット施工 施工前" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/carpet-before.webp" type="image/webp"><img src="images/works/carpet-before.jpg?v=20261015" alt="タイルカーペット施工 施工前" class="work-card__img" loading="lazy" width="490" height="600" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/carpet-after.jpg" alt="タイルカーペット施工 施工後" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/carpet-after.webp" type="image/webp"><img src="images/works/carpet-after.jpg?v=20261015" alt="タイルカーペット施工 施工後" class="work-card__img" loading="lazy" width="484" height="600" decoding="async"></picture>
           </div>
         </article>
 
         <article class="work-card">
           <h3 class="work-card__name">家具組み立て</h3>
           <div class="work-card__compare">
-            <img src="images/works/furniture-before.jpg" alt="家具組み立て 施工前" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/furniture-before.webp" type="image/webp"><img src="images/works/furniture-before.jpg?v=20261015" alt="家具組み立て 施工前" class="work-card__img" loading="lazy" width="480" height="600" decoding="async"></picture>
             <span class="work-card__mid" aria-hidden="true">▶</span>
-            <img src="images/works/furniture-after.jpg" alt="家具組み立て 施工後" class="work-card__img" loading="lazy">
+            <picture><source srcset="images/works/furniture-after.webp" type="image/webp"><img src="images/works/furniture-after.jpg?v=20261015" alt="家具組み立て 施工後" class="work-card__img" loading="lazy" width="480" height="600" decoding="async"></picture>
           </div>
         </article>
       </div>
@@ -526,7 +531,7 @@
     <div class="container area-company__inner">
       <div class="area">
         <h2 class="heading heading--plain reveal">対応エリア</h2>
-        <img class="area__map reveal reveal--zoom" data-reveal-delay="0.1" src="images/area-map.png?v=3" alt="長崎県の対応エリアマップ">
+        <picture><source srcset="images/area-map.webp" type="image/webp"><img class="area__map reveal reveal--zoom" data-reveal-delay="0.1" src="images/area-map.png?v=20261015" alt="長崎県の対応エリアマップ" width="1040" height="950" loading="lazy" decoding="async"></picture>
         <p class="area__lead reveal" data-reveal-delay="0.25"><b>佐世保市中心</b><br>長崎県内のご依頼に対応しています。</p>
       </div>
 
@@ -594,8 +599,8 @@
        ============================================================ -->
   <section id="cta" class="section final-cta">
     <div class="final-cta__bg ph" role="img" aria-label="背景ビジュアル（画像プレースホルダー）">
-      <img class="final-cta__brush" src="images/fv-bg-red.svg" alt="" aria-hidden="true">
-      <img class="final-cta__gorilla reveal reveal--pop" src="images/fv-gorilla.png" alt="" aria-hidden="true">
+      <img class="final-cta__brush" src="images/fv-bg-red.svg?v=20261015" alt="" aria-hidden="true" width="1024" height="1523" loading="lazy" decoding="async">
+      <img class="final-cta__gorilla reveal reveal--pop" src="images/fv-gorilla.png" alt="" aria-hidden="true" width="700" height="769" loading="lazy" decoding="async">
 
       <div class="container final-cta__inner">
         <p class="final-cta__copy reveal" data-reveal-delay="0.15">暮らしの「<span class="is-red">困った</span>」は、<br><span class="acc">HELP</span>にお任せください！</p>
@@ -623,11 +628,11 @@
   <div class="container site-footer__inner">
     <div class="site-footer__top">
       <a href="#fv" class="logo logo--footer">
-        <img src="images/logo-help-gorilla.png" alt="便利屋HELP" class="logo__img" width="607" height="200">
+        <picture><source srcset="images/logo-help-gorilla.webp" type="image/webp"><img src="images/logo-help-gorilla.png?v=20261015" alt="便利屋HELP" class="logo__img" width="382" height="126" loading="lazy" decoding="async"></picture>
       </a>
       <ul class="sns-list">
-        <li><a href="https://www.instagram.com/benriya_help/" class="sns-list__item" aria-label="Instagram"><img src="images/sns-instagram.png" alt="" width="40" height="40"></a></li>
-        <li><a href="https://lin.ee/pJm7vTQ" class="sns-list__item" aria-label="LINE"><img src="images/sns-line.jpg" alt="" width="40" height="40"></a></li>
+        <li><a href="https://www.instagram.com/benriya_help/" class="sns-list__item" aria-label="Instagram"><img src="images/sns-instagram.png?v=20261015" alt="" width="40" height="40" loading="lazy" decoding="async"></a></li>
+        <li><a href="https://lin.ee/pJm7vTQ" class="sns-list__item" aria-label="LINE"><picture><source srcset="images/sns-line.webp" type="image/webp"><img src="images/sns-line.jpg?v=20261015" alt="" width="40" height="40" loading="lazy" decoding="async"></picture></a></li>
       </ul>
     </div>
 
@@ -663,6 +668,6 @@
   </div>
 </div>
 
-<script src="script.js?v=20261015-1"></script>
+<script src="script.js?v=20261015-2"></script>
 </body>
 </html>

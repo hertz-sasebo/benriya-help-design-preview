@@ -60,6 +60,9 @@ body {
 button, input, select, textarea { font-family: inherit; }
 
 img { max-width: 100%; height: auto; display: block; }
+/* WebP 切り替え用の <picture> はレイアウトに影響させない（中の img が直接置かれているのと同じ扱い） */
+picture { display: contents; }
+picture > source { display: none; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
 

@@ -400,14 +400,13 @@
           finish();
         });
 
-        // ゴリラ・決め台詞画像の読み込みを待つ（最大1.5秒）
-        var sources = [gorilla.getAttribute('src'), jpImg.getAttribute('src'), helpImg.getAttribute('src')];
-        var loadPromises = sources.map(function (src) {
+        // ゴリラ・決め台詞画像の読み込みを待つ（最大1.5秒）。
+        // <picture> で選ばれた画像（WebP など）を二重に取得しないよう、ページ上の img 要素そのものを待つ
+        var loadPromises = [gorilla, jpImg, helpImg].map(function (img) {
           return new Promise(function (resolve) {
-            var img = new Image();
-            img.onload = resolve;
-            img.onerror = resolve;
-            img.src = src;
+            if (img.complete) { resolve(); return; }
+            img.addEventListener('load', resolve, { once: true });
+            img.addEventListener('error', resolve, { once: true });
           });
         });
 
