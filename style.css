@@ -968,17 +968,24 @@ img.logo__mark { object-fit: contain; }
 .price-table td {
   text-align: right;
   white-space: nowrap;
-  /* 8,000 = Anton（既存のまま）/ 円〜・要相談 = Zen Kaku Gothic New。
-     ウェイトは900のまま、Noto Sans JPより字面が細いフォントに
-     差し替えて「太すぎる」印象を解消する。
-     Antonは等サイズでも視覚的に大きく見えるため、
-     左側の項目名(th)よりも一回り小さいサイズにする。 */
-  font-family: "Anton", "Zen Kaku Gothic New", var(--font-jp);
-  font-weight: var(--fw-heading-max);
-  font-size: 13px;
-  letter-spacing: .01em;
   color: var(--red);
   padding-left: 12px;
+}
+/* 価格：本文と同じ Noto Sans JP Bold（700）に統一し、
+   太すぎる印象を解消。数字は tabular-nums で桁を揃え、
+   「円〜」は数字より一回り小さいサイズでベースラインを揃える。 */
+.price-table__num {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+  letter-spacing: .01em;
+}
+.price-table__unit {
+  font-family: var(--font-jp);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .01em;
 }
 .price-table tr:last-child th,
 .price-table tr:last-child td { border-bottom: none; }
@@ -1270,7 +1277,8 @@ img.logo__mark { object-fit: contain; }
   .price-panel { padding: 12px 24px; }
   .price-table th, .price-table td { padding: 18px 6px; }
   .price-table th { font-size: 16px; }
-  .price-table td { font-size: 14px; }
+  .price-table__num { font-size: 18px; }
+  .price-table__unit { font-size: 12px; }
 
   /* 09 flow */
   .flow-steps { overflow: visible; justify-content: space-between; }
@@ -1713,7 +1721,8 @@ img.logo__mark { object-fit: contain; }
   .price-table th,
   .price-table td { padding: 18px 6px; }
   .price-table th { font-size: 16px; }
-  .price-table td { font-size: 14px; }
+  .price-table__num { font-size: 18px; }
+  .price-table__unit { font-size: 12px; }
   .price-note { margin-top: 28px; font-size: 14px; }
   .prices .section__more { margin-top: 36px; }
 }
