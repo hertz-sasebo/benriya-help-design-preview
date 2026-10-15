@@ -1141,6 +1141,9 @@ img.logo__mark { object-fit: contain; }
   transition: transform .2s;
 }
 .faq-item__a > p { font-weight: var(--fw-body); line-height: 1.9; }
+/* 回答の1行目（結論）は太字で独立した行にし、本文とのあいだに少し余白を取る */
+.faq-item__a strong { display: block; font-weight: var(--fw-label); }
+.faq-item__body { display: block; margin-top: .6em; }
 .faq-item.is-open .faq-item__mark { transform: rotate(45deg); }
 .faq-item__a {
   display: grid;
